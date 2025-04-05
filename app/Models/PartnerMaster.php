@@ -1,0 +1,23 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class PartnerMaster extends Model
+{
+    use HasFactory;
+
+    protected $table = 'partner_master';
+    protected $primaryKey = 'partner_id';
+
+    protected $fillable = [
+        'partner_name',
+        'address',
+        'contact_no',
+        'email',
+        'gst_no',
+        'pan_no'
+    ];
+} 

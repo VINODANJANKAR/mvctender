@@ -1,0 +1,378 @@
+@extends('layouts.app')
+
+@section('title', 'Add Work Order Entry')
+
+@section('content')
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Add New Work Order Entry</h2>
+        <a href="{{ route('work-orders.index') }}" class="btn btn-secondary">Back to List</a>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <form action="{{ route('work-orders.store') }}" method="POST" id="workOrderForm">
+                @csrf
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label for="sr_no" class="form-label">SR No</label>
+                        <select class="form-select @error('sr_no') is-invalid @enderror" 
+                                id="sr_no" name="sr_no" required>
+                            <option value="">Select Tender SR No</option>
+                            @foreach($tenders as $tender)
+                                <option value="{{ $tender->sr_no }}" 
+                                    {{ old('sr_no') == $tender->sr_no ? 'selected' : '' }}>
+                                    {{ $tender->sr_no }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('sr_no')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label for="site_code" class="form-label">Site Code</label>
+                        <input type="text" class="form-control" id="site_code" value="{{ $siteCode }}" readonly>
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label for="entry_date" class="form-label">Entry Date</label>
+                        <input type="date" class="form-control @error('entry_date') is-invalid @enderror" 
+                               id="entry_date" name="entry_date" value="{{ old('entry_date', date('Y-m-d')) }}" required>
+                        @error('entry_date')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label for="order_year" class="form-label">Order Year</label>
+                        <input type="text" class="form-control @error('order_year') is-invalid @enderror" 
+                               id="order_year" name="order_year" value="{{ old('order_year', $orderYear) }}" required>
+                        @error('order_year')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label for="department_id" class="form-label">Name of Department</label>
+                        <select class="form-select @error('department_id') is-invalid @enderror" 
+                                id="department_id" name="department_id" required>
+                            <option value="">Select Department</option>
+                            @foreach($departments as $department)
+                                <option value="{{ $department->department_id }}" 
+                                    {{ old('department_id') == $department->department_id ? 'selected' : '' }}>
+                                    {{ $department->department_name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('department_id')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label for="name_of_contractor" class="form-label">Name of Contractor</label>
+                        <input type="text" class="form-control @error('name_of_contractor') is-invalid @enderror" 
+                               id="name_of_contractor" name="name_of_contractor" value="{{ old('name_of_contractor') }}" required>
+                        @error('name_of_contractor')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label for="subcontractor_id" class="form-label">Subcontractor Name</label>
+                        <select class="form-select @error('subcontractor_id') is-invalid @enderror" 
+                                id="subcontractor_id" name="subcontractor_id" required>
+                            <option value="">Select Subcontractor</option>
+                            @foreach($partners as $partner)
+                                <option value="{{ $partner->partner_id }}" 
+                                    {{ old('subcontractor_id') == $partner->partner_id ? 'selected' : '' }}>
+                                    {{ $partner->partner_name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('subcontractor_id')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label for="name_of_work" class="form-label">Name of Work</label>
+                        <input type="text" class="form-control @error('name_of_work') is-invalid @enderror" 
+                               id="name_of_work" name="name_of_work" value="{{ old('name_of_work') }}" required>
+                        @error('name_of_work')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label for="work_head" class="form-label">Work Head</label>
+                        <input type="text" class="form-control @error('work_head') is-invalid @enderror" 
+                               id="work_head" name="work_head" value="{{ old('work_head') }}" required>
+                        @error('work_head')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label for="work_done_by_id" class="form-label">Work Done By</label>
+                        <select class="form-select @error('work_done_by_id') is-invalid @enderror" 
+                                id="work_done_by_id" name="work_done_by_id" required>
+                            <option value="">Select Partner</option>
+                            @foreach($partners as $partner)
+                                <option value="{{ $partner->partner_id }}" 
+                                    {{ old('work_done_by_id') == $partner->partner_id ? 'selected' : '' }}>
+                                    {{ $partner->partner_name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('work_done_by_id')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label for="agreement_no" class="form-label">Agreement No</label>
+                        <input type="text" class="form-control @error('agreement_no') is-invalid @enderror" 
+                               id="agreement_no" name="agreement_no" value="{{ old('agreement_no') }}" required>
+                        @error('agreement_no')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label for="work_order_no" class="form-label">Work Order No</label>
+                        <input type="text" class="form-control @error('work_order_no') is-invalid @enderror" 
+                               id="work_order_no" name="work_order_no" value="{{ old('work_order_no') }}" required>
+                        @error('work_order_no')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label for="work_order_date" class="form-label">Work Order Date</label>
+                        <input type="date" class="form-control @error('work_order_date') is-invalid @enderror" 
+                               id="work_order_date" name="work_order_date" value="{{ old('work_order_date') }}" required>
+                        @error('work_order_date')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label for="work_order_amount" class="form-label">Work Order Amount</label>
+                        <input type="number" step="0.01" class="form-control @error('work_order_amount') is-invalid @enderror" 
+                               id="work_order_amount" name="work_order_amount" value="{{ old('work_order_amount') }}" required>
+                        @error('work_order_amount')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label for="work_time_limit" class="form-label">Work Time Limit</label>
+                        <input type="text" class="form-control @error('work_time_limit') is-invalid @enderror" 
+                               id="work_time_limit" name="work_time_limit" value="{{ old('work_time_limit') }}" required>
+                        @error('work_time_limit')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label for="dlp_period" class="form-label">DLP Period</label>
+                        <input type="text" class="form-control @error('dlp_period') is-invalid @enderror" 
+                               id="dlp_period" name="dlp_period" value="{{ old('dlp_period') }}" required>
+                        @error('dlp_period')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label for="security_deposit_amount" class="form-label">Security Deposit Amount</label>
+                        <input type="number" step="0.01" class="form-control @error('security_deposit_amount') is-invalid @enderror" 
+                               id="security_deposit_amount" name="security_deposit_amount" value="{{ old('security_deposit_amount') }}" required>
+                        @error('security_deposit_amount')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label for="security_deposit_fdr_no" class="form-label">FDR No (Security Deposit)</label>
+                        <input type="text" class="form-control @error('security_deposit_fdr_no') is-invalid @enderror" 
+                               id="security_deposit_fdr_no" name="security_deposit_fdr_no" value="{{ old('security_deposit_fdr_no') }}" required>
+                        @error('security_deposit_fdr_no')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label for="security_deposit_fdr_amt" class="form-label">FDR Amt (Security Deposit)</label>
+                        <input type="number" step="0.01" class="form-control @error('security_deposit_fdr_amt') is-invalid @enderror" 
+                               id="security_deposit_fdr_amt" name="security_deposit_fdr_amt" value="{{ old('security_deposit_fdr_amt') }}" required>
+                        @error('security_deposit_fdr_amt')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label for="security_deposit_fdr_bank" class="form-label">FDR Bank (Security Deposit)</label>
+                        <input type="text" class="form-control @error('security_deposit_fdr_bank') is-invalid @enderror" 
+                               id="security_deposit_fdr_bank" name="security_deposit_fdr_bank" value="{{ old('security_deposit_fdr_bank') }}" required>
+                        @error('security_deposit_fdr_bank')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label for="security_deposit_paid_by" class="form-label">FDR Amt Paid By (Security Deposit)</label>
+                        <select class="form-select @error('security_deposit_paid_by') is-invalid @enderror" 
+                                id="security_deposit_paid_by" name="security_deposit_paid_by" required>
+                            <option value="">Select Partner</option>
+                            @foreach($partners as $partner)
+                                <option value="{{ $partner->partner_id }}" 
+                                    {{ old('security_deposit_paid_by') == $partner->partner_id ? 'selected' : '' }}>
+                                    {{ $partner->partner_name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('security_deposit_paid_by')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label for="additional_security_deposit_amount" class="form-label">Additional Security Deposit Amount</label>
+                        <input type="number" step="0.01" class="form-control @error('additional_security_deposit_amount') is-invalid @enderror" 
+                               id="additional_security_deposit_amount" name="additional_security_deposit_amount" value="{{ old('additional_security_deposit_amount') }}" required>
+                        @error('additional_security_deposit_amount')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label for="additional_security_deposit_fdr_no" class="form-label">FDR No (Additional Security Deposit)</label>
+                        <input type="text" class="form-control @error('additional_security_deposit_fdr_no') is-invalid @enderror" 
+                               id="additional_security_deposit_fdr_no" name="additional_security_deposit_fdr_no" value="{{ old('additional_security_deposit_fdr_no') }}" required>
+                        @error('additional_security_deposit_fdr_no')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label for="additional_security_deposit_fdr_amt" class="form-label">FDR Amt (Additional Security Deposit)</label>
+                        <input type="number" step="0.01" class="form-control @error('additional_security_deposit_fdr_amt') is-invalid @enderror" 
+                               id="additional_security_deposit_fdr_amt" name="additional_security_deposit_fdr_amt" value="{{ old('additional_security_deposit_fdr_amt') }}" required>
+                        @error('additional_security_deposit_fdr_amt')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label for="additional_security_deposit_fdr_bank" class="form-label">FDR Bank (Additional Security Deposit)</label>
+                        <input type="text" class="form-control @error('additional_security_deposit_fdr_bank') is-invalid @enderror" 
+                               id="additional_security_deposit_fdr_bank" name="additional_security_deposit_fdr_bank" value="{{ old('additional_security_deposit_fdr_bank') }}" required>
+                        @error('additional_security_deposit_fdr_bank')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label for="additional_security_deposit_paid_by" class="form-label">FDR Amt Paid By (Additional Security Deposit)</label>
+                        <select class="form-select @error('additional_security_deposit_paid_by') is-invalid @enderror" 
+                                id="additional_security_deposit_paid_by" name="additional_security_deposit_paid_by" required>
+                            <option value="">Select Partner</option>
+                            @foreach($partners as $partner)
+                                <option value="{{ $partner->partner_id }}" 
+                                    {{ old('additional_security_deposit_paid_by') == $partner->partner_id ? 'selected' : '' }}>
+                                    {{ $partner->partner_name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('additional_security_deposit_paid_by')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label for="bond_amount" class="form-label">Bond Amount</label>
+                        <input type="number" step="0.01" class="form-control @error('bond_amount') is-invalid @enderror" 
+                               id="bond_amount" name="bond_amount" value="{{ old('bond_amount') }}" required>
+                        @error('bond_amount')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label for="bond_amount_bank" class="form-label">Bond Amount Bank</label>
+                        <input type="text" class="form-control @error('bond_amount_bank') is-invalid @enderror" 
+                               id="bond_amount_bank" name="bond_amount_bank" value="{{ old('bond_amount_bank') }}" required>
+                        @error('bond_amount_bank')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label for="bond_amount_paid_by" class="form-label">Bond Amount Paid By</label>
+                        <select class="form-select @error('bond_amount_paid_by') is-invalid @enderror" 
+                                id="bond_amount_paid_by" name="bond_amount_paid_by" required>
+                            <option value="">Select Partner</option>
+                            @foreach($partners as $partner)
+                                <option value="{{ $partner->partner_id }}" 
+                                    {{ old('bond_amount_paid_by') == $partner->partner_id ? 'selected' : '' }}>
+                                    {{ $partner->partner_name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('bond_amount_paid_by')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Save Work Order Entry</button>
+            </form>
+        </div>
+    </div>
+
+    @push('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const srNoSelect = document.getElementById('sr_no');
+            const departmentSelect = document.getElementById('department_id');
+            const nameOfWorkInput = document.getElementById('name_of_work');
+            const nameOfContractorInput = document.getElementById('name_of_contractor');
+
+            srNoSelect.addEventListener('change', function() {
+                const selectedSrNo = this.value;
+                if (selectedSrNo) {
+                    fetch(`/work-orders/get-tender-details?sr_no=${selectedSrNo}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data) {
+                                departmentSelect.value = data.department_id;
+                                nameOfWorkInput.value = data.name_of_work;
+                                nameOfContractorInput.value = data.name_of_contractor;
+                            }
+                        });
+                }
+            });
+        });
+    </script>
+    @endpush
+@endsection 
