@@ -13,8 +13,6 @@ class AccountHeadMaster extends Model
     protected $primaryKey = 'ac_head_id';
 
     protected $fillable = [
-        'account_head_name',
-        'account_head_code',
-        'description'
+        'ac_head_name'
     ];
 } 

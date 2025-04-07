@@ -37,7 +37,7 @@
         });
     </script> 
     
-    <script>
+    {{-- <script>
         document.addEventListener('DOMContentLoaded', function() {
             const contractorsContainer = document.getElementById('contractors-container');
             const addContractorButton = document.getElementById('add-contractor');
@@ -93,5 +93,5 @@
             });
         });
         
-    </script>
+    </script> --}}
 @stop

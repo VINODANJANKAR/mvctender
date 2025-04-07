@@ -20,10 +20,9 @@ class AccountHeadMasterController extends Controller
 
     public function store(Request $request)
     {
+        // dd($request->all());
         $request->validate([
-            'account_head_name' => 'required|string|max:255',
-            'account_head_code' => 'required|string|max:50|unique:account_head_masters',
-            'description' => 'nullable|string'
+            'ac_head_name' => 'required|string|max:255'
         ]);
 
         AccountHeadMaster::create($request->all());
@@ -34,15 +33,15 @@ class AccountHeadMasterController extends Controller
 
     public function edit(AccountHeadMaster $accountHead)
     {
-        return view('account-head-master.edit', compact('accountHead'));
+        return view('masters.account-head.edit', compact('accountHead'));
     }
 
     public function update(Request $request, AccountHeadMaster $accountHead)
     {
         $request->validate([
-            'account_head_name' => 'required|string|max:255',
-            'account_head_code' => 'required|string|max:50|unique:account_head_masters,account_head_code,' . $accountHead->id,
-            'description' => 'nullable|string'
+            'ac_head_name' => 'required|string|max:255',
+            // 'account_head_code' => 'required|string|max:50|unique:account_head_masters,account_head_code,' . $accountHead->id,
+            // 'description' => 'nullable|string'
         ]);
 
         $accountHead->update($request->all());

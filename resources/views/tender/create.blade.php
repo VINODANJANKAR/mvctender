@@ -197,7 +197,7 @@
         </div>
     </div>
 
-    @push('scripts')
+    @push('js')
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const contractorsContainer = document.getElementById('contractors-container');
@@ -231,7 +231,7 @@
                         </div>
                         <div class="col-md-6 mb-3">
                             <label class="form-label">Paid By</label>
-                            <select class="form-select" name="paid_by_${contractorCount + 1}" required>
+                            <select class="form-control form-select" name="paid_by_${contractorCount + 1}" required>
                                 <option value="">Select Partner</option>
                                 @foreach($partners as $partner)
                                     <option value="{{ $partner->partner_id }}">{{ $partner->partner_name }}</option>
