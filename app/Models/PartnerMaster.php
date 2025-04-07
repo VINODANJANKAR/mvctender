@@ -14,10 +14,6 @@ class PartnerMaster extends Model
 
     protected $fillable = [
         'partner_name',
-        'address',
-        'contact_no',
-        'email',
-        'gst_no',
-        'pan_no'
+        'mobile_number'
     ];
 } 

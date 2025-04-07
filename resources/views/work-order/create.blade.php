@@ -32,7 +32,7 @@
 
                     <div class="col-md-4 mb-3">
                         <label for="site_code" class="form-label">Site Code</label>
-                        <input type="text" class="form-control" id="site_code" value="{{ $siteCode }}" readonly>
+                        {{-- <input type="text" class="form-control" id="site_code" value="{{ $siteCode }}" readonly> --}}
                     </div>
 
                     <div class="col-md-4 mb-3">
@@ -48,8 +48,7 @@
                 <div class="row">
                     <div class="col-md-4 mb-3">
                         <label for="order_year" class="form-label">Order Year</label>
-                        <input type="text" class="form-control @error('order_year') is-invalid @enderror" 
-                               id="order_year" name="order_year" value="{{ old('order_year', $orderYear) }}" required>
+                        {{-- <input type="text" class="form-control @error('order_year') is-invalid @enderror" id="order_year" name="order_year" value="{{ old('order_year', $orderYear) }}" required> --}}
                         @error('order_year')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -88,12 +87,12 @@
                         <select class="form-select @error('subcontractor_id') is-invalid @enderror" 
                                 id="subcontractor_id" name="subcontractor_id" required>
                             <option value="">Select Subcontractor</option>
-                            @foreach($partners as $partner)
+                            {{-- @foreach($partners as $partner)
                                 <option value="{{ $partner->partner_id }}" 
                                     {{ old('subcontractor_id') == $partner->partner_id ? 'selected' : '' }}>
                                     {{ $partner->partner_name }}
                                 </option>
-                            @endforeach
+                            @endforeach --}}
                         </select>
                         @error('subcontractor_id')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -125,12 +124,12 @@
                         <select class="form-select @error('work_done_by_id') is-invalid @enderror" 
                                 id="work_done_by_id" name="work_done_by_id" required>
                             <option value="">Select Partner</option>
-                            @foreach($partners as $partner)
+                            {{-- @foreach($partners as $partner)
                                 <option value="{{ $partner->partner_id }}" 
                                     {{ old('work_done_by_id') == $partner->partner_id ? 'selected' : '' }}>
                                     {{ $partner->partner_name }}
                                 </option>
-                            @endforeach
+                            @endforeach --}}
                         </select>
                         @error('work_done_by_id')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -238,12 +237,12 @@
                         <select class="form-select @error('security_deposit_paid_by') is-invalid @enderror" 
                                 id="security_deposit_paid_by" name="security_deposit_paid_by" required>
                             <option value="">Select Partner</option>
-                            @foreach($partners as $partner)
+                            {{-- @foreach($partners as $partner)
                                 <option value="{{ $partner->partner_id }}" 
                                     {{ old('security_deposit_paid_by') == $partner->partner_id ? 'selected' : '' }}>
                                     {{ $partner->partner_name }}
                                 </option>
-                            @endforeach
+                            @endforeach --}}
                         </select>
                         @error('security_deposit_paid_by')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -295,12 +294,12 @@
                         <select class="form-select @error('additional_security_deposit_paid_by') is-invalid @enderror" 
                                 id="additional_security_deposit_paid_by" name="additional_security_deposit_paid_by" required>
                             <option value="">Select Partner</option>
-                            @foreach($partners as $partner)
+                            {{-- @foreach($partners as $partner)
                                 <option value="{{ $partner->partner_id }}" 
                                     {{ old('additional_security_deposit_paid_by') == $partner->partner_id ? 'selected' : '' }}>
                                     {{ $partner->partner_name }}
                                 </option>
-                            @endforeach
+                            @endforeach --}}
                         </select>
                         @error('additional_security_deposit_paid_by')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -332,12 +331,12 @@
                         <select class="form-select @error('bond_amount_paid_by') is-invalid @enderror" 
                                 id="bond_amount_paid_by" name="bond_amount_paid_by" required>
                             <option value="">Select Partner</option>
-                            @foreach($partners as $partner)
+                            {{-- @foreach($partners as $partner)
                                 <option value="{{ $partner->partner_id }}" 
                                     {{ old('bond_amount_paid_by') == $partner->partner_id ? 'selected' : '' }}>
                                     {{ $partner->partner_name }}
                                 </option>
-                            @endforeach
+                            @endforeach --}}
                         </select>
                         @error('bond_amount_paid_by')
                             <div class="invalid-feedback">{{ $message }}</div>

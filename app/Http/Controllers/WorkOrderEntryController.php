@@ -16,7 +16,7 @@ class WorkOrderEntryController extends Controller
         $workOrders = WorkOrderEntry::with(['department', 'tender', 'contractor', 'subcontractor'])
             ->latest()
             ->get();
-        return view('masters.work-order.index', compact('workOrders'));
+        return view('work-order.index', compact('workOrders'));
     }
 
     public function create()

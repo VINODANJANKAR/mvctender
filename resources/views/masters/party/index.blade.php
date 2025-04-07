@@ -4,8 +4,8 @@
 
 @section('content')
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2>Partner Master</h2>
-        <a href="{{ route('parties.create') }}" class="btn btn-primary">Add New Partner</a>
+        <h2>Party Master</h2>
+        <a href="{{ route('parties.create') }}" class="btn btn-primary">Add New Party</a>
     </div>
 
     <div class="table-responsive">
