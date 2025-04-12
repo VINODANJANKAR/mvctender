@@ -14,11 +14,15 @@ class TenderEntry extends Model
         'tender_date',
         'department_id',
         'work_description',
-        'estimated_cost',
-        'security_deposit',
-        'tender_opening_date',
-        'tender_closing_date',
-        'remarks'
+        'entry_year',
+        'tender_id',
+        'tender_amount',
+        'work_order_amount',
+        'remarks',
+        'dlp_period',
+        'work_time_limit',
+        'days_months',
+        'work_order_received'
     ];
 
     protected $casts = [
@@ -32,6 +36,10 @@ class TenderEntry extends Model
     public function department()
     {
         return $this->belongsTo(DepartmentMaster::class, 'department_id');
+    }
+    public function transactions()
+    {
+        return $this->hasMany(TenderTransactionTbl::class, 'tender_id', 'id');
     }
 
     public function workOrders()

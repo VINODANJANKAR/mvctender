@@ -28,8 +28,8 @@
             <tbody>
                 @foreach($tenders as $tender)
                     <tr>
-                        <td>{{ $tender->sr_no }}</td>
-                        <td>{{ $tender->entry_date->format('d-m-Y') }}</td>
+                        <td>{{ $tender->tender_no }}</td>
+                        <td>{{ $tender->entry_date }}</td>
                         <td>{{ $tender->entry_year }}</td>
                         <td>{{ $tender->department->department_name }}</td>
                         <td>{{ $tender->name_of_work }}</td>

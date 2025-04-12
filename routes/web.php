@@ -13,6 +13,8 @@ use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\PaymentEntryController;
 use App\Http\Controllers\BillAdjustmentController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ContractorMasterController;
+use App\Http\Controllers\SubContractorMasterController;
 
 // Authentication Routes
 Route::get('login', [AuthController::class, 'showLoginForm'])->name('login');
@@ -42,6 +44,10 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('materials', MaterialController::class);
     Route::resource('payments', PaymentEntryController::class);
     Route::resource('bill-adjustments', BillAdjustmentController::class);
+    Route::resource('contractor', ContractorMasterController::class);
+    Route::resource('subcontractor', SubContractorMasterController::class);
+
+    
 
     // Additional Routes
     Route::get('work-orders/get-tender-details', [WorkOrderEntryController::class, 'getTenderDetails']);

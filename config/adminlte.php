@@ -363,6 +363,14 @@ return [
                     'text' => 'Acount Head Master',
                     'url' => 'account-heads',
                 ],
+                [
+                    'text' => 'Contractor Master',
+                    'url' => 'contractor',
+                ],
+                [
+                    'text' => 'Sub Contractor Master',
+                    'url' => 'subcontractor',
+                ],
             ],
         ],
         [
