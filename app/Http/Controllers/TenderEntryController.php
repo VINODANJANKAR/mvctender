@@ -200,9 +200,9 @@ class TenderEntryController extends Controller
 
         if ($lastTender) {
             $lastNumber = intval(substr($lastTender->tender_no, -4));
-            $newNumber = str_pad($lastNumber + 1, 3, '0', STR_PAD_LEFT);
+            $newNumber = 'TO'.str_pad($lastNumber + 1, 3, '0', STR_PAD_LEFT);
         } else {
-            $newNumber = '001';
+            $newNumber = 'TO001';
         }
 
         return $newNumber;

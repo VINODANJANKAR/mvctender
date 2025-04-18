@@ -64,28 +64,5 @@ class BillDetail extends Model
         'gram_panchayat_emd' => 'decimal:2'
     ];
 
-    public function department()
-    {
-        return $this->belongsTo(DepartmentMaster::class, 'department_id');
-    }
 
-    public function contractor()
-    {
-        return $this->belongsTo(PartyMaster::class, 'contractor_id');
-    }
-
-    public function subcontractor()
-    {
-        return $this->belongsTo(PartyMaster::class, 'subcontractor_id');
-    }
-
-    public function workOrder()
-    {
-        return $this->belongsTo(WorkOrderEntry::class, 'work_order_id');
-    }
-
-    public function adjustments()
-    {
-        return $this->hasMany(BillAdjustment::class, 'bill_detail_id');
-    }
 } 

@@ -15,13 +15,13 @@
                 <div class="row">
                     <div class="col-md-4 mb-3">
                         <label for="sr_no" class="form-label">SR No</label>
-                        <select class="form-select @error('sr_no') is-invalid @enderror" 
+                        <select class="form-control form-select @error('sr_no') is-invalid @enderror" 
                                 id="sr_no" name="sr_no" required>
                             <option value="">Select Tender SR No</option>
                             @foreach($tenders as $tender)
-                                <option value="{{ $tender->sr_no }}" 
-                                    {{ old('sr_no') == $tender->sr_no ? 'selected' : '' }}>
-                                    {{ $tender->sr_no }}
+                                <option value="{{ $tender->id }}" 
+                                    {{ old('id') == $tender->id ? 'selected' : '' }}>
+                                    {{ $tender->tender_no }}
                                 </option>
                             @endforeach
                         </select>
@@ -32,7 +32,7 @@
 
                     <div class="col-md-4 mb-3">
                         <label for="site_code" class="form-label">Site Code</label>
-                        {{-- <input type="text" class="form-control" id="site_code" value="{{ $siteCode }}" readonly> --}}
+                        <input type="text" class="form-control form-select" id="site_code" value="{{ $siteCode }}" readonly>
                     </div>
 
                     <div class="col-md-4 mb-3">
@@ -48,15 +48,15 @@
                 <div class="row">
                     <div class="col-md-4 mb-3">
                         <label for="order_year" class="form-label">Order Year</label>
-                        {{-- <input type="text" class="form-control @error('order_year') is-invalid @enderror" id="order_year" name="order_year" value="{{ old('order_year', $orderYear) }}" required> --}}
-                        @error('order_year')
+                        <input type="text" class="form-control @error('order_year') is-invalid @enderror" id="entry_year" name="entry_year" value="{{ old('entry_year', $entryYear) }}" required>
+                        @error('entry_year')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
 
                     <div class="col-md-4 mb-3">
                         <label for="department_id" class="form-label">Name of Department</label>
-                        <select class="form-select @error('department_id') is-invalid @enderror" 
+                        <select class="form-control form-select @error('department_id') is-invalid @enderror" 
                                 id="department_id" name="department_id" required>
                             <option value="">Select Department</option>
                             @foreach($departments as $department)
@@ -73,9 +73,19 @@
 
                     <div class="col-md-4 mb-3">
                         <label for="name_of_contractor" class="form-label">Name of Contractor</label>
-                        <input type="text" class="form-control @error('name_of_contractor') is-invalid @enderror" 
-                               id="name_of_contractor" name="name_of_contractor" value="{{ old('name_of_contractor') }}" required>
-                        @error('name_of_contractor')
+                        {{-- <input type="text" class="form-control @error('name_of_contractor') is-invalid @enderror" 
+                               id="name_of_contractor" name="name_of_contractor" value="{{ old('name_of_contractor') }}" required readonly> --}}
+                               <select class="form-control form-select @error('name_of_contractor') is-invalid @enderror" 
+                               id="name_of_contractor" name="name_of_contractor" required>
+                           {{-- <option value="">Select Subcontractor</option>
+                           @foreach($contractors as $contractor)
+                               <option value="{{ $contractor->id }}" 
+                                   {{ old('name_of_contractor') == $contractor->contractor_id ? 'selected' : '' }}>
+                                   {{ $contractor->name }}
+                               </option>
+                           @endforeach --}}
+                       </select>
+                               @error('name_of_contractor')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
@@ -84,15 +94,15 @@
                 <div class="row">
                     <div class="col-md-4 mb-3">
                         <label for="subcontractor_id" class="form-label">Subcontractor Name</label>
-                        <select class="form-select @error('subcontractor_id') is-invalid @enderror" 
+                        <select class="form-control form-select @error('subcontractor_id') is-invalid @enderror" 
                                 id="subcontractor_id" name="subcontractor_id" required>
                             <option value="">Select Subcontractor</option>
-                            {{-- @foreach($partners as $partner)
-                                <option value="{{ $partner->partner_id }}" 
-                                    {{ old('subcontractor_id') == $partner->partner_id ? 'selected' : '' }}>
-                                    {{ $partner->partner_name }}
+                            @foreach($subcontractor as $scont)
+                                <option value="{{ $scont->id }}" 
+                                    {{ old('subcontractor_id') == $scont->partner_id ? 'selected' : '' }}>
+                                    {{ $scont->name }}
                                 </option>
-                            @endforeach --}}
+                            @endforeach
                         </select>
                         @error('subcontractor_id')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -102,7 +112,7 @@
                     <div class="col-md-4 mb-3">
                         <label for="name_of_work" class="form-label">Name of Work</label>
                         <input type="text" class="form-control @error('name_of_work') is-invalid @enderror" 
-                               id="name_of_work" name="name_of_work" value="{{ old('name_of_work') }}" required>
+                               id="name_of_work" name="name_of_work" value="{{ old('name_of_work') }}" required readonly>
                         @error('name_of_work')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -121,15 +131,15 @@
                 <div class="row">
                     <div class="col-md-4 mb-3">
                         <label for="work_done_by_id" class="form-label">Work Done By</label>
-                        <select class="form-select @error('work_done_by_id') is-invalid @enderror" 
+                        <select class="form-control form-select @error('work_done_by_id') is-invalid @enderror" 
                                 id="work_done_by_id" name="work_done_by_id" required>
                             <option value="">Select Partner</option>
-                            {{-- @foreach($partners as $partner)
+                            @foreach($partners as $partner)
                                 <option value="{{ $partner->partner_id }}" 
                                     {{ old('work_done_by_id') == $partner->partner_id ? 'selected' : '' }}>
                                     {{ $partner->partner_name }}
                                 </option>
-                            @endforeach --}}
+                            @endforeach
                         </select>
                         @error('work_done_by_id')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -196,116 +206,102 @@
 
                     <div class="col-md-4 mb-3">
                         <label for="security_deposit_amount" class="form-label">Security Deposit Amount</label>
-                        <input type="number" step="0.01" class="form-control @error('security_deposit_amount') is-invalid @enderror" 
+                        <input type="number" step="1" class="form-control @error('security_deposit_amount') is-invalid @enderror" 
                                id="security_deposit_amount" name="security_deposit_amount" value="{{ old('security_deposit_amount') }}" required>
                         @error('security_deposit_amount')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
-
                     <div class="col-md-4 mb-3">
+                        <label for="additional_security_deposit_amount" class="form-label">Additional Security Deposit Amount</label>
+                        <input type="number" step="0.01" class="form-control" name="additional_security_deposit_amount" required>
+                    </div>
+                    {{-- <div class="col-md-4 mb-3">
                         <label for="security_deposit_fdr_no" class="form-label">FDR No (Security Deposit)</label>
                         <input type="text" class="form-control @error('security_deposit_fdr_no') is-invalid @enderror" 
                                id="security_deposit_fdr_no" name="security_deposit_fdr_no" value="{{ old('security_deposit_fdr_no') }}" required>
                         @error('security_deposit_fdr_no')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
-                    </div>
+                    </div> --}}
                 </div>
 
-                <div class="row">
-                    <div class="col-md-4 mb-3">
-                        <label for="security_deposit_fdr_amt" class="form-label">FDR Amt (Security Deposit)</label>
-                        <input type="number" step="0.01" class="form-control @error('security_deposit_fdr_amt') is-invalid @enderror" 
-                               id="security_deposit_fdr_amt" name="security_deposit_fdr_amt" value="{{ old('security_deposit_fdr_amt') }}" required>
-                        @error('security_deposit_fdr_amt')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
+                <div id="security-deposit-container">
+                    
+                    <div class="row">
+                        <h2>Security Deposite</h2>
                     </div>
-
-                    <div class="col-md-4 mb-3">
-                        <label for="security_deposit_fdr_bank" class="form-label">FDR Bank (Security Deposit)</label>
-                        <input type="text" class="form-control @error('security_deposit_fdr_bank') is-invalid @enderror" 
-                               id="security_deposit_fdr_bank" name="security_deposit_fdr_bank" value="{{ old('security_deposit_fdr_bank') }}" required>
-                        @error('security_deposit_fdr_bank')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-
-                    <div class="col-md-4 mb-3">
-                        <label for="security_deposit_paid_by" class="form-label">FDR Amt Paid By (Security Deposit)</label>
-                        <select class="form-select @error('security_deposit_paid_by') is-invalid @enderror" 
-                                id="security_deposit_paid_by" name="security_deposit_paid_by" required>
-                            <option value="">Select Partner</option>
-                            {{-- @foreach($partners as $partner)
-                                <option value="{{ $partner->partner_id }}" 
-                                    {{ old('security_deposit_paid_by') == $partner->partner_id ? 'selected' : '' }}>
-                                    {{ $partner->partner_name }}
-                                </option>
-                            @endforeach --}}
-                        </select>
-                        @error('security_deposit_paid_by')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
+                    <div class="security-deposit-row mb-3">
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label for="security_deposit_fdr_no" class="form-label">FDR No (Security Deposit)</label>
+                                <input type="text" class="form-control" name="security_deposit_fdr_no[]" required>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="security_deposit_fdr_amt" class="form-label">FDR Amt (Security Deposit)</label>
+                                <input type="number" step="0.01" class="form-control" name="security_deposit_fdr_amt[]" required>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="security_deposit_fdr_bank" class="form-label">FDR Bank (Security Deposit)</label>
+                                <input type="text" class="form-control" name="security_deposit_fdr_bank[]" required>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="security_deposit_paid_by" class="form-label">FDR Amt Paid By (Security Deposit)</label>
+                                <select class="form-control form-select" name="security_deposit_paid_by[]" required>
+                                    <option value="">Select Partner</option>
+                                    @foreach($partners as $partner)
+                                        <option value="{{ $partner->partner_id }}">{{ $partner->partner_name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            {{-- <div class="col-md-4 mb-3">
+                                <button type="button" class="btn btn-danger remove-security-deposit">Remove</button>
+                            </div> --}}
+                        </div>
                     </div>
                 </div>
-
-                <div class="row">
-                    <div class="col-md-4 mb-3">
-                        <label for="additional_security_deposit_amount" class="form-label">Additional Security Deposit Amount</label>
-                        <input type="number" step="0.01" class="form-control @error('additional_security_deposit_amount') is-invalid @enderror" 
-                               id="additional_security_deposit_amount" name="additional_security_deposit_amount" value="{{ old('additional_security_deposit_amount') }}" required>
-                        @error('additional_security_deposit_amount')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
+                
+                <button type="button" class="btn btn-secondary mt-3" id="add-security-deposit">Add New</button>
+                <br>
+                <div id="additional-security-deposit-container">
+                    <div class="row">
+                        <h2>Additional Security Deposite</h2>
                     </div>
-
-                    <div class="col-md-4 mb-3">
-                        <label for="additional_security_deposit_fdr_no" class="form-label">FDR No (Additional Security Deposit)</label>
-                        <input type="text" class="form-control @error('additional_security_deposit_fdr_no') is-invalid @enderror" 
-                               id="additional_security_deposit_fdr_no" name="additional_security_deposit_fdr_no" value="{{ old('additional_security_deposit_fdr_no') }}" required>
-                        @error('additional_security_deposit_fdr_no')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-
-                    <div class="col-md-4 mb-3">
-                        <label for="additional_security_deposit_fdr_amt" class="form-label">FDR Amt (Additional Security Deposit)</label>
-                        <input type="number" step="0.01" class="form-control @error('additional_security_deposit_fdr_amt') is-invalid @enderror" 
-                               id="additional_security_deposit_fdr_amt" name="additional_security_deposit_fdr_amt" value="{{ old('additional_security_deposit_fdr_amt') }}" required>
-                        @error('additional_security_deposit_fdr_amt')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
+                    <div class="additional-security-deposit-row mb-3">
+                        <div class="row">
+                           
+                            <div class="col-md-4 mb-3">
+                                <label for="additional_security_deposit_fdr_no" class="form-label">FDR No (Additional Security Deposit)</label>
+                                <input type="text" class="form-control" name="additional_security_deposit_fdr_no[]" required>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="additional_security_deposit_fdr_amt" class="form-label">FDR Amt (Additional Security Deposit)</label>
+                                <input type="number" step="0.01" class="form-control" name="additional_security_deposit_fdr_amt[]" required>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="additional_security_deposit_fdr_bank" class="form-label">FDR Bank (Additional Security Deposit)</label>
+                                <input type="text" class="form-control" name="additional_security_deposit_fdr_bank[]" required>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="additional_security_deposit_paid_by" class="form-label">FDR Amt Paid By (Additional Security Deposit)</label>
+                                <select class="form-control form-select" name="additional_security_deposit_paid_by[]" required>
+                                    <option value="">Select Partner</option>
+                                    @foreach($partners as $partner)
+                                        <option value="{{ $partner->partner_id }}">{{ $partner->partner_name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            {{-- <div class="col-md-4 mb-3">
+                                <button type="button" class="btn btn-danger remove-security-deposit">Remove</button>
+                            </div> --}}
+                        </div>
                     </div>
                 </div>
+                
+                <button type="button" class="btn btn-secondary mt-3" id="add-additional-security-deposit">Add New</button>
+                
 
                 <div class="row">
-                    <div class="col-md-4 mb-3">
-                        <label for="additional_security_deposit_fdr_bank" class="form-label">FDR Bank (Additional Security Deposit)</label>
-                        <input type="text" class="form-control @error('additional_security_deposit_fdr_bank') is-invalid @enderror" 
-                               id="additional_security_deposit_fdr_bank" name="additional_security_deposit_fdr_bank" value="{{ old('additional_security_deposit_fdr_bank') }}" required>
-                        @error('additional_security_deposit_fdr_bank')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-
-                    <div class="col-md-4 mb-3">
-                        <label for="additional_security_deposit_paid_by" class="form-label">FDR Amt Paid By (Additional Security Deposit)</label>
-                        <select class="form-select @error('additional_security_deposit_paid_by') is-invalid @enderror" 
-                                id="additional_security_deposit_paid_by" name="additional_security_deposit_paid_by" required>
-                            <option value="">Select Partner</option>
-                            {{-- @foreach($partners as $partner)
-                                <option value="{{ $partner->partner_id }}" 
-                                    {{ old('additional_security_deposit_paid_by') == $partner->partner_id ? 'selected' : '' }}>
-                                    {{ $partner->partner_name }}
-                                </option>
-                            @endforeach --}}
-                        </select>
-                        @error('additional_security_deposit_paid_by')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-
                     <div class="col-md-4 mb-3">
                         <label for="bond_amount" class="form-label">Bond Amount</label>
                         <input type="number" step="0.01" class="form-control @error('bond_amount') is-invalid @enderror" 
@@ -314,9 +310,6 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
-                </div>
-
-                <div class="row">
                     <div class="col-md-4 mb-3">
                         <label for="bond_amount_bank" class="form-label">Bond Amount Bank</label>
                         <input type="text" class="form-control @error('bond_amount_bank') is-invalid @enderror" 
@@ -328,15 +321,15 @@
 
                     <div class="col-md-4 mb-3">
                         <label for="bond_amount_paid_by" class="form-label">Bond Amount Paid By</label>
-                        <select class="form-select @error('bond_amount_paid_by') is-invalid @enderror" 
+                        <select class="form-control form-select @error('bond_amount_paid_by') is-invalid @enderror" 
                                 id="bond_amount_paid_by" name="bond_amount_paid_by" required>
                             <option value="">Select Partner</option>
-                            {{-- @foreach($partners as $partner)
+                            @foreach($partners as $partner)
                                 <option value="{{ $partner->partner_id }}" 
                                     {{ old('bond_amount_paid_by') == $partner->partner_id ? 'selected' : '' }}>
                                     {{ $partner->partner_name }}
                                 </option>
-                            @endforeach --}}
+                            @endforeach
                         </select>
                         @error('bond_amount_paid_by')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -344,13 +337,13 @@
                     </div>
                 </div>
 
-                <button type="submit" class="btn btn-primary">Save Work Order Entry</button>
+                <button type="submit" class="btn btn-primary" id="submitButton">Save Work Order Entry</button>
             </form>
         </div>
     </div>
 
-    @push('scripts')
-    <script>
+    @push('js')
+    {{-- <script>
         document.addEventListener('DOMContentLoaded', function() {
             const srNoSelect = document.getElementById('sr_no');
             const departmentSelect = document.getElementById('department_id');
@@ -372,6 +365,153 @@
                 }
             });
         });
+        
+    </script> --}}
+
+
+    <script>
+        document.getElementById('sr_no').addEventListener('change', function() {
+            const selectedSrNo = this.value;
+            console.log("Selected SR No:", selectedSrNo);
+
+            if (selectedSrNo) {
+                fetch(`/work-orders/get-tender-details?sr_no=${selectedSrNo}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data) {
+                            document.getElementById('department_id').value = data.department_id;
+                            document.getElementById('name_of_work').value = data.name_of_work;
+                            document.getElementById('name_of_contractor').value = data.name_of_contractor;
+                        }
+                    })
+                    .catch(error => console.error('Error fetching tender details:', error));
+            }
+        });
+
+
+
+        document.getElementById('sr_no').addEventListener('change', function() {
+    const selectedSrNo = this.value;
+
+    if (selectedSrNo) {
+        fetch(`/work-orders/get-contractors?sr_no=${selectedSrNo}`)
+            .then(response => response.json())
+            .then(data => {
+                const contractorDropdown = document.getElementById('name_of_contractor');
+                contractorDropdown.innerHTML = '<option value="">Select Contractor</option>';
+
+                if (data.contractors && data.contractors.length > 0) {
+                    data.contractors.forEach(contractor => {
+                        const option = document.createElement('option');
+                        option.value = contractor.id;
+                        option.textContent = contractor.name;
+                        contractorDropdown.appendChild(option);
+                    });
+                } else {
+                    contractorDropdown.innerHTML += '<option value="">No contractors found</option>';
+                }
+            })
+            .catch(error => console.error('Error fetching contractors:', error));
+    }
+});
+
+
+
+document.getElementById('add-security-deposit').addEventListener('click', function () {
+    const container = document.getElementById('security-deposit-container');
+    const newRow = document.createElement('div');
+    newRow.className = 'security-deposit-row mb-3';
+    newRow.innerHTML = `
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <label for="security_deposit_fdr_no" class="form-label">FDR No (Security Deposit)</label>
+                <input type="text" class="form-control" name="security_deposit_fdr_no[]" required>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="security_deposit_fdr_amt" class="form-label">FDR Amt (Security Deposit)</label>
+                <input type="number" step="0.01" class="form-control" name="security_deposit_fdr_amt[]" required>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="security_deposit_fdr_bank" class="form-label">FDR Bank (Security Deposit)</label>
+                <input type="text" class="form-control" name="security_deposit_fdr_bank[]" required>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="security_deposit_paid_by" class="form-label">FDR Amt Paid By (Security Deposit)</label>
+                <select class="form-control form-select" name="security_deposit_paid_by[]" required>
+                    <option value="">Select Partner</option>
+                    @foreach($partners as $partner)
+                        <option value="{{ $partner->partner_id }}">{{ $partner->partner_name }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="col-md-4 mb-3">
+                <button type="button" class="btn btn-danger remove-security-deposit">Remove</button>
+            </div>
+        </div>
+    `;
+
+    container.appendChild(newRow);
+
+    // Add remove functionality to newly added rows
+    newRow.querySelector('.remove-security-deposit').addEventListener('click', function () {
+        newRow.remove();
+    });
+});
+
+
+
+
+
+document.getElementById('add-additional-security-deposit').addEventListener('click', function () {
+    const container = document.getElementById('additional-security-deposit-container');
+    const newRow = document.createElement('div');
+    newRow.className = 'additional-security-deposit-row mb-3';
+    newRow.innerHTML = `
+        <div class="row">
+        
+            <div class="col-md-4 mb-3">
+                <label for="additional_security_deposit_fdr_no" class="form-label">FDR No (Additional Security Deposit)</label>
+                <input type="text" class="form-control" name="additional_security_deposit_fdr_no[]" required>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="additional_security_deposit_fdr_amt" class="form-label">FDR Amt (Additional Security Deposit)</label>
+                <input type="number" step="0.01" class="form-control" name="additional_security_deposit_fdr_amt[]" required>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="additional_security_deposit_fdr_bank" class="form-label">FDR Bank (Additional Security Deposit)</label>
+                <input type="text" class="form-control" name="additional_security_deposit_fdr_bank[]" required>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="additional_security_deposit_paid_by" class="form-label">FDR Amt Paid By (Additional Security Deposit)</label>
+                <select class="form-control form-select" name="additional_security_deposit_paid_by[]" required>
+                    <option value="">Select Partner</option>
+                    @foreach($partners as $partner)
+                        <option value="{{ $partner->partner_id }}">{{ $partner->partner_name }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="col-md-4 mb-3">
+                <button type="button" class="btn btn-danger remove-security-deposit">Remove</button>
+            </div>
+        </div>
+    `;
+
+    container.appendChild(newRow);
+
+    // Add remove functionality to newly added rows
+    newRow.querySelector('.remove-security-deposit').addEventListener('click', function () {
+        newRow.remove();
+    });
+});
+
+
+// stop button to submit multiple 
+document.getElementById('submitButton').addEventListener('click', function () {
+    this.disabled = true; // Disable the button
+    this.innerText = 'Submitting...'; // Change text to indicate action
+});
+
     </script>
+    
     @endpush
 @endsection 
