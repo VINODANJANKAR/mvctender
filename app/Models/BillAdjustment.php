@@ -12,21 +12,14 @@ class BillAdjustment extends Model
     protected $table = 'bill_adjustments';
 
     protected $fillable = [
-        'date',
-        'voucher_no',
-        'bill_detail_id',
-        'adjustment_amount',
-        'adjustment_type',
-        'reason'
+       "date","voucher_no","bank_name","account_number","beneficiary_name","name_of_ref_person","paid_by","rtgs_amt","commision_rate","net_amt","amt_recevied_date","recevied_amount","description","remarks", 
     ];
 
     protected $casts = [
         'date' => 'date',
-        'adjustment_amount' => 'decimal:2'
+        'adjustment_amount' => 'decimal:2',
+        'amt_recevied_date' => 'date'
     ];
 
-    public function billDetail()
-    {
-        return $this->belongsTo(BillDetail::class, 'bill_detail_id');
-    }
+
 } 

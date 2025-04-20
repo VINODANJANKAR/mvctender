@@ -16,13 +16,13 @@
                 <div class="row">
                     <div class="col-md-4 mb-3">
                         <label for="sr_no" class="form-label">SR No</label>
-                        <input type="text" class="form-control" id="sr_no" value="{{ $tender->sr_no }}" readonly>
+                        <input type="text" class="form-control" id="sr_no" value="{{ $tender->tender_no }}" readonly>
                     </div>
 
                     <div class="col-md-4 mb-3">
                         <label for="entry_date" class="form-label">Entry Date</label>
                         <input type="date" class="form-control @error('entry_date') is-invalid @enderror" 
-                               id="entry_date" name="entry_date" value="{{ old('entry_date', $tender->entry_date->format('Y-m-d')) }}" required>
+                               id="entry_date" name="entry_date" value="{{ old('entry_date', $tender->entry_date) }}" required>
                         @error('entry_date')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -41,7 +41,7 @@
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="department_id" class="form-label">Name of Department</label>
-                        <select class="form-select @error('department_id') is-invalid @enderror" 
+                        <select class="form-control form-select @error('department_id') is-invalid @enderror" 
                                 id="department_id" name="department_id" required>
                             <option value="">Select Department</option>
                             @foreach($departments as $department)
@@ -59,7 +59,7 @@
                     <div class="col-md-6 mb-3">
                         <label for="name_of_work" class="form-label">Name of Work</label>
                         <input type="text" class="form-control @error('name_of_work') is-invalid @enderror" 
-                               id="name_of_work" name="name_of_work" value="{{ old('name_of_work', $tender->name_of_work) }}" required>
+                               id="name_of_work" name="name_of_work" value="{{ old('name_of_work', $tender->work_description) }}" required>
                         @error('name_of_work')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -86,7 +86,7 @@
                     </div>
                 </div>
 
-                <div class="row">
+                {{-- <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="name_of_contractor" class="form-label">Name of Contractor</label>
                         <input type="text" class="form-control @error('name_of_contractor') is-invalid @enderror" 
@@ -104,18 +104,104 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
-                </div>
+                </div> --}}
+                {{-- <div id="contractors-container">
+                    @foreach($tender->contractors as $index => $contractor)
+                    <div class="contractor-section mb-4">
+                        <h5>Contractor Details</h5>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="contractor_id" class="form-label">Contractor ID</label>
+                                <select class="form-control" name="contractor_id[]" required>
+                                    <option value="">Select Contractor</option>
+                                    @foreach($contractors as $ctr)
+                                        <option value="{{ $ctr->contractor_id }}" {{ $ctr->contractor_id == $contractor->contractor_id ? 'selected' : '' }}>
+                                            {{ $ctr->contractor_name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="tender_fee" class="form-label">Tender Fee</label>
+                                <input type="number" step="0.01" class="form-control" name="tender_fee[]" value="{{ $contractor->tender_fee }}" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="emd_amount" class="form-label">EMD Amount</label>
+                                <input type="number" step="0.01" class="form-control" name="emd_amount[]" value="{{ $contractor->emd_amount }}" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="paid_by" class="form-label">Paid By</label>
+                                <select class="form-control" name="paid_by[]" required>
+                                    <option value="">Select Payment Method</option>
+                                    <option value="Cash" {{ $contractor->paid_by == 'Cash' ? 'selected' : '' }}>Cash</option>
+                                    <option value="Cheque" {{ $contractor->paid_by == 'Cheque' ? 'selected' : '' }}>Cheque</option>
+                                    <option value="Online" {{ $contractor->paid_by == 'Online' ? 'selected' : '' }}>Online</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-danger remove-contractor">Remove</button>
+                    </div>
+                    @endforeach
+                </div> --}}
 
-                <div class="row">
-                    <div class="col-md-6 mb-3">
+
+   <!-- Dynamic Contractor Details -->
+   <div id="contractors-container" class="contractors-container">
+    @foreach($tender->transactions as $transaction)
+    <div class="contractor-section mb-4">
+        <h5>Contractor Details</h5>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="contractor_id" class="form-label">Name of Contractor</label>
+                <select class="form-control" name="contractor_id[]" required>
+                    <option value="">Select Department</option>
+                    @foreach($contractors as $contractor)
+                        <option value="{{ $contractor->id }}" {{ $contractor->id == $transaction->contractor_id ? 'selected' : '' }}>
+                            {{ $contractor->name }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="tender_fee" class="form-label">Tender Fee</label>
+                <input type="number" step="0.01" class="form-control" name="tender_fee[]" value="{{ $transaction->tender_fee }}" required>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="emd_amount" class="form-label">EMD Amount</label>
+                <input type="number" step="0.01" class="form-control" name="emd_amount[]" value="{{ $transaction->emd_amount }}" required>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="paid_by" class="form-label">Paid By</label>
+                <select class="form-control" name="paid_by[]" required>
+                    @foreach($partners as $partner)
+                        <option value="{{ $partner->partner_id }}" {{ $partner->partner_id == $transaction->paid_by ? 'selected' : '' }}>
+                            {{ $partner->partner_name }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
+        <button type="button" class="btn btn-danger remove-contractor">Remove</button>
+    </div>
+    @endforeach
+</div>
+
+            
+                <button type="button" class="btn btn-secondary mb-4" id="add-contractor">Add Another Contractor</button>
+                 <div class="row">
+                   {{-- <div class="col-md-6 mb-3">
                         <label for="emd_amount" class="form-label">EMD Amount</label>
                         <input type="number" step="0.01" class="form-control @error('emd_amount') is-invalid @enderror" 
                                id="emd_amount" name="emd_amount" value="{{ old('emd_amount', $tender->emd_amount) }}" required>
                         @error('emd_amount')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
-                    </div>
-
+                    </div>  --}}
+{{-- 
                     <div class="col-md-6 mb-3">
                         <label for="paid_by" class="form-label">Paid By</label>
                         <select class="form-select @error('paid_by') is-invalid @enderror" 
@@ -131,7 +217,7 @@
                         @error('paid_by')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
-                    </div>
+                    </div> --}}
                 </div>
 
                 <div class="row">
@@ -190,4 +276,104 @@
             </form>
         </div>
     </div>
+
+
+@push('js')
+
+{{-- <script>
+    document.getElementById('add-transaction').addEventListener('click', function () {
+        const container = document.getElementById('transactions-container');
+        const newTransaction = document.createElement('div');
+        newTransaction.className = 'transaction-section mb-4';
+        newTransaction.innerHTML = `
+            <h5>Transaction Details</h5>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="contractor_id" class="form-label">Contractor ID</label>
+                    <select class="form-control" name="contractor_id[]" required>
+                        <option value="">Select Contractor</option>
+                        @foreach($contractors as $contractor)
+                            <option value="{{ $contractor->contractor_id }}">{{ $contractor->contractor_name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="transaction_amount" class="form-label">Transaction Amount</label>
+                    <input type="number" step="0.01" class="form-control" name="transaction_amount[]" placeholder="Enter Amount" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="transaction_date" class="form-label">Transaction Date</label>
+                    <input type="date" class="form-control" name="transaction_date[]" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <button type="button" class="btn btn-danger remove-transaction">Remove</button>
+                </div>
+            </div>
+        `;
+        container.appendChild(newTransaction);
+
+        newTransaction.querySelector('.remove-transaction').addEventListener('click', function () {
+            newTransaction.remove();
+        });
+    });
+</script> --}}
+<script>
+    document.getElementById('add-contractor').addEventListener('click', function () {
+        const container = document.getElementById('contractors-container');
+        const newContractor = document.createElement('div');
+        newContractor.className = 'contractor-section mb-4';
+        newContractor.innerHTML = `
+            <h5>Contractor Details</h5>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="contractor_id" class="form-label">Name of Contractor</label>
+                    <select class="form-control" name="contractor_id[]" required>
+                    <option value="">Select Department</option>
+                        @foreach($contractors as $contractor)
+                            <option value="{{ $contractor->id }}">{{ $contractor->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="tender_fee" class="form-label">Tender Fee</label>
+                    <input type="number" step="0.01" class="form-control" name="tender_fee[]" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="emd_amount" class="form-label">EMD Amount</label>
+                    <input type="number" step="0.01" class="form-control" name="emd_amount[]" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="paid_by" class="form-label">Paid By</label>
+                    <select class="form-control" name="paid_by[]" required>
+                        @foreach($partners as $partner)
+                            <option value="{{ $partner->partner_id }}">{{ $partner->partner_name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+            <button type="button" class="btn btn-danger remove-contractor">Remove</button>
+        `;
+        container.appendChild(newContractor);
+
+        newContractor.querySelector('.remove-contractor').addEventListener('click', function () {
+            newContractor.remove();
+        });
+
+        
+    });
+
+    document.addEventListener('click', function(event) {
+    if (event.target.classList.contains('remove-contractor')) {
+        event.target.closest('.contractor-section').remove();
+    }
+});
+
+</script>
+
+    
+@endpush    
 @endsection 
