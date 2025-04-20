@@ -26,12 +26,12 @@
                     <thead>
                         <tr>
                             <th>Date</th>
-                            <th>Voucher No</th>
-                            <th>Party</th>
-                            <th>Payment Type</th>
-                            <th>Amount</th>
+                            <th>Paid to</th>
+                            <th>Paid By</th>
                             <th>Payment Mode</th>
-                            <th>Reference No</th>
+                            <th>Amount</th>
+                            <th>GST Amount</th>
+                            <th>Total Amount</th>
                             <th>Description</th>
                             <th>Actions</th>
                         </tr>
@@ -40,16 +40,12 @@
                         @foreach($payments as $payment)
                             <tr>
                                 <td>{{ $payment->date->format('d-m-Y') }}</td>
-                                <td>{{ $payment->voucher_no }}</td>
-                                <td>{{ $payment->party->party_name }}</td>
-                                <td>
-                                    <span class="badge bg-{{ $payment->payment_type === 'Received' ? 'success' : 'danger' }}">
-                                        {{ $payment->payment_type }}
-                                    </span>
-                                </td>
-                                <td>{{ number_format($payment->amount, 2) }}</td>
+                                <td>{{ $payment->paid_to }}</td>
+                                <td>{{ $payment->partner->partner_name }}</td>
                                 <td>{{ $payment->payment_mode }}</td>
-                                <td>{{ $payment->reference_no ?: '-' }}</td>
+                                <td>{{ number_format($payment->amount, 2) }}</td>
+                                <td>{{ $payment->gst_amount }}</td>
+                                <td>{{ $payment->total_amount ?: '-' }}</td>
                                 <td>{{ $payment->description ?: '-' }}</td>
                                 <td>
                                     <a href="{{ route('payments.edit', $payment) }}" class="btn btn-sm btn-primary">Edit</a>

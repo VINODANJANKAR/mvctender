@@ -25,28 +25,28 @@
                 <table class="table table-striped table-bordered">
                     <thead>
                         <tr>
-                            <th>Material Code</th>
+                            <th>Site Code</th>
+                            <th>Party</th>
+                            <th>Entry No</th>
+                            <th>Challan No</th>
                             <th>Material Name</th>
-                            <th>Unit</th>
+                            <th>Quantity</th>
                             <th>Rate</th>
-                            <th>Description</th>
-                            <th>Status</th>
+                            <th>Amount</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($materials as $material)
                             <tr>
-                                <td>{{ $material->material_code }}</td>
+                                <td>{{ $material->site_code }}</td>
+                                <td>{{ $material['party']->party_name }}</td>
+                                <td>{{ $material->entry_no }}</td>
+                                <td>{{ $material->challan_no }}</td>
                                 <td>{{ $material->material_name }}</td>
-                                <td>{{ $material->unit }}</td>
+                                <td>{{ $material->quantity }}</td>
                                 <td>{{ $material->rate ? number_format($material->rate, 2) : '-' }}</td>
-                                <td>{{ $material->description }}</td>
-                                <td>
-                                    <span class="badge bg-{{ $material->is_active ? 'success' : 'danger' }}">
-                                        {{ $material->is_active ? 'Active' : 'Inactive' }}
-                                    </span>
-                                </td>
+                                <td>{{ $material->amount }}</td>
                                 <td>
                                     <a href="{{ route('materials.edit', $material) }}" class="btn btn-sm btn-primary">Edit</a>
                                     <form action="{{ route('materials.destroy', $material) }}" method="POST" class="d-inline">

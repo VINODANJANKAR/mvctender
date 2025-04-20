@@ -13,22 +13,27 @@ class PaymentEntry extends Model
 
     protected $fillable = [
         'date',
-        'voucher_no',
-        'party_id',
-        'payment_type',
+        'paid_to',
+        'description',
         'amount',
+        'gst_amount',
+        'total_amount',
         'payment_mode',
-        'reference_no',
-        'description'
+        'beneficiary_name',
+        'partner_id',
+        'bank_name',
+        'bank_ac_name'
     ];
 
     protected $casts = [
         'date' => 'date',
-        'amount' => 'decimal:2'
+        'amount' => 'decimal:2',
+        'gst_amount' => 'decimal:2',
+        'total_amount' => 'decimal:2'
     ];
 
-    public function party()
+    public function partner()
     {
-        return $this->belongsTo(Party::class, 'party_id', 'party_id');
+        return $this->belongsTo(PartnerMaster::class, 'partner_id');
     }
 } 

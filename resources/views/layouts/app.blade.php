@@ -33,7 +33,33 @@
 
                 // Update the financial year input field
                 $('#entry_year').val(financialYear);
-        });
+            });
+
+            $("#date").change(function(){
+             // Get the selected date
+             const selectedDate = new Date($(this).val());
+                const year = selectedDate.getFullYear();
+                const month = selectedDate.getMonth() + 1; // Months are zero-based
+                const shortYear = year % 100; // e.g., 2025 becomes 25
+
+                // Determine the financial year in short format
+                const financialYear = month >= 4 
+                    ? `${shortYear}-${(shortYear + 1) % 100}`
+                    : `${(shortYear - 1) % 100}-${shortYear}`;
+
+                // Update the financial year input field
+                $('#year').val(financialYear);
+            });
+            
+            $("#rate").focusout(function() {
+                var qty = $('#quantity').val();
+                var rate = $('#rate').val();
+
+                var amount = qty*rate;
+                
+                $('#amount').val(amount);
+            });
+
         });
     </script> 
     

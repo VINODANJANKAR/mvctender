@@ -41,8 +41,8 @@
                             <tr>
                                 <td>{{ $expense->date->format('d-m-Y') }}</td>
                                 <td>{{ $expense->voucher_no }}</td>
-                                <td>{{ $expense->accountHead->account_head_name }}</td>
-                                <td>{{ $expense->party->party_name }}</td>
+                                <td>{{ $expense['accountHead']->ac_head_name }}</td>
+                                <td>{{ $expense['party']->party_name }}</td>
                                 <td>{{ $expense->description }}</td>
                                 <td>{{ number_format($expense->amount, 2) }}</td>
                                 <td>{{ $expense->payment_mode }}</td>

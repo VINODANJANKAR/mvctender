@@ -20,11 +20,11 @@
             <tbody>
                 @foreach($parties as $party)
                     <tr>
-                        <td>{{ $party->partner_name }}</td>
-                        <td>{{ $party->mobile_number }}</td>
+                        <td>{{ $party->party_name }}</td>
+                        <td>{{ $party->contact_number }}</td>
                         <td>
-                            <a href="{{ route('parties.edit', $partner) }}" class="btn btn-sm btn-warning">Edit</a>
-                            <form action="{{ route('parties.destroy', $partner) }}" method="POST" class="d-inline">
+                            <a href="{{ route('parties.edit', $party->party_id) }}" class="btn btn-sm btn-warning">Edit</a>
+                            <form action="{{ route('parties.destroy', $party->party_id) }}" method="POST" class="d-inline">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</button>

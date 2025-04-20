@@ -43,9 +43,9 @@
                                 <td>{{ $bill->year }}</td>
                                 <td>{{ $bill->date->format('d-m-Y') }}</td>
                                 <td>{{ $bill->department->department_name }}</td>
-                                <td>{{ $bill->name_of_contractor }}</td>
-                                <td>{{ $bill->bill_no_stage }}</td>
-                                <td>{{ number_format($bill->total_bill_amt, 2) }}</td>
+                                <td>{{ $bill->contractor_id }}</td>
+                                <td>{{ $bill->bill_no }}</td>
+                                <td>{{ number_format($bill->total_bill_amount, 2) }}</td>
                                 <td>{{ number_format($bill->net_bill_amount, 2) }}</td>
                                 <td>
                                     <a href="{{ route('bill-details.edit', $bill) }}" class="btn btn-sm btn-primary">Edit</a>

@@ -9,6 +9,8 @@ class BillDetail extends Model
 {
     use HasFactory;
 
+    protected $table = 'bill_details';
+
     protected $fillable = [
         'site_code',
         'year',
@@ -17,8 +19,8 @@ class BillDetail extends Model
         'contractor_id',
         'subcontractor_id',
         'name_of_work',
-        'bank_name',
-        'work_done_by',
+        'name_of_bank',
+        'work_done_by_id',
         'agreement_no',
         'bill_no',
         'work_order_amount',
@@ -38,6 +40,7 @@ class BillDetail extends Model
         'other',
         'bank_charges',
         'stamp_duty',
+        'options',
         'gram_panchayat_deduction',
         'gram_panchayat_emd',
         'remark'
@@ -87,5 +90,9 @@ class BillDetail extends Model
     public function adjustments()
     {
         return $this->hasMany(BillAdjustment::class, 'bill_detail_id');
+    }
+
+    public function workDoneBy(){
+        return $this->belongsTo(PartnerMaster::class, 'work_done_by_id');
     }
 } 

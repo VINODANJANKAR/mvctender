@@ -35,21 +35,21 @@
                     </div>
 
                     <div class="col-md-4 mb-3">
-                        <label for="account_head_id" class="form-label">Account Head</label>
-                        <select name="account_head_id" id="account_head_id" class="form-select @error('account_head_id') is-invalid @enderror" required>
+                        <label for="ac_head_id" class="form-label">Account Head</label>
+                        <select name="ac_head_id" id="ac_head_id" class="form-control form-select @error('ac_head_id') is-invalid @enderror" required>
                             <option value="">Select Account Head</option>
                             @foreach($accountHeads as $accountHead)
-                                <option value="{{ $accountHead->account_head_id }}">{{ $accountHead->account_head_name }}</option>
+                                <option value="{{ $accountHead->ac_head_id }}">{{ $accountHead->ac_head_name }}</option>
                             @endforeach
                         </select>
-                        @error('account_head_id')
+                        @error('ac_head_id')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
 
                     <div class="col-md-4 mb-3">
                         <label for="party_id" class="form-label">Party</label>
-                        <select name="party_id" id="party_id" class="form-select @error('party_id') is-invalid @enderror" required>
+                        <select name="party_id" id="party_id" class="form-control form-select @error('party_id') is-invalid @enderror" required>
                             <option value="">Select Party</option>
                             @foreach($parties as $party)
                                 <option value="{{ $party->party_id }}">{{ $party->party_name }}</option>
@@ -78,7 +78,7 @@
 
                     <div class="col-md-4 mb-3">
                         <label for="payment_mode" class="form-label">Payment Mode</label>
-                        <select name="payment_mode" id="payment_mode" class="form-select @error('payment_mode') is-invalid @enderror" required>
+                        <select name="payment_mode" id="payment_mode" class="form-control form-select @error('payment_mode') is-invalid @enderror" required>
                             <option value="">Select Payment Mode</option>
                             <option value="Cash">Cash</option>
                             <option value="Bank">Bank</option>

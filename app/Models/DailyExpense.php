@@ -14,7 +14,7 @@ class DailyExpense extends Model
     protected $fillable = [
         'date',
         'voucher_no',
-        'account_head_id',
+        'ac_head_id',
         'party_id',
         'description',
         'amount',
@@ -30,7 +30,7 @@ class DailyExpense extends Model
 
     public function accountHead()
     {
-        return $this->belongsTo(AccountHeadMaster::class, 'account_head_id');
+        return $this->belongsTo(AccountHeadMaster::class, 'ac_head_id');
     }
 
     public function party()

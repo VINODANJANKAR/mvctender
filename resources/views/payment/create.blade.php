@@ -20,41 +20,24 @@
                 <div class="row">
                     <div class="col-md-4 mb-3">
                         <label for="date" class="form-label">Date</label>
-                        <input type="date" class="form-control @error('date') is-invalid @enderror" id="date" name="date" value="{{ $currentDate }}" required>
+                        <input type="date" class="form-control @error('date') is-invalid @enderror" id="date" name="date" value="" required>
                         @error('date')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
 
                     <div class="col-md-4 mb-3">
-                        <label for="voucher_no" class="form-label">Voucher No</label>
-                        <input type="text" class="form-control @error('voucher_no') is-invalid @enderror" id="voucher_no" name="voucher_no" value="{{ $voucherNo }}" required readonly>
-                        @error('voucher_no')
+                        <label for="paid_to" class="form-label">Paid to</label>
+                        <input type="text" class="form-control @error('paid_to') is-invalid @enderror" id="paid_to" name="paid_to" value="" required>
+                        @error('paid_to')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
 
                     <div class="col-md-4 mb-3">
-                        <label for="party_id" class="form-label">Party</label>
-                        <select name="party_id" id="party_id" class="form-select @error('party_id') is-invalid @enderror" required>
-                            <option value="">Select Party</option>
-                            @foreach($parties as $party)
-                                <option value="{{ $party->party_id }}">{{ $party->party_name }}</option>
-                            @endforeach
-                        </select>
-                        @error('party_id')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-
-                    <div class="col-md-4 mb-3">
-                        <label for="payment_type" class="form-label">Payment Type</label>
-                        <select name="payment_type" id="payment_type" class="form-select @error('payment_type') is-invalid @enderror" required>
-                            <option value="">Select Payment Type</option>
-                            <option value="Received">Received</option>
-                            <option value="Given">Given</option>
-                        </select>
-                        @error('payment_type')
+                        <label for="description" class="form-label">Description</label>
+                        <input type="text" class="form-control @error('description') is-invalid @enderror" id="description" name="description">
+                        @error('description')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
@@ -66,10 +49,26 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
+                    
+                    <div class="col-md-4 mb-3">
+                        <label for="gst_amount" class="form-label">GST Amount</label>
+                        <input type="number" step="0.01" class="form-control @error('gst_amount') is-invalid @enderror" id="gst_amount" name="gst_amount" required>
+                        @error('gst_amount')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    
+                    <div class="col-md-4 mb-3">
+                        <label for="total_amount" class="form-label">Total Amount</label>
+                        <input type="number" step="0.01" class="form-control @error('total_amount') is-invalid @enderror" id="total_amount" name="total_amount" required>
+                        @error('total_amount')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
 
                     <div class="col-md-4 mb-3">
                         <label for="payment_mode" class="form-label">Payment Mode</label>
-                        <select name="payment_mode" id="payment_mode" class="form-select @error('payment_mode') is-invalid @enderror" required>
+                        <select name="payment_mode" id="payment_mode" class="form-control form-select @error('payment_mode') is-invalid @enderror" required>
                             <option value="">Select Payment Mode</option>
                             <option value="Cash">Cash</option>
                             <option value="Bank">Bank</option>
@@ -83,17 +82,38 @@
                     </div>
 
                     <div class="col-md-4 mb-3">
-                        <label for="reference_no" class="form-label">Reference No</label>
-                        <input type="text" class="form-control @error('reference_no') is-invalid @enderror" id="reference_no" name="reference_no">
-                        @error('reference_no')
+                        <label for="beneficiary_name" class="form-label">Beneficiary Name</label>
+                        <input type="text" class="form-control @error('beneficiary_name') is-invalid @enderror" id="beneficiary_name" name="beneficiary_name">
+                        @error('beneficiary_name')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    
+                    <div class="col-md-4 mb-3">
+                        <label for="partner_id" class="form-label">Paid By</label>
+                        <select name="partner_id" id="partner_id" class="form-control form-select @error('partner_id') is-invalid @enderror" required>
+                            <option value="">Select Party</option>
+                            @foreach($partners as $partner)
+                            <option value="{{ $partner->partner_id }}">{{ $partner->partner_name }}</option>
+                            @endforeach
+                        </select>
+                        @error('partner_id')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    
+                    <div class="col-md-4 mb-3">
+                        <label for="bank_name" class="form-label">Bank Name</label>
+                        <input type="text" class="form-control @error('bank_name') is-invalid @enderror" id="bank_name" name="bank_name">
+                        @error('bank_name')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
 
-                    <div class="col-12 mb-3">
-                        <label for="description" class="form-label">Description</label>
-                        <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description" rows="3"></textarea>
-                        @error('description')
+                    <div class="col-md-4 mb-3">
+                        <label for="bank_ac_name" class="form-label">Bank A/c Name</label>
+                        <input type="text" class="form-control @error('bank_ac_name') is-invalid @enderror" id="bank_ac_name" name="bank_ac_name">
+                        @error('bank_ac_name')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>

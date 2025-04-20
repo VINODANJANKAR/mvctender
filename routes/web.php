@@ -37,7 +37,7 @@ Route::middleware(['auth'])->group(function () {
     // Transaction Routes
     Route::resource('tenders', TenderEntryController::class);
     Route::resource('work-orders', WorkOrderEntryController::class);
-    Route::resource('bills', BillDetailController::class);
+    Route::resource('bill-details', BillDetailController::class);
     Route::resource('daily-expenses', DailyExpenseController::class);
     Route::resource('materials', MaterialController::class);
     Route::resource('payments', PaymentEntryController::class);

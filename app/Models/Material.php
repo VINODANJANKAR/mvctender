@@ -10,22 +10,23 @@ class Material extends Model
     use HasFactory;
 
     protected $fillable = [
-        'date',
-        'voucher_no',
-        'account_head_id',
         'party_id',
-        'description',
+        'entry_no',
+        'entry_date',
+        'challan_no',
+        'challan_date',
+        'material_name',
         'quantity',
         'unit',
         'rate',
         'amount',
-        'payment_mode',
-        'reference_no',
-        'remark'
+        'site_code',
+        'name_of_work'
     ];
 
     protected $casts = [
-        'date' => 'date',
+        'entry_date' => 'date',
+        'challan_date' => 'date',
         'quantity' => 'decimal:2',
         'rate' => 'decimal:2',
         'amount' => 'decimal:2'

@@ -15,20 +15,21 @@
 
     <div class="card">
         <div class="card-body">
-            <form action="{{ route('bill-details.update', $billDetail) }}" method="POST">
+            <form action="{{ route('bill-details.update', $billDetail->id) }}" method="POST">
                 @csrf
                 @method('PUT')
                 <div class="row">
                     <div class="col-md-4 mb-3">
                         <label for="site_code" class="form-label">Site Code</label>
-                        <select name="site_code" id="site_code" class="form-select @error('site_code') is-invalid @enderror" required>
+                        <input type="text" class="form-control @error('sitecode') is-invalid @enderror" id="site_code" name="site_code" value="{{ $billDetail->site_code }}" required>
+                        {{-- <select name="site_code" id="site_code" class="form-control form-select @error('site_code') is-invalid @enderror" required>
                             <option value="">Select Site Code</option>
                             @foreach($workOrders as $workOrder)
                                 <option value="{{ $workOrder->site_code }}" {{ $billDetail->site_code == $workOrder->site_code ? 'selected' : '' }}>
                                     {{ $workOrder->site_code }}
                                 </option>
                             @endforeach
-                        </select>
+                        </select> --}}
                         @error('site_code')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -36,7 +37,7 @@
 
                     <div class="col-md-4 mb-3">
                         <label for="year" class="form-label">Year</label>
-                        <input type="number" class="form-control @error('year') is-invalid @enderror" id="year" name="year" value="{{ $billDetail->year }}" required>
+                        <input type="text" class="form-control @error('year') is-invalid @enderror" id="year" name="year" value="{{ $billDetail->year }}" required>
                         @error('year')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -52,7 +53,7 @@
 
                     <div class="col-md-4 mb-3">
                         <label for="department_id" class="form-label">Department</label>
-                        <select name="department_id" id="department_id" class="form-select @error('department_id') is-invalid @enderror" required>
+                        <select name="department_id" id="department_id" class="form-control form-select @error('department_id') is-invalid @enderror" required>
                             <option value="">Select Department</option>
                             @foreach($departments as $department)
                                 <option value="{{ $department->department_id }}" {{ $billDetail->department_id == $department->department_id ? 'selected' : '' }}>
@@ -75,7 +76,7 @@
 
                     <div class="col-md-4 mb-3">
                         <label for="subcontractor_id" class="form-label">Subcontractor</label>
-                        <select name="subcontractor_id" id="subcontractor_id" class="form-select @error('subcontractor_id') is-invalid @enderror">
+                        <select name="subcontractor_id" id="subcontractor_id" class="form-control form-select @error('subcontractor_id') is-invalid @enderror">
                             <option value="">Select Subcontractor</option>
                             @foreach($partners as $partner)
                                 <option value="{{ $partner->partner_id }}" {{ $billDetail->subcontractor_id == $partner->partner_id ? 'selected' : '' }}>
@@ -106,7 +107,7 @@
 
                     <div class="col-md-4 mb-3">
                         <label for="work_done_by_id" class="form-label">Work Done By</label>
-                        <select name="work_done_by_id" id="work_done_by_id" class="form-select @error('work_done_by_id') is-invalid @enderror" required>
+                        <select name="work_done_by_id" id="work_done_by_id" class="form-control form-select @error('work_done_by_id') is-invalid @enderror" required>
                             <option value="">Select Work Done By</option>
                             @foreach($partners as $partner)
                                 <option value="{{ $partner->partner_id }}" {{ $billDetail->work_done_by_id == $partner->partner_id ? 'selected' : '' }}>
@@ -128,9 +129,9 @@
                     </div>
 
                     <div class="col-md-4 mb-3">
-                        <label for="bill_no_stage" class="form-label">Bill No/Stage</label>
-                        <input type="text" class="form-control @error('bill_no_stage') is-invalid @enderror" id="bill_no_stage" name="bill_no_stage" value="{{ $billDetail->bill_no_stage }}" required>
-                        @error('bill_no_stage')
+                        <label for="bill_no" class="form-label">Bill No/Stage</label>
+                        <input type="text" class="form-control @error('bill_no') is-invalid @enderror" id="bill_no" name="bill_no" value="{{ $billDetail->bill_no }}" required>
+                        @error('bill_no')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
@@ -160,9 +161,9 @@
                     </div>
 
                     <div class="col-md-4 mb-3">
-                        <label for="total_bill_amt" class="form-label">Total Bill Amount</label>
-                        <input type="number" step="0.01" class="form-control @error('total_bill_amt') is-invalid @enderror" id="total_bill_amt" name="total_bill_amt" value="{{ $billDetail->total_bill_amt }}" required>
-                        @error('total_bill_amt')
+                        <label for="total_bill_amount" class="form-label">Total Bill Amount</label>
+                        <input type="number" step="0.01" class="form-control @error('total_bill_amount') is-invalid @enderror" id="total_bill_amount" name="total_bill_amount" value="{{ $billDetail->total_bill_amount }}" required>
+                        @error('total_bill_amount')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
@@ -312,8 +313,8 @@
     </div>
 </div>
 
-@push('scripts')
-<script>
+@push('js')
+{{-- <script>
     document.getElementById('site_code').addEventListener('change', function() {
         const siteCode = this.value;
         if (siteCode) {
@@ -331,6 +332,6 @@
                 });
         }
     });
-</script>
+</script> --}}
 @endpush
 @endsection 

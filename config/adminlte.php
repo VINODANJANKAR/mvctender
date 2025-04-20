@@ -332,15 +332,31 @@ return [
         //     'icon' => 'far fa-fw fa-handshake',
         // ],
         // ['header' => 'account_settings'],
-        // [
-        //     'text' => 'Parties',
-        //     'route' => 'parties.index',
-        //     'icon' => 'far fa-fw fa-user',
-        // ],
+        
         [
             'text' => 'Work Order',
             'route' => 'work-orders.index',
-            'icon' => 'far fa-fw fa-user',
+            'icon' => 'far fa-fw fa-building',
+        ],
+        [
+            'text' => 'Bill Details',
+            'route' => 'bill-details.index',
+            'icon' => 'far fa-fw fa-credit-card',
+        ],
+        [
+            'text' => 'Daily Expenses',
+            'route' => 'daily-expenses.index',
+            'icon' => 'far fa-fw fa-shopping-cart',
+        ],
+        [
+            'text' => 'Material Entry',
+            'route' => 'materials.index',
+            'icon' => 'far fa-fw fa-check',
+        ],
+        [
+            'text' => 'Payment Entry',
+            'route' => 'payments.index',
+            'icon' => 'far fa-fw fa-money',
         ],
         [
             'text' => 'Masters',

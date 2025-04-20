@@ -10,6 +10,7 @@ class PartyMasterController extends Controller
     public function index()
     {
         $parties = PartyMaster::latest()->get();
+        // dd($parties);
         return view('masters.party.index', compact('parties'));
     }
 
@@ -38,7 +39,7 @@ class PartyMasterController extends Controller
 
     public function edit(PartyMaster $party)
     {
-        return view('party-master.edit', compact('party'));
+        return view('masters.party.edit', compact('party'));
     }
 
     public function update(Request $request, PartyMaster $party)
