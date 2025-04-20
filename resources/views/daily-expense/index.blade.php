@@ -25,28 +25,28 @@
                 <table class="table table-striped table-bordered">
                     <thead>
                         <tr>
+                            <th>Sote Code</th>
                             <th>Date</th>
                             <th>Voucher No</th>
-                            <th>Account Head</th>
-                            <th>Party</th>
+                            <th>Paid To</th>
+                            <th>Paid by</th>
                             <th>Description</th>
                             <th>Amount</th>
                             <th>Payment Mode</th>
-                            <th>Reference No</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($expenses as $expense)
                             <tr>
-                                <td>{{ $expense->date->format('d-m-Y') }}</td>
-                                <td>{{ $expense->voucher_no }}</td>
-                                <td>{{ $expense['accountHead']->ac_head_name }}</td>
-                                <td>{{ $expense['party']->party_name }}</td>
+                                <td>{{ $expense->site_code }}</td>
+                                <td>{{ $expense->entry_date->format('d-m-Y') }}</td>
+                                <td>{{ $expense->entry_no }}</td>
+                                <td>{{ $expense->paid_to }}</td>
+                                <td>{{ $expense['partner']->partner_name }}</td>
                                 <td>{{ $expense->description }}</td>
                                 <td>{{ number_format($expense->amount, 2) }}</td>
                                 <td>{{ $expense->payment_mode }}</td>
-                                <td>{{ $expense->reference_no }}</td>
                                 <td>
                                     <a href="{{ route('daily-expenses.edit', $expense) }}" class="btn btn-sm btn-primary">Edit</a>
                                     <form action="{{ route('daily-expenses.destroy', $expense) }}" method="POST" class="d-inline">

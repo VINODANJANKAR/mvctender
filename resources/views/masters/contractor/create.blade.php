@@ -35,7 +35,7 @@
                     <div class="col-md-4">
                         <label for="address" class="form-label">Contractor Address</label>
                     <input type="text" class="form-control @error('address') is-invalid @enderror" 
-                           id="name" name="address" value="{{ old('address') }}" required>
+                           id="address" name="address" value="{{ old('address') }}" required>
                     @error('address')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror

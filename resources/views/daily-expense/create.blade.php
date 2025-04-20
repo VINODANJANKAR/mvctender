@@ -19,43 +19,41 @@
                 @csrf
                 <div class="row">
                     <div class="col-md-4 mb-3">
-                        <label for="date" class="form-label">Date</label>
-                        <input type="date" class="form-control @error('date') is-invalid @enderror" id="date" name="date" value="{{ $currentDate }}" required>
-                        @error('date')
+                        <label for="entry_no" class="form-label">Entry No</label>
+                        <input type="text" class="form-control @error('entry_no') is-invalid @enderror" id="entry_no" name="entry_no" value="{{ $voucherNo }}" required readonly>
+                        @error('entry_no')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
 
                     <div class="col-md-4 mb-3">
-                        <label for="voucher_no" class="form-label">Voucher No</label>
-                        <input type="text" class="form-control @error('voucher_no') is-invalid @enderror" id="voucher_no" name="voucher_no" value="{{ $voucherNo }}" required readonly>
-                        @error('voucher_no')
+                        <label for="entry_date" class="form-label">Entry Date</label>
+                        <input type="date" class="form-control @error('entry_date') is-invalid @enderror" id="entry_date" name="entry_date" value="{{ $currentDate }}" required readonly>
+                        @error('entry_date')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    
+                    <div class="col-md-4 mb-3">
+                        <label for="expense_date" class="form-label">Expense Date</label>
+                        <input type="date" class="form-control @error('expense_date') is-invalid @enderror" id="expense_date" name="expense_date" value="{{ $currentDate }}" required>
+                        @error('expense_date')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
 
                     <div class="col-md-4 mb-3">
-                        <label for="ac_head_id" class="form-label">Account Head</label>
-                        <select name="ac_head_id" id="ac_head_id" class="form-control form-select @error('ac_head_id') is-invalid @enderror" required>
-                            <option value="">Select Account Head</option>
-                            @foreach($accountHeads as $accountHead)
-                                <option value="{{ $accountHead->ac_head_id }}">{{ $accountHead->ac_head_name }}</option>
-                            @endforeach
-                        </select>
-                        @error('ac_head_id')
+                        <label for="site_code" class="form-label">Site Code</label>
+                        <input type="text" class="form-control @error('site_code') is-invalid @enderror" id="site_code" name="site_code">
+                        @error('site_code')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
 
                     <div class="col-md-4 mb-3">
-                        <label for="party_id" class="form-label">Party</label>
-                        <select name="party_id" id="party_id" class="form-control form-select @error('party_id') is-invalid @enderror" required>
-                            <option value="">Select Party</option>
-                            @foreach($parties as $party)
-                                <option value="{{ $party->party_id }}">{{ $party->party_name }}</option>
-                            @endforeach
-                        </select>
-                        @error('party_id')
+                        <label for="name_of_work" class="form-label">Name of Work</label>
+                        <input type="text" class="form-control @error('name_of_work') is-invalid @enderror" id="name_of_work" name="name_of_work">
+                        @error('name_of_work')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
@@ -69,15 +67,31 @@
                     </div>
 
                     <div class="col-md-4 mb-3">
-                        <label for="amount" class="form-label">Amount</label>
-                        <input type="number" step="0.01" class="form-control @error('amount') is-invalid @enderror" id="amount" name="amount" required>
-                        @error('amount')
+                        <label for="paid_to" class="form-label">Paid to</label>
+                        <input type="text" class="form-control @error('paid_to') is-invalid @enderror" id="paid_to" name="paid_to" required>
+                        @error('paid_to')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    
+                    <div class="col-md-4 mb-3">
+                        <label for="payment_through" class="form-label">Payment Through</label>
+                        <input type="text" class="form-control @error('payment_through') is-invalid @enderror" id="payment_through" name="payment_through" required>
+                        @error('payment_through')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
 
                     <div class="col-md-4 mb-3">
-                        <label for="payment_mode" class="form-label">Payment Mode</label>
+                        <label for="amount" class="form-label">Amount</label>
+                        <input type="number" step="0.01" class="form-control @error('amount') is-invalid @enderror" id="amount" name="amount" required>
+                        @error('amount')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label for="payment_mode" class="form-label">Mode of Payment</label>
                         <select name="payment_mode" id="payment_mode" class="form-control form-select @error('payment_mode') is-invalid @enderror" required>
                             <option value="">Select Payment Mode</option>
                             <option value="Cash">Cash</option>
@@ -92,20 +106,18 @@
                     </div>
 
                     <div class="col-md-4 mb-3">
-                        <label for="reference_no" class="form-label">Reference No</label>
-                        <input type="text" class="form-control @error('reference_no') is-invalid @enderror" id="reference_no" name="reference_no">
-                        @error('reference_no')
+                        <label for="paid_by" class="form-label">Paid By</label>
+                        <select name="paid_by" id="paid_by" class="form-control form-select @error('paid_by') is-invalid @enderror" required>
+                            <option value="">Select Partner</option>
+                            @foreach($partners as $partner)
+                                <option value="{{ $partner->partner_id }}">{{ $partner->partner_name }}</option>
+                            @endforeach
+                        </select>
+                        @error('paid_by')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
 
-                    <div class="col-12 mb-3">
-                        <label for="remark" class="form-label">Remark</label>
-                        <textarea class="form-control @error('remark') is-invalid @enderror" id="remark" name="remark" rows="3"></textarea>
-                        @error('remark')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
                 </div>
 
                 <div class="text-end">

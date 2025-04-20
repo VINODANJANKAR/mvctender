@@ -15,7 +15,7 @@
                 @method('PUT')
                 <div class="mb-3">
                     <label for="party_type" class="form-label">Party Type</label>
-                    <select class="form-select @error('party_type') is-invalid @enderror" 
+                    <select class="form-control form-select @error('party_type') is-invalid @enderror" 
                             id="party_type" name="party_type" required>
                         <option value="">Select Party Type</option>
                         <option value="Supplier" {{ old('party_type', $party->party_type) == 'Supplier' ? 'selected' : '' }}>Supplier</option>

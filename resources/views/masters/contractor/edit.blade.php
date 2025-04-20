@@ -21,12 +21,21 @@
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
-
+                
                 <div class="mb-3">
                     <label for="mobile_number" class="form-label">Mobile Number</label>
                     <input type="text" class="form-control @error('mobile_number') is-invalid @enderror" 
-                           id="mobile_number" name="mobile_number" value="{{ old('mobile_number', $contractor->mobile_number) }}" required>
+                        id="mobile_number" name="mobile_number" value="{{ old('mobile_number', $contractor->mobile_number) }}" required>
                     @error('mobile_number')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <div class="mb-3">
+                    <label for="address" class="form-label">Contractor Address</label>
+                    <input type="text" class="form-control @error('name') is-invalid @enderror" 
+                            id="address" name="address" value="{{ old('address', $contractor->address) }}" required>
+                    @error('address')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>

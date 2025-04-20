@@ -1314,28 +1314,31 @@ namespace App\Models {
      *
      * @property \Illuminate\Support\Carbon|null $updated_at
      * @property \Illuminate\Support\Carbon|null $created_at
-     * @property string|null $remark
-     * @property string|null $reference_no
+     * @property mixed $paid_by
      * @property mixed $payment_mode
      * @property decimal:2|null $amount
+     * @property string|null $payment_throiugh
+     * @property string|null $paid_to
      * @property string|null $description
-     * @property mixed $party_id
-     * @property mixed $ac_head_id
-     * @property string|null $voucher_no
-     * @property \Illuminate\Support\Carbon|null $date
+     * @property string|null $name_of_work
+     * @property string|null $site_code
+     * @property \Illuminate\Support\Carbon|null $expense_date
+     * @property \Illuminate\Support\Carbon|null $entry_date
+     * @property string|null $entry_no
      * @property int $id
-     * @property-read \App\Models\AccountHeadMaster $accountHead
-     * @property-read \App\Models\PartyMaster $party
+     * @property-read \App\Models\PartnerMaster $partner
      * @method static \Illuminate\Database\Eloquent\Builder<DailyExpense>|DailyExpense whereId($value)
-     * @method static \Illuminate\Database\Eloquent\Builder<DailyExpense>|DailyExpense whereDate($value)
-     * @method static \Illuminate\Database\Eloquent\Builder<DailyExpense>|DailyExpense whereVoucherNo($value)
-     * @method static \Illuminate\Database\Eloquent\Builder<DailyExpense>|DailyExpense whereAcHeadId($value)
-     * @method static \Illuminate\Database\Eloquent\Builder<DailyExpense>|DailyExpense wherePartyId($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<DailyExpense>|DailyExpense whereEntryNo($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<DailyExpense>|DailyExpense whereEntryDate($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<DailyExpense>|DailyExpense whereExpenseDate($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<DailyExpense>|DailyExpense whereSiteCode($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<DailyExpense>|DailyExpense whereNameOfWork($value)
      * @method static \Illuminate\Database\Eloquent\Builder<DailyExpense>|DailyExpense whereDescription($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<DailyExpense>|DailyExpense wherePaidTo($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<DailyExpense>|DailyExpense wherePaymentThroiugh($value)
      * @method static \Illuminate\Database\Eloquent\Builder<DailyExpense>|DailyExpense whereAmount($value)
      * @method static \Illuminate\Database\Eloquent\Builder<DailyExpense>|DailyExpense wherePaymentMode($value)
-     * @method static \Illuminate\Database\Eloquent\Builder<DailyExpense>|DailyExpense whereReferenceNo($value)
-     * @method static \Illuminate\Database\Eloquent\Builder<DailyExpense>|DailyExpense whereRemark($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<DailyExpense>|DailyExpense wherePaidBy($value)
      * @method static \Illuminate\Database\Eloquent\Builder<DailyExpense>|DailyExpense whereCreatedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<DailyExpense>|DailyExpense whereUpdatedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<DailyExpense>|DailyExpense newModelQuery()

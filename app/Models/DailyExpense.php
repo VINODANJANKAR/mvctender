@@ -12,29 +12,27 @@ class DailyExpense extends Model
     protected $table = 'daily_expenses';
 
     protected $fillable = [
-        'date',
-        'voucher_no',
-        'ac_head_id',
-        'party_id',
+        'entry_no',
+        'entry_date',
+        'expense_date',
+        'site_code',
+        'name_of_work',
         'description',
+        'paid_to',
+        'payment_through',
         'amount',
         'payment_mode',
-        'reference_no',
-        'remark'
+        'paid_by'
     ];
 
     protected $casts = [
-        'date' => 'date',
+        'entry_date' => 'date',
+        'expense_date' => 'date',
         'amount' => 'decimal:2'
     ];
 
-    public function accountHead()
+    public function partner()
     {
-        return $this->belongsTo(AccountHeadMaster::class, 'ac_head_id');
-    }
-
-    public function party()
-    {
-        return $this->belongsTo(PartyMaster::class, 'party_id');
+        return $this->belongsTo(PartnerMaster::class, 'paid_by');
     }
 } 

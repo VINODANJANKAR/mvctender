@@ -96,7 +96,16 @@
                     
                     <div class="col-md-4 mb-3">
                         <label for="unit" class="form-label">Unit (Kg/Ltr)</label>
-                        <input type="text" class="form-control @error('unit') is-invalid @enderror" id="unit" name="unit">
+                        <select name="unit" id="unit" class="form-control form-select @error('unit') is-invalid @enderror" required>
+                            <option value="">Select Unit</option>
+                            <option value="Kgs">Kgs</option>
+                            <option value="Mtr">Mtr</option>
+                            <option value="Ltr">Ltr</option>
+                            <option value="Pair">Pair</option>
+                            <option value="Bag">Bag</option>
+                            <option value="Brass">Brass</option>
+                            <option value="Nos">Nos</option>
+                        </select>
                         @error('unit')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror

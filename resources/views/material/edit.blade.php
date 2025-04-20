@@ -90,7 +90,16 @@
                     
                     <div class="col-md-4 mb-3">
                         <label for="unit" class="form-label">Unit</label>
-                        <input type="text" class="form-control @error('unit') is-invalid @enderror" id="unit" name="unit" value="{{ old('unit', $material->unit) }}">
+                        <select name="unit" id="unit" class="form-control form-select @error('unit') is-invalid @enderror" required>
+                            <option value="">Select Unit</option>
+                            <option value="Kgs" {{ old('unit', $material->unit) == 'Kgs' ? 'selected' : '' }}>Kgs</option>
+                            <option value="Mtr" {{ old('unit', $material->unit) == 'Mtr' ? 'selected' : '' }}>Mtr</option>
+                            <option value="Ltr" {{ old('unit', $material->unit) == 'Ltr' ? 'selected' : '' }}>Ltr</option>
+                            <option value="Pair" {{ old('unit', $material->unit) == 'Pair' ? 'selected' : '' }}>Pair</option>
+                            <option value="Bag" {{ old('unit', $material->unit) == 'Bag' ? 'selected' : '' }}>Bag</option>
+                            <option value="Brass" {{ old('unit', $material->unit) == 'Brass' ? 'selected' : '' }}>Brass</option>
+                            <option value="Nos" {{ old('unit', $material->unit) == 'Nos' ? 'selected' : '' }}>Nos</option>
+                        </select>
                         @error('unit')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror

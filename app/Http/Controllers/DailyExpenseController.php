@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\DailyExpense;
 use App\Models\AccountHeadMaster;
-use App\Models\PartyMaster;
+use App\Models\PartnerMaster;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
@@ -12,7 +12,7 @@ class DailyExpenseController extends Controller
 {
     public function index()
     {
-        $expenses = DailyExpense::with(['accountHead', 'party'])
+        $expenses = DailyExpense::with([ 'partner'])
             ->latest()
             ->get();
         // dd($expenses[0]['accountHead']->ac_head_name);
@@ -23,25 +23,26 @@ class DailyExpenseController extends Controller
     {
         $currentDate = Carbon::now()->format('Y-m-d');
         $voucherNo = $this->generateVoucherNo();
-        $accountHeads = AccountHeadMaster::get();
-        $parties = PartyMaster::all();
+        $partners = PartnerMaster::all();
         // dd($accountHeads);
-        return view('daily-expense.create', compact('currentDate', 'voucherNo', 'accountHeads', 'parties'));
+        return view('daily-expense.create', compact('currentDate', 'voucherNo', 'partners'));
     }
 
     public function store(Request $request)
     {
         try{
             $request->validate([
-                'date' => 'required|date',
-                'voucher_no' => 'required|string|unique:daily_expenses',
-                'ac_head_id' => 'required|exists:account_head_master,ac_head_id',
-                'party_id' => 'required|exists:party_master,party_id',
+                'entry_no' => 'required|string|unique:daily_expenses',
+                'entry_date' => 'required|date',
+                'expense_date' => 'required|date',
+                'site_code' => 'nullable|string|max:255',
+                'name_of_work' => 'nullable|string|max:255',
                 'description' => 'required|string|max:255',
+                'paid_to' => 'nullable|string|max:255',
+                'payment_through' => 'nullable|string|max:255',
                 'amount' => 'required|numeric|min:0',
                 'payment_mode' => 'required|string|in:Cash,Bank,UPI,Card,Other',
-                'reference_no' => 'nullable|string|max:255',
-                'remark' => 'nullable|string'
+                'paid_by' => 'required|exists:partner_master,partner_id'
             ]);
     
             DailyExpense::create($request->all());
@@ -56,23 +57,24 @@ class DailyExpenseController extends Controller
 
     public function edit(DailyExpense $dailyExpense)
     {
-        $accountHeads = AccountHeadMaster::all();
-        $parties = PartyMaster::all();
-        return view('daily-expense.edit', compact('dailyExpense', 'accountHeads', 'parties'));
+        $partners = PartnerMaster::all();
+        return view('daily-expense.edit', compact('dailyExpense', 'partners'));
     }
 
     public function update(Request $request, DailyExpense $dailyExpense)
     {
         $request->validate([
-            'date' => 'required|date',
-            'voucher_no' => 'required|string|unique:daily_expenses,voucher_no,' . $dailyExpense->id,
-            'ac_head_id' => 'required|exists:account_head_master,ac_head_id',
-            'party_id' => 'required|exists:party_master,party_id',
+            'entry_no' => 'required|string|unique:daily_expenses,entry_no,' . $dailyExpense->id,
+            'entry_date' => 'required|date',
+            'expense_date' => 'required|date',
+            'site_code' => 'nullable|string|max:255',
+            'name_of_work' => 'nullable|string|max:255',
             'description' => 'required|string|max:255',
+            'paid_to' => 'nullable|string|max:255',
+            'payment_through' => 'nullable|string|max:255',
             'amount' => 'required|numeric|min:0',
             'payment_mode' => 'required|string|in:Cash,Bank,UPI,Card,Other',
-            'reference_no' => 'nullable|string|max:255',
-            'remark' => 'nullable|string'
+            'paid_by' => 'required|exists:partner_master,partner_id'
         ]);
 
         $dailyExpense->update($request->all());
@@ -92,12 +94,12 @@ class DailyExpenseController extends Controller
     private function generateVoucherNo()
     {
         $year = Carbon::now()->year;
-        $lastExpense = DailyExpense::whereYear('date', $year)
-            ->orderBy('voucher_no', 'desc')
+        $lastExpense = DailyExpense::whereYear('entry_date', $year)
+            ->orderBy('entry_no', 'desc')
             ->first();
 
         if ($lastExpense) {
-            $lastNumber = intval(substr($lastExpense->voucher_no, -4));
+            $lastNumber = intval(substr($lastExpense->entry_no, -4));
             $newNumber = str_pad($lastNumber + 1, 4, '0', STR_PAD_LEFT);
         } else {
             $newNumber = '0001';

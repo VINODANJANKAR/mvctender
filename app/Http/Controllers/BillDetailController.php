@@ -66,7 +66,7 @@ class BillDetailController extends Controller
             ]);
             // dd($request->all());
             BillDetail::create($request->all());
-            return redirect()->route('bill-detail.index')->with('success', 'Bill Detail created successfully.');
+            return redirect()->route('bill-details.index')->with('success', 'Bill Detail created successfully.');
         }catch (\Illuminate\Validation\ValidationException $e) {
             dd($e->errors()); // This will dump all validation errors
         }

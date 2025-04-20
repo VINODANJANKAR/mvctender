@@ -15,7 +15,7 @@
     
     <div class="card">
         <div class="card-body">
-            <form action="{{ route('bill-detail.store') }}" method="POST">
+            <form action="{{ route('bill-details.store') }}" method="POST">
                 @csrf
                 <h5>Bill Details</h5>
                 <hr style="border: 1px solid black;">
