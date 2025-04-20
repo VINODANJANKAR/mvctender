@@ -326,11 +326,6 @@ return [
             'icon' => 'far fa-fw fa-file',
             'label_color' => 'success',
         ],
-        // [
-        //     'text' => 'Partners',
-        //     'route' => 'partners.index',
-        //     'icon' => 'far fa-fw fa-handshake',
-        // ],
         // ['header' => 'account_settings'],
         
         [
@@ -357,6 +352,11 @@ return [
             'text' => 'Payment Entry',
             'route' => 'payments.index',
             'icon' => 'far fa-fw fa-money',
+        ],
+        [
+            'text' => 'Bill Adjustment Entry',
+            'route' => 'bill-adjustments.index',
+            'icon' => 'far fa-fw fa-handshake',
         ],
         [
             'text' => 'Masters',
