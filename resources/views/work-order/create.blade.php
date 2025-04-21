@@ -32,7 +32,7 @@
 
                     <div class="col-md-4 mb-3">
                         <label for="site_code" class="form-label">Site Code</label>
-                        <input type="text" class="form-control form-select" id="site_code" value="{{ $siteCode }}" readonly>
+                        <input type="text" class="form-control form-select" name="site_code" id="site_code" value="{{ $siteCode }}" readonly>
                     </div>
 
                     <div class="col-md-4 mb-3">
@@ -505,11 +505,11 @@ document.getElementById('add-additional-security-deposit').addEventListener('cli
 });
 
 
-// stop button to submit multiple 
-document.getElementById('submitButton').addEventListener('click', function () {
-    this.disabled = true; // Disable the button
-    this.innerText = 'Submitting...'; // Change text to indicate action
+document.getElementById('workOrderForm').addEventListener('submit', function(event) {
+    document.getElementById('submitButton').disabled = true;
+    document.getElementById('submitButton').innerText = 'Submitting...';
 });
+
 
     </script>
     

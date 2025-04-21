@@ -199,7 +199,8 @@ class TenderEntryController extends Controller
             ->first();
 
         if ($lastTender) {
-            $lastNumber = intval(substr($lastTender->tender_no, -4));
+            // $lastNumber = intval(substr($lastTender->tender_no, -4));
+            $lastNumber = preg_replace('/[^0-9]/', '', $lastTender->tender_no);
             $newNumber = 'TO'.str_pad($lastNumber + 1, 3, '0', STR_PAD_LEFT);
         } else {
             $newNumber = 'TO001';

@@ -28,7 +28,7 @@
             <tbody>
                 @foreach($tenders as $tender)
                     <tr>
-                        <td>{{ $tender->tender_no }}</td>
+                        <td>{{ $loop->iteration }}</td>
                         <td>{{ $tender->entry_date }}</td>
                         <td>{{ $tender->entry_year }}</td>
                         <td>{{ $tender->department->department_name }}</td>

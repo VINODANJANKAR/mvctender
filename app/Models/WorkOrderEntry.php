@@ -36,7 +36,7 @@ class WorkOrderEntry extends Model
     // ];
     protected $fillable = [
         'entry_date', 'entry_year', 'sr_no', 'tender_id',
-        'agreement_no', 'department_id', 'contractor_id', 'work_order_no',
+        'agreement_no', 'department_id', 'contractor_id', 'subcontractor_id','work_order_no',
         'work_order_date', 'work_order_amount', 'work_time_limit',
         'dlp_period', 'security_deposite', 'additional_security_deposit',
         'name_of_work', 'work_head', 'work_done_by','bond_amount','bond_amount_bank','bond_amount_paid_by','created_at', 'updated_at'

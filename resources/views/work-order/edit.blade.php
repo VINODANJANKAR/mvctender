@@ -16,7 +16,7 @@
                 <div class="row">
                     <div class="col-md-4 mb-3">
                         <label for="sr_no" class="form-label">SR No</label>
-                        <input type="text" class="form-control" id="sr_no" value="{{ $workOrder->sr_no }}" readonly>
+                        <input type="text" class="form-control" id="sr_no" value="{{ $workOrder->tender->tender_no }}" readonly>
                     </div>
 
                     <div class="col-md-4 mb-3">
