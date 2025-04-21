@@ -98,7 +98,7 @@ class BillDetailController extends Controller
                 'year' => 'required|string',
                 'date' => 'required|date',
                 'department_id' => 'required|exists:department_master,department_id',
-                'name_of_contractor' => 'required|string',
+                'contractor_id' => 'nullable|exists:partner_master,partner_id',
                 'subcontractor_id' => 'nullable|exists:partner_master,partner_id',
                 'name_of_work' => 'required|string',
                 'name_of_bank' => 'required|string',
