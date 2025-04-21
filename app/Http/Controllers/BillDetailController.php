@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\BillDetail;
 use App\Models\DepartmentMaster;
+use App\Models\ContractorMaster;
 use App\Models\PartnerMaster;
 use App\Models\WorkOrderEntry;
 use Illuminate\Http\Request;
@@ -20,11 +21,15 @@ class BillDetailController extends Controller
 
     public function create()
     {
+        // $billDetails = BillDetail::with('workOrder')->get();
+        // dd($billDetails);
         $departments = DepartmentMaster::all();
-        $partners = PartnerMaster::all();
+        $contractors = ContractorMaster::all();
         $workOrders = WorkOrderEntry::all();
+        $partners = Partnermaster::all();
+        // dd($workOrders);
         $currentYear = date('Y');
-        return view('bill-detail.create', compact('departments', 'partners', 'workOrders', 'currentYear'));
+        return view('bill-detail.create', compact('departments', 'contractors', 'workOrders', 'partners', 'currentYear'));
     }
 
     public function store(Request $request)
@@ -79,9 +84,10 @@ class BillDetailController extends Controller
         // $bills = BillDetail::all($billDetail->id);
         // dd($billDetail);
         $departments = DepartmentMaster::all();
-        $partners = PartnerMaster::all();
+        $contractors = ContractorMaster::all();
         $workOrders = WorkOrderEntry::all();
-        return view('bill-detail.edit', compact('billDetail', 'departments', 'partners', 'workOrders'));
+        $partners = PartnerMaster::all();
+        return view('bill-detail.edit', compact('billDetail', 'departments', 'contractors', 'partners', 'workOrders'));
     }
 
     public function update(Request $request, BillDetail $billDetail)
@@ -137,19 +143,28 @@ class BillDetailController extends Controller
             ->with('success', 'Bill Detail deleted successfully.');
     }
 
-    // public function getWorkOrderDetails(Request $request)
-    // {
-    //     $workOrder = WorkOrderEntry::where('site_code', $request->site_code)->first();
-    //     if ($workOrder) {
-    //         return response()->json([
-    //             'department_id' => $workOrder->department_id,
-    //             'name_of_work' => $workOrder->name_of_work,
-    //             'name_of_contractor' => $workOrder->name_of_contractor,
-    //             'work_order_amount' => $workOrder->work_order_amount,
-    //             'work_time_limit' => $workOrder->work_time_limit,
-    //             'dlp_period' => $workOrder->dlp_period
-    //         ]);
-    //     }
-    //     return response()->json(null);
-    // }
+    public function getWorkOderDetails(Request $request)
+    {
+        $workOrder = WorkOrderEntry::where('id', $request->site_code)->first();
+        // dd($workOrder);
+        if ($workOrder) {
+            return response()->json([
+                'department_id' => $workOrder->department_id,
+                'name_of_work' => $workOrder->name_of_work,
+                'contractor_id' => $workOrder->contractor_id,
+                'subcontractor_id' => $workOrder->subcontractor_id,
+                // 'work_order_amount' => $workOrder->work_order_amount,
+                'work_time_limit' => $workOrder->work_time_limit,
+                'dlp_period' => $workOrder->dlp_period,
+                'work_done_by' => $workOrder->work_done_by,
+                'agreement_no' => $workOrder->agreement_no
+            ]);
+        }
+        return response()->json(null);
+    }
+
+    public function show($id)
+    {
+        return response()->json(['message' => 'Show method not implemented'], 404);
+    }
 } 

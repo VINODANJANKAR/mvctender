@@ -37,6 +37,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('account-heads', AccountHeadMasterController::class);
     Route::get('work-orders/get-tender-details', [WorkOrderEntryController::class, 'getTenderDetails']);
     Route::get('work-orders/get-contractors', [WorkOrderEntryController::class, 'getContractors']);
+    Route::get('/bill-details/get-work-order-details', [BillDetailController::class, 'getWorkOderDetails']);
     // Transaction Routes
     Route::resource('tenders', TenderEntryController::class);
     Route::resource('work-orders', WorkOrderEntryController::class);

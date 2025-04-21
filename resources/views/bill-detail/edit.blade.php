@@ -67,9 +67,16 @@
                     </div>
 
                     <div class="col-md-4 mb-3">
-                        <label for="name_of_contractor" class="form-label">Name of Contractor</label>
-                        <input type="text" class="form-control @error('name_of_contractor') is-invalid @enderror" id="name_of_contractor" name="name_of_contractor" value="{{ $billDetail->name_of_contractor }}" required>
-                        @error('name_of_contractor')
+                        <label for="contractor_id" class="form-label">Name of Contractor</label>
+                        {{-- <input type="text" class="form-control @error('contractor_id') is-invalid @enderror" id="contractor_id" name="contractor_id" required> --}}
+                        <select name="contractor_id" id="contractor_id" class="form-control form-select @error('contractor_id') is-invalid @enderror">
+                            <option value="">Select Contractor</option>
+                            @foreach($contractors as $contractor)
+                                <option value="{{ $contractor->id }}"
+                                    {{ old('contractor_id') == $contractor->id ? 'selected' : '' }}>{{ $contractor->name }}</option>
+                            @endforeach
+                        </select>
+                        @error('contractor_id')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
@@ -78,9 +85,9 @@
                         <label for="subcontractor_id" class="form-label">Subcontractor</label>
                         <select name="subcontractor_id" id="subcontractor_id" class="form-control form-select @error('subcontractor_id') is-invalid @enderror">
                             <option value="">Select Subcontractor</option>
-                            @foreach($partners as $partner)
-                                <option value="{{ $partner->partner_id }}" {{ $billDetail->subcontractor_id == $partner->partner_id ? 'selected' : '' }}>
-                                    {{ $partner->partner_name }}
+                            @foreach($contractors as $contractor)
+                                <option value="{{ $contractor->id }}" {{ $billDetail->subcontractor_id == $contractor->id ? 'selected' : '' }}>
+                                    {{ $contractor->name }}
                                 </option>
                             @endforeach
                         </select>

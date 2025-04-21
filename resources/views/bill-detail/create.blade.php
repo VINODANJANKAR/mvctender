@@ -22,13 +22,13 @@
                 <div class="row">
                     <div class="col-md-4 mb-3">
                         <label for="site_code" class="form-label">Site Code</label>
-                        <input type="text" class="form-control @error('sitecode') is-invalid @enderror" id="site_code" name="site_code" value="" required>
-                        {{-- <select name="site_code" id="site_code" class="form-control form-select @error('site_code') is-invalid @enderror" required>
+                        {{-- <input type="text" class="form-control @error('sitecode') is-invalid @enderror" id="site_code" name="site_code" value="" required> --}}
+                        <select name="site_code" id="site_code" class="form-control form-select @error('site_code') is-invalid @enderror" required>
                             <option value="">Select Site Code</option>
                             @foreach($workOrders as $workOrder)
-                                <option value="{{ $workOrder->site_code }}">{{ $workOrder->site_code }}</option>
+                                <option value="{{ $workOrder->id }}">{{ $workOrder->sr_no }}</option>
                             @endforeach
-                        </select> --}}
+                        </select>
                         @error('site_code')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -65,7 +65,14 @@
 
                     <div class="col-md-4 mb-3">
                         <label for="contractor_id" class="form-label">Name of Contractor</label>
-                        <input type="text" class="form-control @error('contractor_id') is-invalid @enderror" id="contractor_id" name="contractor_id" required>
+                        {{-- <input type="text" class="form-control @error('contractor_id') is-invalid @enderror" id="contractor_id" name="contractor_id" required> --}}
+                        <select name="contractor_id" id="contractor_id" class="form-control form-select @error('contractor_id') is-invalid @enderror">
+                            <option value="">Select Contractor</option>
+                            @foreach($contractors as $contractor)
+                                <option value="{{ $contractor->id }}"
+                                    {{ old('contractor_id') == $contractor->id ? 'selected' : '' }}>{{ $contractor->name }}</option>
+                            @endforeach
+                        </select>
                         @error('contractor_id')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -75,8 +82,8 @@
                         <label for="subcontractor_id" class="form-label">Subcontractor</label>
                         <select name="subcontractor_id" id="subcontractor_id" class="form-control form-select @error('subcontractor_id') is-invalid @enderror">
                             <option value="">Select Subcontractor</option>
-                            @foreach($partners as $partner)
-                                <option value="{{ $partner->partner_id }}">{{ $partner->partner_name }}</option>
+                            @foreach($contractors as $contractor)
+                                <option value="{{ $contractor->id }}">{{ $contractor->name }}</option>
                             @endforeach
                         </select>
                         @error('subcontractor_id')
@@ -105,7 +112,7 @@
                         <select name="work_done_by_id" id="work_done_by_id" class="form-control form-select @error('work_done_by_id') is-invalid @enderror" required>
                             <option value="">Select Work Done By</option>
                             @foreach($partners as $partner)
-                                <option value="{{ $partner->partner_id }}">{{ $partner->partner_name }}</option>
+                                <option value="{{ $partner->partner_id }}" {{ old('work_done_by_id') == $partner->partner_id ? 'selected' : '' }} >{{ $partner->partner_name }}</option>
                             @endforeach
                         </select>
                         @error('work_done_by_id')
@@ -131,7 +138,7 @@
 
                     <div class="col-md-4 mb-3">
                         <label for="work_order_amount" class="form-label">Work Order Amount</label>
-                        <input type="number" step="0.01" class="form-control @error('work_order_amount') is-invalid @enderror" id="work_order_amount" name="work_order_amount" required>
+                        <input type="number" class="form-control @error('work_order_amount') is-invalid @enderror" id="work_order_amount" name="work_order_amount" required>
                         @error('work_order_amount')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -310,24 +317,27 @@
 </div>
 
 @push('js')
-{{-- <script>
+<script>
     document.getElementById('site_code').addEventListener('change', function() {
         const siteCode = this.value;
         if (siteCode) {
-            fetch(`{{ route('bills.get-work-order-details') }}?site_code=${siteCode}`)
+            fetch(`/bill-details/get-work-order-details?site_code=${siteCode}`)
                 .then(response => response.json())
                 .then(data => {
                     if (data) {
                         document.getElementById('department_id').value = data.department_id;
                         document.getElementById('name_of_work').value = data.name_of_work;
-                        document.getElementById('name_of_contractor').value = data.name_of_contractor;
-                        document.getElementById('work_order_amount').value = data.work_order_amount;
+                        document.getElementById('contractor_id').value = data.contractor_id;
+                        document.getElementById('subcontractor_id').value = data.subcontractor_id;
+                        // document.getElementById('work_order_amount').value = data.work_order_amount;
                         document.getElementById('work_time_limit').value = data.work_time_limit;
                         document.getElementById('dlp_period').value = data.dlp_period;
+                        document.getElementById('work_done_by_id').value = data.work_done_by;
+                        document.getElementById('agreement_no').value = data.agreement_no;
                     }
                 });
         }
     });
-</script> --}}
+</script>
 @endpush
 @endsection 
