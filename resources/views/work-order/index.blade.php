@@ -26,8 +26,8 @@
             <tbody>
                 @foreach($workOrders as $workOrder)
                     <tr>
+                        <td>{{ $loop->iteration }}</td>
                         <td>{{ $workOrder->sr_no }}</td>
-                        <td>{{ $workOrder->site_code }}</td>
                         <td>{{ $workOrder->entry_date->format('d-m-Y') }}</td>
                         <td>{{ $workOrder->order_year }}</td>
                         <td>{{ $workOrder->department->department_name }}</td>

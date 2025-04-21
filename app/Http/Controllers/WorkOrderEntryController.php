@@ -40,7 +40,7 @@ class WorkOrderEntryController extends Controller
         $parties = PartyMaster::all();
         $partners = PartnerMaster::all();
         $subcontractor = SubContractorMaster::all();
-        // dd($tenders);
+        // dd($siteCode);
         return view('work-order.create', compact(
             'currentDate',
             'entryYear',
@@ -236,8 +236,8 @@ class WorkOrderEntryController extends Controller
             'entry_date' => $request->entry_date,
             // 'entry_year' => $request->entry_year,
             'entry_date' => Carbon::parse($request->entry_date)->format('Y-m-d'),
-            'sr_no' => $request->sr_no ?? 001,
-            'tender_id' =>  $workOrder->sr_no,
+            'sr_no' => $workOrder->sr_no ?? 001,
+            'tender_id' =>  $workOrder->tender_id,
             'agreement_no' => $request->agreement_no,
             'department_id' => $request->department_id,
             'contractor_id'=> $request->contractor_id,
@@ -335,9 +335,9 @@ class WorkOrderEntryController extends Controller
         $lastWorkOrder = WorkOrderEntry::whereYear('entry_date', $year)
             ->orderBy('sr_no', 'desc')
             ->first();
-
             if ($lastWorkOrder) {
-                $lastNumber = intval(substr($lastWorkOrder->sr_no, -4));
+                // $lastNumber = intval(substr($lastWorkOrder->sr_no, -4));
+                $lastNumber = preg_replace('/[^0-9]/', '', $lastWorkOrder->sr_no);
                 $newNumber = 'WO'. str_pad($lastNumber + 1, 3, '0', STR_PAD_LEFT);
             } else {
                 $newNumber = 'WO001';
