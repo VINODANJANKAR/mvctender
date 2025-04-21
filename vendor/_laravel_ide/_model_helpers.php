@@ -313,20 +313,36 @@ namespace App\Models {
      *
      * @property \Illuminate\Support\Carbon|null $updated_at
      * @property \Illuminate\Support\Carbon|null $created_at
-     * @property string $reason
-     * @property mixed $adjustment_type
-     * @property decimal:2 $adjustment_amount
-     * @property mixed $bill_detail_id
+     * @property string $remarks
+     * @property string $description
+     * @property float $recevied_amount
+     * @property \Illuminate\Support\Carbon $amt_recevied_date
+     * @property float $net_amt
+     * @property mixed $commision_rate
+     * @property float $rtgs_amt
+     * @property mixed $paid_by
+     * @property string $name_of_ref_person
+     * @property string $beneficiary_name
+     * @property string $account_number
+     * @property string $bank_name
      * @property string $voucher_no
      * @property \Illuminate\Support\Carbon $date
      * @property int $id
      * @method static \Illuminate\Database\Eloquent\Builder<BillAdjustment>|BillAdjustment whereId($value)
      * @method static \Illuminate\Database\Eloquent\Builder<BillAdjustment>|BillAdjustment whereDate($value)
      * @method static \Illuminate\Database\Eloquent\Builder<BillAdjustment>|BillAdjustment whereVoucherNo($value)
-     * @method static \Illuminate\Database\Eloquent\Builder<BillAdjustment>|BillAdjustment whereBillDetailId($value)
-     * @method static \Illuminate\Database\Eloquent\Builder<BillAdjustment>|BillAdjustment whereAdjustmentAmount($value)
-     * @method static \Illuminate\Database\Eloquent\Builder<BillAdjustment>|BillAdjustment whereAdjustmentType($value)
-     * @method static \Illuminate\Database\Eloquent\Builder<BillAdjustment>|BillAdjustment whereReason($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<BillAdjustment>|BillAdjustment whereBankName($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<BillAdjustment>|BillAdjustment whereAccountNumber($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<BillAdjustment>|BillAdjustment whereBeneficiaryName($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<BillAdjustment>|BillAdjustment whereNameOfRefPerson($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<BillAdjustment>|BillAdjustment wherePaidBy($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<BillAdjustment>|BillAdjustment whereRtgsAmt($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<BillAdjustment>|BillAdjustment whereCommisionRate($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<BillAdjustment>|BillAdjustment whereNetAmt($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<BillAdjustment>|BillAdjustment whereAmtReceviedDate($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<BillAdjustment>|BillAdjustment whereReceviedAmount($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<BillAdjustment>|BillAdjustment whereDescription($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<BillAdjustment>|BillAdjustment whereRemarks($value)
      * @method static \Illuminate\Database\Eloquent\Builder<BillAdjustment>|BillAdjustment whereCreatedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<BillAdjustment>|BillAdjustment whereUpdatedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<BillAdjustment>|BillAdjustment newModelQuery()
@@ -1317,7 +1333,7 @@ namespace App\Models {
      * @property mixed $paid_by
      * @property mixed $payment_mode
      * @property decimal:2|null $amount
-     * @property string|null $payment_throiugh
+     * @property string|null $payment_through
      * @property string|null $paid_to
      * @property string|null $description
      * @property string|null $name_of_work
@@ -1335,7 +1351,7 @@ namespace App\Models {
      * @method static \Illuminate\Database\Eloquent\Builder<DailyExpense>|DailyExpense whereNameOfWork($value)
      * @method static \Illuminate\Database\Eloquent\Builder<DailyExpense>|DailyExpense whereDescription($value)
      * @method static \Illuminate\Database\Eloquent\Builder<DailyExpense>|DailyExpense wherePaidTo($value)
-     * @method static \Illuminate\Database\Eloquent\Builder<DailyExpense>|DailyExpense wherePaymentThroiugh($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<DailyExpense>|DailyExpense wherePaymentThrough($value)
      * @method static \Illuminate\Database\Eloquent\Builder<DailyExpense>|DailyExpense whereAmount($value)
      * @method static \Illuminate\Database\Eloquent\Builder<DailyExpense>|DailyExpense wherePaymentMode($value)
      * @method static \Illuminate\Database\Eloquent\Builder<DailyExpense>|DailyExpense wherePaidBy($value)
