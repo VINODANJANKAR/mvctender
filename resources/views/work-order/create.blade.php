@@ -73,9 +73,9 @@
 
                     <div class="col-md-4 mb-3">
                         <label for="name_of_contractor" class="form-label">Name of Contractor</label>
-                        {{-- <input type="text" class="form-control @error('name_of_contractor') is-invalid @enderror" 
-                               id="name_of_contractor" name="name_of_contractor" value="{{ old('name_of_contractor') }}" required readonly> --}}
-                               <select class="form-control form-select @error('name_of_contractor') is-invalid @enderror" 
+                        <input type="text" class="form-control @error('name_of_contractor') is-invalid @enderror" 
+                               id="name_of_contractor" name="name_of_contractor" value="{{ old('name_of_contractor') }}" required>
+                               {{-- <select class="form-control form-select @error('name_of_contractor') is-invalid @enderror" 
                                id="name_of_contractor" name="name_of_contractor" required>
                            {{-- <option value="">Select Subcontractor</option>
                            @foreach($contractors as $contractor)
@@ -83,8 +83,8 @@
                                    {{ old('name_of_contractor') == $contractor->contractor_id ? 'selected' : '' }}>
                                    {{ $contractor->name }}
                                </option>
-                           @endforeach --}}
-                       </select>
+                           @endforeach -
+                       </select> --}}
                                @error('name_of_contractor')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -94,7 +94,9 @@
                 <div class="row">
                     <div class="col-md-4 mb-3">
                         <label for="subcontractor_id" class="form-label">Subcontractor Name</label>
-                        <select class="form-control form-select @error('subcontractor_id') is-invalid @enderror" 
+                        <input type="text" class="form-control @error('name_of_subcontractor') is-invalid @enderror" 
+                               id="name_of_subcontractor" name="name_of_subcontractor" value="{{ old('name_of_subcontractor') }}" required>
+                        {{-- <select class="form-control form-select @error('subcontractor_id') is-invalid @enderror" 
                                 id="subcontractor_id" name="subcontractor_id" required>
                             <option value="">Select Subcontractor</option>
                             @foreach($subcontractor as $scont)
@@ -103,8 +105,8 @@
                                     {{ $scont->name }}
                                 </option>
                             @endforeach
-                        </select>
-                        @error('subcontractor_id')
+                        </select> --}}
+                        @error('name_of_subcontractor')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
@@ -381,7 +383,7 @@
                         if (data) {
                             document.getElementById('department_id').value = data.department_id;
                             document.getElementById('name_of_work').value = data.name_of_work;
-                            document.getElementById('name_of_contractor').value = data.name_of_contractor;
+                            // document.getElementById('name_of_contractor').value = data.name_of_contractor;
                         }
                     })
                     .catch(error => console.error('Error fetching tender details:', error));
@@ -390,30 +392,29 @@
 
 
 
-        document.getElementById('sr_no').addEventListener('change', function() {
-    const selectedSrNo = this.value;
+    // document.getElementById('sr_no').addEventListener('change', function() {
+    //     const selectedSrNo = this.value;
+    //     if (selectedSrNo) {
+    //         fetch(`/work-orders/get-contractors?sr_no=${selectedSrNo}`)
+    //             .then(response => response.json())
+    //             .then(data => {
+    //                 const contractorDropdown = document.getElementById('name_of_contractor');
+    //                 contractorDropdown.innerHTML = '<option value="">Select Contractor</option>';
 
-    if (selectedSrNo) {
-        fetch(`/work-orders/get-contractors?sr_no=${selectedSrNo}`)
-            .then(response => response.json())
-            .then(data => {
-                const contractorDropdown = document.getElementById('name_of_contractor');
-                contractorDropdown.innerHTML = '<option value="">Select Contractor</option>';
-
-                if (data.contractors && data.contractors.length > 0) {
-                    data.contractors.forEach(contractor => {
-                        const option = document.createElement('option');
-                        option.value = contractor.id;
-                        option.textContent = contractor.name;
-                        contractorDropdown.appendChild(option);
-                    });
-                } else {
-                    contractorDropdown.innerHTML += '<option value="">No contractors found</option>';
-                }
-            })
-            .catch(error => console.error('Error fetching contractors:', error));
-    }
-});
+    //                 if (data.contractors && data.contractors.length > 0) {
+    //                     data.contractors.forEach(contractor => {
+    //                         const option = document.createElement('option');
+    //                         option.value = contractor.id;
+    //                         option.textContent = contractor.name;
+    //                         contractorDropdown.appendChild(option);
+    //                     });
+    //                 } else {
+    //                     contractorDropdown.innerHTML += '<option value="">No contractors found</option>';
+    //                 }
+    //             })
+    //             .catch(error => console.error('Error fetching contractors:', error));
+    //     }
+    // });
 
 
 

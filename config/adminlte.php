@@ -321,37 +321,48 @@ return [
         //     'can' => 'manage-blog',
         // ],
         [
-            'text' => 'Tender',
-            'route' => 'tenders.index',
-            'icon' => 'far fa-fw fa-file',
-            'label_color' => 'success',
-        ],
-        // ['header' => 'account_settings'],
-        
-        [
             'text' => 'Work Order',
-            'route' => 'work-orders.index',
-            'icon' => 'far fa-fw fa-building',
+            'icon' => 'fas fa-fw fa-building',
+            'label' => 3,
+            'submenu' => [
+                [
+                    'text' => 'Tender',
+                    'route' => 'tenders.index',
+                    'icon' => 'far fa-fw fa-file',
+                ],        
+                [
+                    'text' => 'Work Order',
+                    'route' => 'work-orders.index',
+                    'icon' => 'far fa-fw fa-building',
+                ],
+                [
+                    'text' => 'Bill Details',
+                    'route' => 'bill-details.index',
+                    'icon' => 'far fa-fw fa-credit-card',
+                ],
+            ],
         ],
         [
-            'text' => 'Bill Details',
-            'route' => 'bill-details.index',
-            'icon' => 'far fa-fw fa-credit-card',
-        ],
-        [
-            'text' => 'Daily Expenses',
-            'route' => 'daily-expenses.index',
-            'icon' => 'far fa-fw fa-shopping-cart',
-        ],
-        [
-            'text' => 'Material Entry',
-            'route' => 'materials.index',
-            'icon' => 'far fa-fw fa-check',
-        ],
-        [
-            'text' => 'Payment Entry',
-            'route' => 'payments.index',
-            'icon' => 'far fa-fw fa-money',
+            'text' => 'Ledgers',
+            'icon' => 'fas fa-fw fa-credit-card',
+            'label' => 3,
+            'submenu' => [
+                [
+                    'text' => 'Daily Expenses',
+                    'route' => 'daily-expenses.index',
+                    'icon' => 'far fa-fw fa-shopping-cart',
+                ],
+                [
+                    'text' => 'Material Entry',
+                    'route' => 'materials.index',
+                    'icon' => 'far fa-fw fa-check',
+                ],
+                [
+                    'text' => 'Payment Entry',
+                    'route' => 'payments.index',
+                    'icon' => 'far fa-fw fa-money',
+                ],
+            ],
         ],
         [
             'text' => 'Bill Adjustment Entry',
@@ -375,18 +386,18 @@ return [
                     'text' => 'Party Master',
                     'url' => 'parties',
                 ],
-                [
-                    'text' => 'Acount Head Master',
-                    'url' => 'account-heads',
-                ],
-                [
-                    'text' => 'Contractor Master',
-                    'url' => 'contractor',
-                ],
-                [
-                    'text' => 'Sub Contractor Master',
-                    'url' => 'subcontractor',
-                ],
+                // [
+                //     'text' => 'Unit Master',
+                //     'url' => 'units',
+                // ],
+                // [
+                //     'text' => 'Contractor Master',
+                //     'url' => 'contractor',
+                // ],
+                // [
+                //     'text' => 'Sub Contractor Master',
+                //     'url' => 'subcontractor',
+                // ],
             ],
         ],
         [

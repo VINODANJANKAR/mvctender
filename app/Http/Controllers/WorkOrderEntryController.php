@@ -23,7 +23,7 @@ class WorkOrderEntryController extends Controller
 {
     public function index()
     {
-        $workOrders = WorkOrderEntry::with(['department', 'tender', 'contractor', 'subcontractor'])
+        $workOrders = WorkOrderEntry::with(['department', 'tender'])
             ->latest()
             ->get();
         return view('work-order.index', compact('workOrders'));
@@ -39,7 +39,7 @@ class WorkOrderEntryController extends Controller
         $tenders = TenderEntry::all();
         $parties = PartyMaster::all();
         $partners = PartnerMaster::all();
-        $subcontractor = SubContractorMaster::all();
+        // $subcontractor = SubContractorMaster::all();
         // dd($siteCode);
         return view('work-order.create', compact(
             'currentDate',
@@ -48,14 +48,13 @@ class WorkOrderEntryController extends Controller
             'departments',
             'tenders',
             'parties',
-            'partners',
-            'subcontractor'
+            'partners'
         ));
     }
 
     public function store(Request $request)
     {
-       
+    //    dd($request->all());
         // $request->validate([
         //     // 'sr_no' => 'required|string|unique:work_order_entries',
         //     'entry_date' => 'required',
@@ -113,7 +112,8 @@ class WorkOrderEntryController extends Controller
             'sr_no' =>  $request->site_code,
             'tender_id' =>  $request->sr_no,
             'department_id' => $request->department_id,
-            'contractor_id'=> $request->name_of_contractor,
+            'name_of_contractor'=> $request->name_of_contractor,
+            'name_of_subcontractor'=> $request->name_of_subcontractor,
             'agreement_no' =>  $request->agreement_no,
             'work_order_no' =>  $request->work_order_no,
             'work_order_date' =>  $request->work_order_date,
@@ -167,11 +167,11 @@ class WorkOrderEntryController extends Controller
         $tenders = TenderEntry::all();
         $parties = PartyMaster::all();
         $partners = PartnerMaster::all();
-        $contractors = ContractorMaster::all();
-        $subcontractors = SubContractorMaster::all();
+        // $contractors = ContractorMaster::all();
+        // $subcontractors = SubContractorMaster::all();
         $workOrder = WorkOrderEntry::with(['securityDeposite','addSecurityDeposite','tender'])->findOrFail($workOrder->id);
         // dd($workOrder);
-        return view('work-order.edit', compact('workOrder', 'departments', 'tenders', 'parties','partners','contractors','subcontractors'));
+        return view('work-order.edit', compact('workOrder', 'departments', 'tenders', 'parties','partners'));
     }
 
     public function update(Request $request, WorkOrderEntry $workOrder)
@@ -183,8 +183,8 @@ class WorkOrderEntryController extends Controller
             'entry_year' => 'required',
             // 'sr_no' => 'required',
             'department_id'=>'required',
-            'contractor_id'=>'required',
-            'subcontractor_id'=>'required',
+            'name_of_contractor'=>'required',
+            'name_of_subcontractor'=>'required',
             'agreement_no' => 'required',
             'work_order_no' => 'required',
             'work_order_date' => 'required',
@@ -234,14 +234,14 @@ class WorkOrderEntryController extends Controller
 
         $updated = $workOrder->update([
             'entry_date' => $request->entry_date,
-            // 'entry_year' => $request->entry_year,
+            'entry_year' => $request->entry_year,
             'entry_date' => Carbon::parse($request->entry_date)->format('Y-m-d'),
             'sr_no' => $workOrder->sr_no ?? 001,
             'tender_id' =>  $workOrder->tender_id,
             'agreement_no' => $request->agreement_no,
             'department_id' => $request->department_id,
-            'contractor_id'=> $request->contractor_id,
-            'subcontractor_id'=> $request->subcontractor_id,
+            'name_of_contractor'=> $request->name_of_contractor,
+            'name_of_subcontractor'=> $request->name_of_subcontractor,
             'work_order_no' => $request->work_order_no,
             'work_order_date' => $request->work_order_date,
             'work_order_amount' => $request->work_order_amount,
@@ -361,8 +361,8 @@ class WorkOrderEntryController extends Controller
 
         return response()->json([
             'department_id' => $workOrder->department_id,
-            'name_of_work' => $workOrder->work_description,
-            'name_of_contractor' => $workOrder->name_of_contractor
+            'name_of_work' => $workOrder->work_description
+            // 'name_of_contractor' => $workOrder->name_of_contractor
         ]);
     }
 
