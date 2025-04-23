@@ -4,15 +4,15 @@
 
 @section('content')
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2>Account Head Master</h2>
-        <a href="{{ route('units.create') }}" class="btn btn-primary">Add New Account Head</a>
+        <h2>Unit Master</h2>
+        <a href="{{ route('units.create') }}" class="btn btn-primary">Add New Unit</a>
     </div>
 
     <div class="table-responsive">
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>Account Head Name</th>
+                    <th>Unit Name</th>
                     <th>Actions</th>
                 </tr>
             </thead>

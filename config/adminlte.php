@@ -110,7 +110,7 @@ return [
     */
 
     'preloader' => [
-        'enabled' => true,
+        'enabled' => false,
         'mode' => 'fullscreen',
         'img' => [
             'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
@@ -386,10 +386,10 @@ return [
                     'text' => 'Party Master',
                     'url' => 'parties',
                 ],
-                // [
-                //     'text' => 'Unit Master',
-                //     'url' => 'units',
-                // ],
+                [
+                    'text' => 'Unit Master',
+                    'url' => 'units',
+                ],
                 // [
                 //     'text' => 'Contractor Master',
                 //     'url' => 'contractor',

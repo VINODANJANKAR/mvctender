@@ -36,7 +36,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('departments', DepartmentMasterController::class);
     Route::resource('parties', PartyMasterController::class);
     Route::resource('account-heads', AccountHeadMasterController::class);
-    // Route::resource('units', UnitMasterController::class);
+    Route::resource('units', UnitMasterController::class);
     Route::get('work-orders/get-tender-details', [WorkOrderEntryController::class, 'getTenderDetails']);
     Route::get('work-orders/get-contractors', [WorkOrderEntryController::class, 'getContractors']);
     Route::get('/bill-details/get-work-order-details', [BillDetailController::class, 'getWorkOderDetails']);

@@ -12,7 +12,8 @@ class UnitMasterController extends Controller
      */
     public function index()
     {
-        $units = UnitMaster::get();
+        $units = UnitMaster::latest()->get();
+        // dd($units);
         return view('masters.unit.index', compact('units'));
     }
 
