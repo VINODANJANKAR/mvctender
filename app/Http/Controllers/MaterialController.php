@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Material;
-use App\Models\Partymaster;
+use App\Models\PartyMaster;
 use Illuminate\Http\Request;
 
 class MaterialController extends Controller

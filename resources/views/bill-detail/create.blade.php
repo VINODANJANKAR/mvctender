@@ -65,28 +65,29 @@
 
                     <div class="col-md-4 mb-3">
                         <label for="contractor_id" class="form-label">Name of Contractor</label>
-                        {{-- <input type="text" class="form-control @error('contractor_id') is-invalid @enderror" id="contractor_id" name="contractor_id" required> --}}
-                        <select name="contractor_id" id="contractor_id" class="form-control form-select @error('contractor_id') is-invalid @enderror">
+                        <input type="text" class="form-control @error('contractor_name') is-invalid @enderror" id="contractor_name" name="contractor_name" required>
+                        {{-- <select name="contractor_id" id="contractor_id" class="form-control form-select @error('contractor_id') is-invalid @enderror">
                             <option value="">Select Contractor</option>
                             @foreach($contractors as $contractor)
                                 <option value="{{ $contractor->id }}"
                                     {{ old('contractor_id') == $contractor->id ? 'selected' : '' }}>{{ $contractor->name }}</option>
                             @endforeach
-                        </select>
-                        @error('contractor_id')
+                        </select> --}}
+                        @error('contractor_name')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
 
                     <div class="col-md-4 mb-3">
-                        <label for="subcontractor_id" class="form-label">Subcontractor</label>
-                        <select name="subcontractor_id" id="subcontractor_id" class="form-control form-select @error('subcontractor_id') is-invalid @enderror">
+                        <label for="subcontractor_name" class="form-label">Subcontractor</label>
+                        <input type="text" class="form-control @error('subcontractor_name') is-invalid @enderror" id="subcontractor_name" name="subcontractor_name" required>
+                        {{-- <select name="subcontractor_id" id="subcontractor_id" class="form-control form-select @error('subcontractor_id') is-invalid @enderror">
                             <option value="">Select Subcontractor</option>
                             @foreach($contractors as $contractor)
                                 <option value="{{ $contractor->id }}">{{ $contractor->name }}</option>
                             @endforeach
-                        </select>
-                        @error('subcontractor_id')
+                        </select> --}}
+                        @error('subcontractor_name')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
@@ -327,8 +328,8 @@
                     if (data) {
                         document.getElementById('department_id').value = data.department_id;
                         document.getElementById('name_of_work').value = data.name_of_work;
-                        document.getElementById('contractor_id').value = data.contractor_id;
-                        document.getElementById('subcontractor_id').value = data.subcontractor_id;
+                        document.getElementById('contractor_name').value = data.contractor_name;
+                        document.getElementById('subcontractor_name').value = data.subcontractor_name;
                         // document.getElementById('work_order_amount').value = data.work_order_amount;
                         document.getElementById('work_time_limit').value = data.work_time_limit;
                         document.getElementById('dlp_period').value = data.dlp_period;

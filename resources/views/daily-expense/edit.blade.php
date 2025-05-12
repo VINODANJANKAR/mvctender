@@ -111,7 +111,7 @@
                         <select name="paid_by" id="paid_by" class="form-control form-select @error('paid_by') is-invalid @enderror" required>
                             <option value="">Select Party</option>
                             @foreach($partners as $partner)
-                                <option value="{{ $partner->partner_id }}" {{ old('paid_by', $dailyExpense->paid_by) == $dailyExpense->paid_by ? 'selected' : '' }}>
+                                <option value="{{ $partner->partner_id }}" {{ old('paid_by', $dailyExpense->paid_by) == $partner->partner_id ? 'selected' : '' }}>
                                     {{ $partner->partner_name }}
                                 </option>
                             @endforeach

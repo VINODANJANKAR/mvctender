@@ -51,14 +51,14 @@
                 $('#year').val(financialYear);
             });
             
-            $("#rate").focusout(function() {
-                var qty = $('#quantity').val();
-                var rate = $('#rate').val();
+            // $("#rate").focusout(function() {
+            //     var qty = $('#quantity').val();
+            //     var rate = $('#rate').val();
 
-                var amount = qty*rate;
+            //     var amount = qty*rate;
                 
-                $('#amount').val(amount);
-            });
+            //     $('#amount').val(amount);
+            // });
 
         });
     </script> 

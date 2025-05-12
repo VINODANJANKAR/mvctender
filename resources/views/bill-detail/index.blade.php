@@ -43,7 +43,7 @@
                                 <td>{{ $bill->year }}</td>
                                 <td>{{ $bill->date->format('d-m-Y') }}</td>
                                 <td>{{ $bill->department->department_name }}</td>
-                                <td>{{ $bill->contractor_id }}</td>
+                                <td>{{ $bill->contractor_name }}</td>
                                 <td>{{ $bill->bill_no }}</td>
                                 <td>{{ number_format($bill->total_bill_amount, 2) }}</td>
                                 <td>{{ number_format($bill->net_bill_amount, 2) }}</td>
