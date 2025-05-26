@@ -16,7 +16,7 @@
                 <div class="row">
                     <div class="col-md-4 mb-3">
                         <label for="sr_no" class="form-label">SR No</label>
-                        <input type="text" class="form-control" id="sr_no" value="{{ $workOrder->tender->tender_no }}" readonly>
+                        <input type="text" class="form-control" id="sr_no" value="{{ $workOrder->tender->tender_no ?? 00 }}" readonly>
                     </div>
 
                     <div class="col-md-4 mb-3">
@@ -63,10 +63,10 @@
                     </div>
 
                     <div class="col-md-4 mb-3">
-                        <label for="name_of_contractor" class="form-label">Name of Contactor</label>
-                        <input type="text" class="form-control @error('name_of_contractor') is-invalid @enderror" 
-                               id="name_of_contractor" name="name_of_contractor" value="{{ old('name_of_contractor', $workOrder->name_of_contractor) }}" required>
-                        {{-- <select class="form-control form-select @error('contractor_id') is-invalid @enderror" 
+                        <label for="contractor_id" class="form-label">Name of Contactor</label>
+                        {{-- <input type="text" class="form-control @error('name_of_contractor') is-invalid @enderror" 
+                               id="name_of_contractor" name="name_of_contractor" value="{{ old('name_of_contractor', $workOrder->name_of_contractor) }}" required> --}}
+                        <select class="form-control form-select @error('contractor_id') is-invalid @enderror" 
                                 id="contractor_id" name="contractor_id" required>
                             <option value="">Select Department</option>
                             @foreach($contractors as $contractor)
@@ -75,7 +75,7 @@
                                 {{ $contractor->name }}
                             </option>
                         @endforeach
-                        </select> --}}
+                        </select>
                         @error('name_of_contractor')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -105,7 +105,7 @@
                     <div class="col-md-4 mb-3">
                         <label for="name_of_work" class="form-label">Name of Work</label>
                         <input type="text" class="form-control @error('name_of_work') is-invalid @enderror" 
-                               id="name_of_work" name="name_of_work" value="{{ old('name_of_work', $workOrder->name_of_work) }}" required readonly>
+                               id="name_of_work" name="name_of_work" value="{{ old('name_of_work', $workOrder->name_of_work) }}" required >
                         @error('name_of_work')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -122,7 +122,7 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-md-4 mb-3">
+                    {{-- <div class="col-md-4 mb-3">
                         <label for="work_done_by_id" class="form-label">Work Done By</label>
                         <select class="form-control form-select @error('work_done_by_id') is-invalid @enderror" 
                                 id="work_done_by_id" name="work_done_by_id" required>
@@ -137,7 +137,20 @@
                         @error('work_done_by_id')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
+                    </div> --}}
+                     <div class="col-md-4 mb-3">
+                        <label for="work_done_by_id" class="form-label">Work Done By</label>
+                        @foreach($partners as $partner)
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" 
+                                    name="work_done_by_id[]" 
+                                    value="{{ $partner->partner_id }}" 
+                                    {{ in_array($partner->partner_id, $workDoneBy) ? 'checked' : '' }}>
+                                <label class="form-check-label">{{ $partner->partner_name }}</label>
+                            </div>
+                        @endforeach
                     </div>
+
 
                     <div class="col-md-4 mb-3">
                         <label for="agreement_no" class="form-label">Agreement No</label>
@@ -179,15 +192,12 @@
 
                     <div class="col-md-4 mb-3">
                         <label for="work_time_limit" class="form-label">Work Time Limit</label>
-                        <input type="text" class="form-control @error('work_time_limit') is-invalid @enderror" 
+                        <input type="date" class="form-control @error('work_time_limit') is-invalid @enderror" 
                                id="work_time_limit" name="work_time_limit" value="{{ old('work_time_limit', $workOrder->work_time_limit) }}" required>
                         @error('work_time_limit')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
-                </div>
-
-                <div class="row">
                     <div class="col-md-4 mb-3">
                         <label for="dlp_period" class="form-label">DLP Period</label>
                         <input type="text" class="form-control @error('dlp_period') is-invalid @enderror" 
@@ -196,6 +206,10 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
+                </div>
+
+                <div class="row">
+                    
 
                     <div class="col-md-4 mb-3">
                         <label for="security_deposit_amount" class="form-label">Security Deposit Amount</label>
@@ -206,6 +220,18 @@
                         @enderror
                     </div>
                     <div class="col-md-4 mb-3">
+                        <label for="security_deposit_amount_refund" class="form-label">Security Amount Refund Status</label>
+                        <select class="form-control" name="security_deposit_amount_refund" required>
+                            <option value="yes" {{ old('security_deposit_amount_refund', $workOrder->security_deposit_amount_refund ?? '') == 'yes' ? 'selected' : '' }}>Yes</option>
+                            <option value="no" {{ old('security_deposit_amount_refund', $workOrder->security_deposit_amount_refund ?? '') == 'no' ? 'selected' : '' }}>No</option>
+                        </select>
+                    </div>
+                    
+                    
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 mb-3">
                         <label for="additional_security_deposit_amount" class="form-label">Additional Security Deposit Amount</label>
                         <input type="number" step="0.01" class="form-control @error('additional_security_deposit_amount') is-invalid @enderror" 
                                id="additional_security_deposit_amount" name="additional_security_deposit_amount" value="{{ old('additional_security_deposit_amount', $workOrder->additional_security_deposit) }}" required>
@@ -213,7 +239,15 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
-                    
+
+                    <div class="col-md-4 mb-3">
+                        <label for="additional_security_deposit_amount_refund" class="form-label">Additional Security Amount Refund Status</label>
+                        <select class="form-control" name="additional_security_deposit_amount_refund" required>
+                            <option value="">Select Refund Status</option>
+                            <option value="yes" {{ old('additional_security_deposit_amount_refund', $workOrder->additional_security_deposit_amount_refund ?? '') == 'yes' ? 'selected' : '' }}>Yes</option>
+                            <option value="no" {{ old('additional_security_deposit_amount_refund', $workOrder->additional_security_deposit_amount_refund ?? '') == 'no' ? 'selected' : '' }}>No</option>
+                        </select>
+                    </div>
                 </div>
 
                  <!-- Security Deposit Details -->
@@ -227,8 +261,12 @@
                     <input type="text" class="form-control" name="security_deposit_fdr_no[]" value="{{ $deposit->security_deposit_fdr_no }}" required>
                 </div>
                 <div class="col-md-4 mb-3">
+                    <label for="security_deposit_fdr_no" class="form-label">FDR Date (Security Deposit)</label>
+                    <input type="date" class="form-control" name="security_deposit_fdr_date[]" value="{{ $deposit->security_deposit_fdr_date }}" required>
+                </div>
+                <div class="col-md-4 mb-3">
                     <label for="security_deposit_fdr_amt" class="form-label">FDR Amt (Security Deposit)</label>
-                    <input type="number" step="0.01" class="form-control" name="security_deposit_fdr_amt[]" value="{{ $deposit->security_deposit_fdr_amt }}" required>
+                    <input type="number" step="0.01" class="form-control fdr-amount" name="security_deposit_fdr_amt[]" value="{{ $deposit->security_deposit_fdr_amt }}" required>
                 </div>
                 <div class="col-md-4 mb-3">
                     <label for="security_deposit_fdr_bank" class="form-label">FDR Bank (Security Deposit)</label>
@@ -267,8 +305,12 @@
                     <input type="text" class="form-control" name="additional_security_deposit_fdr_no[]" value="{{ $deposit->additional_security_deposit_fdr_no }}" required>
                 </div>
                 <div class="col-md-4 mb-3">
+                    <label for="additional_security_deposit_fdr_no" class="form-label">FDR Date (Additional Security Deposit)</label>
+                    <input type="date" class="form-control" name="additional_security_deposit_fdr_date[]" value="{{ $deposit->additional_security_deposit_fdr_date }}" required>
+                </div>
+                <div class="col-md-4 mb-3">
                     <label for="additional_security_deposit_fdr_amt" class="form-label">FDR Amt (Additional Security Deposit)</label>
-                    <input type="number" step="0.01" class="form-control" name="additional_security_deposit_fdr_amt[]" value="{{ $deposit->additional_security_deposit_fdr_amt }}" required>
+                    <input type="number" step="0.01" class="form-control add-fdr-amount" name="additional_security_deposit_fdr_amt[]" value="{{ $deposit->additional_security_deposit_fdr_amt }}" required>
                 </div>
                 <div class="col-md-4 mb-3">
                     <label for="additional_security_deposit_fdr_bank" class="form-label">FDR Bank (Additional Security Deposit)</label>
@@ -294,8 +336,8 @@
     <button type="button" class="btn btn-secondary mb-4" id="add-additional-security-deposit">Add Another Security Deposite</button>
 
 
-                <div class="row">
-                    <div class="col-md-4 mb-3">
+                 <div class="row">
+                {{--    <div class="col-md-4 mb-3">
                         <label for="bond_amount" class="form-label">Bond Amount</label>
                         <input type="number" step="0.01" class="form-control @error('bond_amount') is-invalid @enderror" 
                                id="bond_amount" name="bond_amount" value="{{ old('bond_amount', $workOrder->bond_amount) }}" required>
@@ -327,10 +369,11 @@
                         @error('bond_amount_paid_by')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
-                    </div>
+                    </div>  --}}
                 </div>
-
-                <button type="submit" class="btn btn-primary" id="submitButton">Update Work Order Entry</button>
+                <div class="row"  style="margin-top: 5%">
+                    <button type="submit" class="btn btn-primary" id="submitButton">Update Work Order Entry</button>
+                </div>
             </form>
         </div>
     </div>
@@ -351,8 +394,12 @@ document.getElementById('add-security-deposit').addEventListener('click', functi
                 <input type="text" class="form-control" name="security_deposit_fdr_no[]" required>
             </div>
             <div class="col-md-4 mb-3">
+                <label for="security_deposit_fdr_no" class="form-label">FDR Date (Security Deposit)</label>
+                <input type="date" class="form-control" name="security_deposit_fdr_date[]" required>
+            </div>
+            <div class="col-md-4 mb-3">
                 <label for="security_deposit_fdr_amt" class="form-label">FDR Amt (Security Deposit)</label>
-                <input type="number" step="0.01" class="form-control" name="security_deposit_fdr_amt[]" required>
+                <input type="number" step="0.01" class="form-control fdr-amount" name="security_deposit_fdr_amt[]" required>
             </div>
             <div class="col-md-4 mb-3">
                 <label for="security_deposit_fdr_bank" class="form-label">FDR Bank (Security Deposit)</label>
@@ -380,60 +427,12 @@ document.getElementById('add-security-deposit').addEventListener('click', functi
 document.getElementById('security-deposit-container').addEventListener('click', function (event) {
     if (event.target.classList.contains('remove-security-deposit')) {
         event.target.closest('.security-deposit-row').remove();
+        calculateTotalFDR();
     }
 });
 
 
 
-
-
-// document.getElementById('add-additional-security-deposit').addEventListener('click', function () {
-//     const container = document.getElementById('additional-security-deposit-container');
-//     const newRow = document.createElement('div');
-//     newRow.className = 'additional-security-deposit-row mb-4';
-//     newRow.innerHTML = `
-//         <div class="row">
-            
-//             <div class="col-md-4 mb-3">
-//                 <label for="additional_security_deposit_fdr_no" class="form-label">FDR No (Additional Security Deposit)</label>
-//                 <input type="text" class="form-control" name="additional_security_deposit_fdr_no[]" required>
-//             </div>
-//             <div class="col-md-4 mb-3">
-//                 <label for="additional_security_deposit_fdr_amt" class="form-label">FDR Amt (Additional Security Deposit)</label>
-//                 <input type="number" step="0.01" class="form-control" name="additional_security_deposit_fdr_amt[]" required>
-//             </div>
-//             <div class="col-md-4 mb-3">
-//                 <label for="additional_security_deposit_fdr_bank" class="form-label">FDR Bank (Additional Security Deposit)</label>
-//                 <input type="text" class="form-control" name="additional_security_deposit_fdr_bank[]" required>
-//             </div>
-//             <div class="col-md-4 mb-3">
-//                 <label for="additional_security_deposit_paid_by" class="form-label">Paid By</label>
-//                 <select class="form-control" name="additional_security_deposit_paid_by[]" required>
-//                     <option value="">Select Partner</option>
-//                     @foreach($partners as $partner)
-//                         <option value="{{ $partner->partner_id }}">{{ $partner->partner_name }}</option>
-//                     @endforeach
-//                 </select>
-//             </div>
-//             <div class="col-md-4 mb-3">
-//                 <button type="button" class="btn btn-danger remove-additional-security-deposit">Remove</button>
-//             </div>
-//         </div>
-//     `;
-
-//     container.appendChild(newRow);
-
-//     newRow.querySelector('.remove-additional-security-deposit').addEventListener('click', function () {
-//         newRow.remove();
-//     });
-// });
-
-
-// // stop button to submit multiple 
-// document.getElementById('submitButton').addEventListener('click', function () {
-//     this.disabled = true; // Disable the button
-//     this.innerText = 'Submitting...'; // Change text to indicate action
-// });
 
 
 document.getElementById('add-additional-security-deposit').addEventListener('click', function () {
@@ -447,8 +446,12 @@ document.getElementById('add-additional-security-deposit').addEventListener('cli
                 <input type="text" class="form-control" name="additional_security_deposit_fdr_no[]" required>
             </div>
             <div class="col-md-4 mb-3">
+                <label for="additional_security_deposit_fdr_no" class="form-label">FDR Date (Additional Security Deposit)</label>
+                <input type="date" class="form-control" name="additional_security_deposit_fdr_date[]" required>
+            </div>
+            <div class="col-md-4 mb-3">
                 <label for="additional_security_deposit_fdr_amt" class="form-label">FDR Amt (Additional Security Deposit)</label>
-                <input type="number" step="0.01" class="form-control" name="additional_security_deposit_fdr_amt[]" required>
+                <input type="number" step="0.01" class="form-control add-fdr-amount" name="additional_security_deposit_fdr_amt[]" required>
             </div>
             <div class="col-md-4 mb-3">
                 <label for="additional_security_deposit_fdr_bank" class="form-label">FDR Bank (Additional Security Deposit)</label>
@@ -476,9 +479,42 @@ document.getElementById('add-additional-security-deposit').addEventListener('cli
 document.getElementById('additional-security-deposit-container').addEventListener('click', function (event) {
     if (event.target.classList.contains('remove-additional-security-deposit')) {
         event.target.closest('.additional-security-deposit-row').remove();
+        calculateTotalAddFDR();
     }
 });
 
+
+// Function to calculate total sum of all FDR amounts
+function calculateTotalAddFDR() {
+    let total = 0;
+    document.querySelectorAll('.add-fdr-amount').forEach(input => {
+        total += parseFloat(input.value) || 0; // Converts input to number, defaults to 0 if empty
+    });
+    document.getElementById('additional_security_deposit_amount').value = `${total.toFixed(2)}`;
+}
+
+// Function to calculate total sum of all FDR amounts
+function calculateTotalFDR() {
+    let total = 0;
+    document.querySelectorAll('.fdr-amount').forEach(input => {
+        total += parseFloat(input.value) || 0; // Converts input to number, defaults to 0 if empty
+    });
+    document.getElementById('security_deposit_amount').value = `${total.toFixed(2)}`;
+}
+
+// Ensure sum calculation runs on existing fields
+document.addEventListener('input', function(event) {
+    if (event.target.classList.contains('fdr-amount')) {
+        calculateTotalFDR();
+    }
+});
+
+// Ensure sum calculation runs on existing fields
+document.addEventListener('input', function(event) {
+    if (event.target.classList.contains('add-fdr-amount')) {
+        calculateTotalAddFDR();
+    }
+});
 
 </script>
 @endpush    

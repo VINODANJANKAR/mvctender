@@ -46,5 +46,8 @@
                 @endforeach
             </tbody>
         </table>
+        {{-- {{ $workOrders->links() }} --}}
+        {{$workOrders->links("pagination::bootstrap-4")}}
+
     </div>
 @endsection 

@@ -27,7 +27,7 @@ class PartyMasterController extends Controller
             'address' => 'nullable|string',
             'contact_no' => 'nullable|string|max:20',
             'email' => 'nullable|email|max:255',
-            'gst_no' => 'nullable|string|max:15',
+            'gst_number' => 'nullable|string|max:15',
             'pan_no' => 'nullable|string|max:10'
         ]);
 

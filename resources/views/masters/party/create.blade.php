@@ -61,6 +61,15 @@
                     @enderror
                 </div>
 
+                <div class="mb-3">
+                    <label for="gst_number" class="form-label">GST Number</label>
+                    <input type="text" class="form-control @error('gst_number') is-invalid @enderror" 
+                           id="gst_number" name="gst_number" value="{{ old('gst_number') }}" >
+                    @error('gst_number')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+
                 <button type="submit" class="btn btn-primary">Save Party</button>
             </form>
         </div>

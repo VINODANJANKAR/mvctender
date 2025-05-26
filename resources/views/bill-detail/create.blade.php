@@ -66,13 +66,13 @@
                     <div class="col-md-4 mb-3">
                         <label for="contractor_id" class="form-label">Name of Contractor</label>
                         <input type="text" class="form-control @error('contractor_name') is-invalid @enderror" id="contractor_name" name="contractor_name" required>
-                        {{-- <select name="contractor_id" id="contractor_id" class="form-control form-select @error('contractor_id') is-invalid @enderror">
+                        <select name="contractor_id" id="contractor_id" class="form-control form-select @error('contractor_id') is-invalid @enderror">
                             <option value="">Select Contractor</option>
                             @foreach($contractors as $contractor)
                                 <option value="{{ $contractor->id }}"
                                     {{ old('contractor_id') == $contractor->id ? 'selected' : '' }}>{{ $contractor->name }}</option>
                             @endforeach
-                        </select> --}}
+                        </select>
                         @error('contractor_name')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror

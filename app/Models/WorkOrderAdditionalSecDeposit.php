@@ -12,6 +12,7 @@ class WorkOrderAdditionalSecDeposit extends Model
     protected $fillable = [
         'work_order_id' ,
         'additional_security_deposit_fdr_no' ,
+        'additional_security_deposit_fdr_date',
         'additional_security_deposit_fdr_amt',
         'additional_security_deposit_fdr_bank',
         'additional_security_deposit_paid_by',

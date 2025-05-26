@@ -44,10 +44,11 @@ class TenderEntryController extends Controller
             'tender_fee.*' => 'required|numeric',
             'emd_amount.*' => 'required|numeric',
             'paid_by.*' => 'required',
-            'work_order_amount' => 'required|numeric',
-            'work_time_limit' => 'required',
-            'days_months' => 'required',
-            'dlp_period' => 'required',
+            'emd_amount_refund.*'=> 'nullable',
+            'work_order_amount' => 'nullable|numeric',
+            'work_time_limit' => 'nullable',
+            'days_months' => 'nullable',
+            'dlp_period' => 'nullable',
             'work_order_received' => 'nullable|boolean',
         ]);
 
@@ -75,6 +76,7 @@ class TenderEntryController extends Controller
                 'tender_fee' => $validatedData['tender_fee'][$index],
                 'emd_amount' => $validatedData['emd_amount'][$index],
                 'paid_by' => $validatedData['paid_by'][$index],
+                'emd_amount_refund' => $validatedData['emd_amount_refund'][$index],
             ]);
         }
 
@@ -117,6 +119,7 @@ class TenderEntryController extends Controller
 
     public function update(Request $request, TenderEntry $tender)
     {
+// dd($request->all());
         try{
         $validatedData = $request->validate([
             'department_id' => 'required',
@@ -127,10 +130,11 @@ class TenderEntryController extends Controller
             'tender_fee.*' => 'required|numeric',
             'emd_amount.*' => 'required|numeric',
             'paid_by.*' => 'required',
-            'work_order_amount' => 'required|numeric',
-            'work_time_limit' => 'required',
-            'days_months' => 'required',
-            'dlp_period' => 'required',
+            'emd_amount_refund.*'=> 'nullable',
+            'work_order_amount' => 'nullable|numeric',
+            'work_time_limit' => 'nullable',
+            'days_months' => 'nullable',
+            'dlp_period' => 'nullable',
             'work_order_received' => 'nullable|boolean',
         ]);
         // tender_id
@@ -162,6 +166,7 @@ class TenderEntryController extends Controller
                 'tender_fee' => $validatedData['tender_fee'][$index],
                 'emd_amount' => $validatedData['emd_amount'][$index],
                 'paid_by' => $validatedData['paid_by'][$index],
+                'emd_amount_refund' => $validatedData['emd_amount_refund'][$index],
             ]);
         }
 

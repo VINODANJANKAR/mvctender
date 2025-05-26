@@ -15,6 +15,9 @@ class DepartmentMaster extends Model
     protected $fillable = [
         'department_name',
         'department_code',
-        'description'
+        'description',
+        'gst_number',
+        'tan_number',
+        'pan_number'
     ];
 } 
