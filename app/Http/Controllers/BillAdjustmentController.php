@@ -29,7 +29,7 @@ class BillAdjustmentController extends Controller
     {
         $request->validate([
             "date" => "required",
-            "voucher_no" => "required",
+            // "voucher_no" => "required",
             "bank_name" => "required",
             "account_number" => "required",
             "beneficiary_name" => "required",
@@ -38,6 +38,7 @@ class BillAdjustmentController extends Controller
             "rtgs_amt" => "required",
             "commision_rate" => "required",
             "net_amt" => "required",
+            "amt_received_from" => "required",
             "amt_recevied_date" => "required",
             "recevied_amount" => "required",
         ]);
@@ -60,7 +61,7 @@ class BillAdjustmentController extends Controller
     {
         $request->validate([
             "date" => "required",
-            "voucher_no" => "required",
+            // "voucher_no" => "required",
             "bank_name" => "required",
             "account_number" => "required",
             "beneficiary_name" => "required",
@@ -69,6 +70,7 @@ class BillAdjustmentController extends Controller
             "rtgs_amt" => "required",
             "commision_rate" => "required",
             "net_amt" => "required",
+            "amt_received_from" => "required",
             "amt_recevied_date" => "required",
             "recevied_amount" => "required",
         ]);

@@ -34,15 +34,19 @@
 
                     <div class="col-md-4 mb-3">
                         <label for="site_code" class="form-label">Site Code</label>
-                        <input type="text" class="form-control @error('site_code') is-invalid @enderror" id="site_code" name="site_code" value="{{ old('site_code', $material->site_code) }}">
-                        @error('site_code')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
+                        <select name="site_code" id="site_code" class="form-control form-select @error('site_code') is-invalid @enderror" required>
+                            <option value="">Select Site Code</option>
+                            @foreach($workOrders as $workOrder)
+                                <option value="{{ $workOrder->id }}" {{ $material->site_code == $workOrder->id ? 'selected' : '' }}>
+                                    {{ $workOrder->sr_no }}
+                                </option>
+                            @endforeach
+                        </select>
                     </div>
 
                     <div class="col-md-4 mb-3">
                         <label for="entry_no" class="form-label">Entry No.</label>
-                        <input type="text" class="form-control @error('entry_no') is-invalid @enderror" id="entry_no" name="entry_no" value="{{ old('entry_no', $material->entry_no) }}" required>
+                        <input type="text" class="form-control @error('entry_no') is-invalid @enderror" id="entry_no" name="entry_no" value="{{ old('entry_no', $material->entry_no) }}" required readonly>
                         @error('entry_no')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -114,6 +118,14 @@
                     </div>
 
                     <div class="col-md-4 mb-3">
+                        <label for="other_charges" class="form-label">Other Charges</label>
+                        <input type="number" class="form-control @error('other_charges') is-invalid @enderror" id="other_charges" name="other_charges" value="{{ old('other_charges', $material->other_charges) }}">
+                        @error('other_charges')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="col-md-4 mb-3">
                         <label for="amount" class="form-label">Amount</label>
                         <input type="text" class="form-control @error('amount') is-invalid @enderror" id="amount" name="amount" value="{{ old('amount', $material->amount) }}" readonly>
                         @error('amount')
@@ -125,6 +137,14 @@
                         <label for="name_of_work" class="form-label">Name Of Work</label>
                         <input type="text" class="form-control @error('name_of_work') is-invalid @enderror" id="name_of_work" name="name_of_work" value="{{ old('name_of_work', $material->rate) }}">
                         @error('name_of_work')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label for="remark" class="form-label">Remarks</label>
+                        <input type="text" class="form-control @error('remark') is-invalid @enderror" id="remark" name="remark" value="{{ old('remark', $material->remark) }}">
+                        @error('remark')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>

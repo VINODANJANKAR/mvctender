@@ -4,15 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\Material;
 use App\Models\PartyMaster;
+use App\Models\WorkOrderEntry;
 use Illuminate\Http\Request;
 
 class MaterialController extends Controller
 {
     public function index()
     {
-        $materials = Material::with(['party'])
+        $materials = Material::with(['party','workOrder'])
         ->latest()
         ->get();
+        // dd($materials[0]['workOrder']->sr_no);
         return view('material.index', compact('materials'));
     }
 
@@ -20,36 +22,45 @@ class MaterialController extends Controller
     {
         $materialCode = $this->generateMaterialCode();
         $parties = PartyMaster::all();
-        return view('material.create', compact('materialCode','parties'));
+        $workOrders = WorkOrderEntry::all();
+        return view('material.create', compact('materialCode','parties','workOrders'));
     }
 
     public function store(Request $request)
     {
-        $request->validate([
-            'party_id' => 'required|exists:party_master,party_id',
-            'entry_no' => 'required|string',
-            'entry_date' => 'required|date',
-            'challan_no' => 'required|string',
-            'challan_date' => 'required|date',
-            'material_name' => 'required|string|max:255',
-            'quantity' => 'required|numeric|min:0',
-            'unit' => 'nullable|string|max:50',
-            'rate' => 'nullable|numeric|min:0',
-            'amount' => 'required|numeric|min:0',
-            'site_code' => 'required|',
-            'name_of_work' => 'required|string'
-        ]);
+        try{
+            $validatedata = $request->validate([
+                'party_id' => 'required|exists:party_master,party_id',
+                'entry_no' => 'required|string',
+                'entry_date' => 'required|date',
+                'challan_no' => 'required|string',
+                'challan_date' => 'required|date',
+                'material_name' => 'required|string|max:255',
+                'quantity' => 'required|numeric|min:0',
+                'unit' => 'nullable|string|max:50',
+                'rate' => 'nullable|numeric|min:0',
+                'amount' => 'required|numeric|min:0',
+                'site_code' => 'required|exists:work_order_entries,id',
+                'name_of_work' => 'required|string',
+                'other_charges' => 'nullable',
+                'remark'=> 'nullable'
+            ]);
+            
+            Material::create($request->all());
+    
+            return redirect()->route('materials.index')
+                ->with('success', 'Material created successfully.');
+        }catch(ValidationValidator $v){
+            dd($v);
 
-        Material::create($request->all());
-
-        return redirect()->route('materials.index')
-            ->with('success', 'Material created successfully.');
+        }
     }
 
     public function edit(Material $material)
     {
         $parties = PartyMaster::all();
-        return view('material.edit', compact('material','parties'));
+        $workOrders = WorkOrderEntry::all();
+        return view('material.edit', compact('material','parties','workOrders'));
     }
 
     public function update(Request $request, Material $material)
@@ -65,8 +76,10 @@ class MaterialController extends Controller
             'unit' => 'nullable|string|max:50',
             'rate' => 'nullable|numeric|min:0',
             'amount' => 'required|numeric|min:0',
-            'site_code' => 'required|',
-            'name_of_work' => 'required|string'
+            'site_code' => 'required|exists:work_order_entries,id',
+            'name_of_work' => 'required|string',
+            'other_charges' => 'nullable',
+            'remark'=> 'nullable'
         ]);
 
         $material->update($request->all());
@@ -87,7 +100,7 @@ class MaterialController extends Controller
     {
         $lastMaterial = Material::latest()->first();
         if ($lastMaterial) {
-            $lastNumber = intval(substr($lastMaterial->material_code, -4));
+            $lastNumber = intval(substr($lastMaterial->entry_no, -4));
             $newNumber = str_pad($lastNumber + 1, 4, '0', STR_PAD_LEFT);
         } else {
             $newNumber = '0001';

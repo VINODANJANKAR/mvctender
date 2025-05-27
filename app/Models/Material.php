@@ -21,7 +21,9 @@ class Material extends Model
         'rate',
         'amount',
         'site_code',
-        'name_of_work'
+        'name_of_work',
+        'other_charges',
+        'remark'
     ];
 
     protected $casts = [
@@ -40,5 +42,9 @@ class Material extends Model
     public function party()
     {
         return $this->belongsTo(PartyMaster::class, 'party_id');
+    }
+    public function workOrder()
+    {
+        return $this->belongsTo(WorkOrderEntry::class, 'site_code');
     }
 } 

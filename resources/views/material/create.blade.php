@@ -40,7 +40,13 @@
 
                     <div class="col-md-4 mb-3">
                         <label for="site_code" class="form-label">Site Code</label>
-                        <input type="text" class="form-control @error('site_code') is-invalid @enderror" id="site_code" name="site_code">
+                        {{-- <input type="text" class="form-control @error('sitecode') is-invalid @enderror" id="site_code" name="site_code" value="" required> --}}
+                        <select name="site_code" id="site_code" class="form-control form-select @error('site_code') is-invalid @enderror" required>
+                            <option value="">Select Site Code</option>
+                            @foreach($workOrders as $workOrder)
+                                <option value="{{ $workOrder->id }}">{{ $workOrder->sr_no }}</option>
+                            @endforeach
+                        </select>
                         @error('site_code')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -48,7 +54,7 @@
 
                     <div class="col-md-4 mb-3">
                         <label for="entry_no" class="form-label">Entry No.</label>
-                        <input type="text" class="form-control @error('entry_no') is-invalid @enderror" id="entry_no" name="entry_no" required>
+                        <input type="text" class="form-control @error('entry_no') is-invalid @enderror" id="entry_no" name="entry_no" value="{{ $materialCode }}" required readonly>
                         @error('entry_no')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -88,7 +94,7 @@
 
                     <div class="col-md-4 mb-3">
                         <label for="quantity" class="form-label">Quantity</label>
-                        <input type="text" class="form-control @error('quantity') is-invalid @enderror" id="quantity" name="quantity">
+                        <input type="number" class="form-control @error('quantity') is-invalid @enderror" id="quantity" name="quantity">
                         @error('quantity')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -118,6 +124,15 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
+                    
+                    <div class="col-md-4 mb-3">
+                        <label for="other_charges" class="form-label">Other Charges</label>
+                        <input type="number" class="form-control @error('other_charges') is-invalid @enderror" id="other_charges" name="other_charges" data-type="charge">
+                        @error('other_charges')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    
                     <div class="col-md-4 mb-3">
                         <label for="amount" class="form-label">Amount</label>
                         <input type="text" class="form-control @error('amount') is-invalid @enderror" id="amount" name="amount" readonly>
@@ -130,6 +145,14 @@
                         <label for="name_of_work" class="form-label">Name Of Work</label>
                         <input type="text" class="form-control @error('name_of_work') is-invalid @enderror" id="name_of_work" name="name_of_work">
                         @error('name_of_work')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    
+                    <div class="col-md-4 mb-3">
+                        <label for="remark" class="form-label">Remarks</label>
+                        <input type="text" class="form-control @error('remark') is-invalid @enderror" id="remark" name="remark">
+                        @error('remark')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>

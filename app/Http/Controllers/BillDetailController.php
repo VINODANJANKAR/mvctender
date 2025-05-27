@@ -7,6 +7,7 @@ use App\Models\DepartmentMaster;
 use App\Models\ContractorMaster;
 use App\Models\PartnerMaster;
 use App\Models\WorkOrderEntry;
+use App\Models\PartyMaster;
 use Illuminate\Http\Request;
 
 class BillDetailController extends Controller
@@ -16,20 +17,19 @@ class BillDetailController extends Controller
         $bills = BillDetail::with(['department', 'subcontractor', 'workDoneBy', 'workOrder'])
             ->latest()
             ->get();
+            // dd($bills);
         return view('bill-detail.index', compact('bills'));
     }
 
     public function create()
     {
-        // $billDetails = BillDetail::with('workOrder')->get();
-        // dd($billDetails);
         $departments = DepartmentMaster::all();
         $contractors = ContractorMaster::all();
         $workOrders = WorkOrderEntry::all();
         $partners = Partnermaster::all();
-        // dd($workOrders);
+        $parties = PartyMaster::where('party_type','Contractor')->get();
         $currentYear = date('Y');
-        return view('bill-detail.create', compact('departments', 'contractors', 'workOrders', 'partners', 'currentYear'));
+        return view('bill-detail.create', compact('departments', 'contractors', 'workOrders', 'partners', 'currentYear','parties'));
     }
 
     public function store(Request $request)
@@ -40,8 +40,8 @@ class BillDetailController extends Controller
                 'year' => 'required|string',
                 'date' => 'required|date',
                 'department_id' => 'required|exists:department_master,department_id',
-                'contractor_name' => 'required|string',
-                'subcontractor_name' => 'required|string',
+                'contractor_id' => 'required|exists:party_master,party_id',
+                'subcontractor_id' => 'required|exists:party_master,party_id',
                 'name_of_work' => 'required|string',
                 'name_of_bank' => 'required|string',
                 'work_done_by_id' => 'required|exists:partner_master,partner_id',
@@ -64,9 +64,8 @@ class BillDetailController extends Controller
                 'other' => 'required|numeric',
                 'bank_charges' => 'required|numeric',
                 'stamp_duty' => 'required|numeric',
-                'options' => 'required|numeric',
-                'gram_panchayat_deduction' => 'required|numeric',
-                'gram_panchayat_emd' => 'required|numeric',
+                'other_charges' => 'nullable|numeric',
+                'description' => 'nullable|string',
                 'remark' => 'nullable|string'
             ]);
             // dd($request->all());
@@ -87,7 +86,8 @@ class BillDetailController extends Controller
         $contractors = ContractorMaster::all();
         $workOrders = WorkOrderEntry::all();
         $partners = PartnerMaster::all();
-        return view('bill-detail.edit', compact('billDetail', 'departments', 'contractors', 'partners', 'workOrders'));
+        $parties = PartyMaster::where('party_type','Contractor')->get();
+        return view('bill-detail.edit', compact('billDetail', 'departments', 'contractors', 'partners', 'workOrders','parties'));
     }
 
     public function update(Request $request, BillDetail $billDetail)
@@ -98,8 +98,8 @@ class BillDetailController extends Controller
                 'year' => 'required|string',
                 'date' => 'required|date',
                 'department_id' => 'required|exists:department_master,department_id',
-                'contractor_name' => 'required|string',
-                'subcontractor_name' => 'required|string',
+                'contractor_id' => 'required|exists:party_master,party_id',
+                'subcontractor_id' => 'required|exists:party_master,party_id',
                 'name_of_work' => 'required|string',
                 'name_of_bank' => 'required|string',
                 'work_done_by_id' => 'required|exists:partner_master,partner_id',
@@ -122,9 +122,8 @@ class BillDetailController extends Controller
                 'other' => 'required|numeric',
                 'bank_charges' => 'required|numeric',
                 'stamp_duty' => 'required|numeric',
-                'options' => 'required|numeric',
-                'gram_panchayat_deduction' => 'required|numeric',
-                'gram_panchayat_emd' => 'required|numeric',
+                'other_charges' => 'nullable|numeric',
+                'description' => 'nullable|string',
                 'remark' => 'nullable|string'
             ]);
     
@@ -153,7 +152,7 @@ class BillDetailController extends Controller
                 'name_of_work' => $workOrder->name_of_work,
                 'contractor_name' => $workOrder->name_of_contractor,
                 'subcontractor_name' => $workOrder->name_of_subcontractor,
-                // 'work_order_amount' => $workOrder->work_order_amount,
+                'work_order_amount' => $workOrder->work_order_amount,
                 'work_time_limit' => $workOrder->work_time_limit,
                 'dlp_period' => $workOrder->dlp_period,
                 'work_done_by' => $workOrder->work_done_by,

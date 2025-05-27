@@ -16,8 +16,8 @@ class BillDetail extends Model
         'year',
         'date',
         'department_id',
-        'contractor_name',
-        'subcontractor_name',
+        'contractor_id',
+        'subcontractor_id',
         'name_of_work',
         'name_of_bank',
         'work_done_by_id',
@@ -40,7 +40,8 @@ class BillDetail extends Model
         'other',
         'bank_charges',
         'stamp_duty',
-        'options',
+        'other_charges',
+        'description',
         'gram_panchayat_deduction',
         'gram_panchayat_emd',
         'remark'
@@ -62,9 +63,7 @@ class BillDetail extends Model
         'fine' => 'decimal:2',
         'other' => 'decimal:2',
         'bank_charges' => 'decimal:2',
-        'stamp_duty' => 'decimal:2',
-        'gram_panchayat_deduction' => 'decimal:2',
-        'gram_panchayat_emd' => 'decimal:2'
+        'stamp_duty' => 'decimal:2'
     ];
 
     public function department()
@@ -84,7 +83,7 @@ class BillDetail extends Model
 
     public function workOrder()
     {
-        return $this->belongsTo(WorkOrderEntry::class, 'work_order_id');
+        return $this->belongsTo(WorkOrderEntry::class, 'site_code');
     }
 
     public function adjustments()

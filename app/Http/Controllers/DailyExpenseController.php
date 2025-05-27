@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\DailyExpense;
 use App\Models\AccountHeadMaster;
 use App\Models\PartnerMaster;
+use App\Models\WorkOrderEntry;
+use App\Models\PartyMaster;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
@@ -24,8 +26,10 @@ class DailyExpenseController extends Controller
         $currentDate = Carbon::now()->format('Y-m-d');
         $voucherNo = $this->generateVoucherNo();
         $partners = PartnerMaster::all();
+        $workOrders = WorkOrderEntry::all();
+        $parties = PartyMaster::all();
         // dd($accountHeads);
-        return view('daily-expense.create', compact('currentDate', 'voucherNo', 'partners'));
+        return view('daily-expense.create', compact('currentDate', 'voucherNo', 'partners', 'workOrders', 'parties'));
     }
 
     public function store(Request $request)
@@ -35,14 +39,17 @@ class DailyExpenseController extends Controller
                 'entry_no' => 'required|string|unique:daily_expenses',
                 'entry_date' => 'required|date',
                 'expense_date' => 'required|date',
-                'site_code' => 'nullable|string|max:255',
+                'site_code' => 'required|exists:work_order_entries,id',
                 'name_of_work' => 'nullable|string|max:255',
                 'description' => 'required|string|max:255',
                 'paid_to' => 'nullable|string|max:255',
                 'payment_through' => 'nullable|string|max:255',
                 'amount' => 'required|numeric|min:0',
                 'payment_mode' => 'required|string|in:Cash,Bank,UPI,Card,Other',
-                'paid_by' => 'required|exists:partner_master,partner_id'
+                'paid_by' => 'required|exists:partner_master,partner_id',
+                'voucher_book_no' => 'nullable|string|max:255',
+                'voucher_no' => 'nullable|string|max:255',
+                'expense_type' => 'required|string|max:255'
             ]);
     
             DailyExpense::create($request->all());
@@ -58,7 +65,8 @@ class DailyExpenseController extends Controller
     public function edit(DailyExpense $dailyExpense)
     {
         $partners = PartnerMaster::all();
-        return view('daily-expense.edit', compact('dailyExpense', 'partners'));
+        $workOrders = WorkOrderEntry::all();
+        return view('daily-expense.edit', compact('dailyExpense', 'partners', 'workOrders'));
     }
 
     public function update(Request $request, DailyExpense $dailyExpense)
@@ -67,14 +75,17 @@ class DailyExpenseController extends Controller
             'entry_no' => 'required|string|unique:daily_expenses,entry_no,' . $dailyExpense->id,
             'entry_date' => 'required|date',
             'expense_date' => 'required|date',
-            'site_code' => 'nullable|string|max:255',
+            'site_code' => 'required|exists:work_order_entries,id',
             'name_of_work' => 'nullable|string|max:255',
             'description' => 'required|string|max:255',
             'paid_to' => 'nullable|string|max:255',
             'payment_through' => 'nullable|string|max:255',
             'amount' => 'required|numeric|min:0',
             'payment_mode' => 'required|string|in:Cash,Bank,UPI,Card,Other',
-            'paid_by' => 'required|exists:partner_master,partner_id'
+            'paid_by' => 'required|exists:partner_master,partner_id',
+            'voucher_book_no' => 'nullable|string|max:255',
+            'voucher_no' => 'nullable|string|max:255',
+            'expense_type' => 'required|string|max:255'
         ]);
 
         $dailyExpense->update($request->all());
@@ -106,5 +117,25 @@ class DailyExpenseController extends Controller
         }
 
         return $year . $newNumber;
+    }
+
+    public function getWorkOderDetails(Request $request)
+    {
+        $workOrder = WorkOrderEntry::where('id', $request->site_code)->first();
+        // dd($workOrder);
+        if ($workOrder) {
+            return response()->json([
+                'department_id' => $workOrder->department_id,
+                'name_of_work' => $workOrder->name_of_work,
+                'contractor_name' => $workOrder->name_of_contractor,
+                'subcontractor_name' => $workOrder->name_of_subcontractor,
+                'work_order_amount' => $workOrder->work_order_amount,
+                'work_time_limit' => $workOrder->work_time_limit,
+                'dlp_period' => $workOrder->dlp_period,
+                'work_done_by' => $workOrder->work_done_by,
+                'agreement_no' => $workOrder->agreement_no
+            ]);
+        }
+        return response()->json(null);
     }
 } 

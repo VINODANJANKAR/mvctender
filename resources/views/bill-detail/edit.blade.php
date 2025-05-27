@@ -67,32 +67,31 @@
                     </div>
 
                     <div class="col-md-4 mb-3">
-                        <label for="contractor_name" class="form-label">Name of Contractor</label>
-                        <input type="text" class="form-control @error('contractor_name') is-invalid @enderror" id="contractor_name" name="contractor_name" value="{{ $billDetail->contractor_name }}" required>
-                        {{-- <select name="contractor_id" id="contractor_id" class="form-control form-select @error('contractor_id') is-invalid @enderror">
+                        <label for="contractor_id" class="form-label">Name of Contractor</label>
+                        <select name="contractor_id" id="contractor_id" class="form-control form-select @error('contractor_id') is-invalid @enderror">
                             <option value="">Select Contractor</option>
-                            @foreach($contractors as $contractor)
-                                <option value="{{ $contractor->id }}"
-                                    {{ $billDetail->contractor_id == $contractor->id ? 'selected' : '' }}>{{ $contractor->name }}</option>
+                            @foreach($parties as $party)
+                                <option value="{{ $party->party_id }}"
+                                    {{ $billDetail->contractor_id == $party->party_id ? 'selected' : '' }}>{{ $party->party_name }}
+                                </option>
                             @endforeach
-                        </select> --}}
-                        @error('contractor_name')
+                        </select>
+                        @error('contractor_id')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
 
                     <div class="col-md-4 mb-3">
-                        <label for="subcontractor_name" class="form-label">Subcontractor</label>
-                        <input type="text" class="form-control @error('subcontractor_name') is-invalid @enderror" id="subcontractor_name" name="subcontractor_name" value="{{ $billDetail->subcontractor_name }}" required>
-                        {{-- <select name="subcontractor_id" id="subcontractor_id" class="form-control form-select @error('subcontractor_id') is-invalid @enderror">
+                        <label for="subcontractor_id" class="form-label">Name of Subcontractor</label>
+                        <select name="subcontractor_id" id="subcontractor_id" class="form-control form-select @error('subcontractor_id') is-invalid @enderror">
                             <option value="">Select Subcontractor</option>
-                            @foreach($contractors as $contractor)
-                                <option value="{{ $contractor->id }}" {{ $billDetail->subcontractor_id == $contractor->id ? 'selected' : '' }}>
-                                    {{ $contractor->name }}
+                            @foreach($parties as $party)
+                                <option value="{{ $party->party_id }}"
+                                    {{ $billDetail->subcontractor_id == $party->party_id ? 'selected' : '' }}>{{ $party->party_name }}
                                 </option>
                             @endforeach
-                        </select> --}}
-                        @error('subcontractor_name')
+                        </select>
+                        @error('subcontractor_id')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
@@ -281,14 +280,22 @@
                     </div>
 
                     <div class="col-md-4 mb-3">
-                        <label for="options" class="form-label">Options</label>
-                        <input type="number" step="0.01" class="form-control @error('options') is-invalid @enderror" id="options" name="options" value="{{ $billDetail->options }}" required>
-                        @error('options')
+                        <label for="other_charges" class="form-label">Other Charges</label>
+                        <input type="number" step="0.01" class="form-control @error('other_charges') is-invalid @enderror" id="other_charges" name="other_charges" value="{{ $billDetail->other_charges }}">
+                        @error('other_charges')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
 
                     <div class="col-md-4 mb-3">
+                        <label for="description" class="form-label">Description</label>
+                        <input type="text" class="form-control @error('description') is-invalid @enderror" id="description" name="description" value="{{ $billDetail->description }}">
+                        @error('description')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    {{-- <div class="col-md-4 mb-3">
                         <label for="gram_panchayat_deduction" class="form-label">Gram Panchayat Deduction</label>
                         <input type="number" step="0.01" class="form-control @error('gram_panchayat_deduction') is-invalid @enderror" id="gram_panchayat_deduction" name="gram_panchayat_deduction" value="{{ $billDetail->gram_panchayat_deduction }}" required>
                         @error('gram_panchayat_deduction')
@@ -302,7 +309,7 @@
                         @error('gram_panchayat_emd')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
-                    </div>
+                    </div> --}}
 
                     <div class="col-12 mb-3">
                         <label for="remark" class="form-label">Remark</label>

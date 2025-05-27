@@ -22,7 +22,10 @@ class DailyExpense extends Model
         'payment_through',
         'amount',
         'payment_mode',
-        'paid_by'
+        'paid_by',
+        'voucher_book_no',
+        'voucher_no',
+        'expense_type'
     ];
 
     protected $casts = [

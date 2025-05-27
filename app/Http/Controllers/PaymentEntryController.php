@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\PaymentEntry;
 use App\Models\PartnerMaster;
+use App\Models\PartyMaster;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
@@ -14,7 +15,8 @@ class PaymentEntryController extends Controller
         $payments = PaymentEntry::with('partner')
             ->latest()
             ->get();
-        return view('payment.index', compact('payments'));
+        $parties = PartyMaster::all();
+        return view('payment.index', compact('payments', 'parties'));
     }
 
     public function create()
@@ -22,14 +24,15 @@ class PaymentEntryController extends Controller
         $currentDate = Carbon::now()->format('Y-m-d');
         // $voucherNo = $this->generateVoucherNo();
         $partners = PartnerMaster::all();
-        return view('payment.create', compact('partners'));
+        $parties = PartyMaster::all();
+        return view('payment.create', compact('partners', 'parties'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
             'date' => 'required|date',
-            'paid_to' => 'nullable|string',
+            'paid_to' => 'required|exists:party_master,party_id',
             'description' => 'nullable|string|max:255',
             'amount' => 'required|numeric|min:0',
             'gst_amount' => 'required|numeric|min:0',
@@ -39,6 +42,9 @@ class PaymentEntryController extends Controller
             'partner_id' => 'required|exists:partner_master,partner_id',
             'bank_name' => 'nullable|string|max:255',
             'bank_ac_name' => 'nullable|string|max:255',
+            'other_charges' => 'nullable|string|max:255',
+            'ref' => 'nullable|string|max:255',
+            'remarks' => 'nullable|string|max:255',
         ]);
 
         PaymentEntry::create($request->all());
@@ -50,14 +56,15 @@ class PaymentEntryController extends Controller
     public function edit(PaymentEntry $payment)
     {
         $partners = PartnerMaster::all();
-        return view('payment.edit', compact('payment', 'partners'));
+        $parties = PartyMaster::all();
+        return view('payment.edit', compact('payment', 'partners', 'parties'));
     }
 
     public function update(Request $request, PaymentEntry $payment)
     {
         $request->validate([
             'date' => 'required|date',
-            'paid_to' => 'nullable|string',
+            'paid_to' => 'required|exists:party_master,party_id',
             'description' => 'nullable|string|max:255',
             'amount' => 'required|numeric|min:0',
             'gst_amount' => 'required|numeric|min:0',
@@ -67,6 +74,9 @@ class PaymentEntryController extends Controller
             'partner_id' => 'required|exists:partner_master,partner_id',
             'bank_name' => 'nullable|string|max:255',
             'bank_ac_name' => 'nullable|string|max:255',
+            'other_charges' => 'nullable|string|max:255',
+            'ref' => 'nullable|string|max:255',
+            'remarks' => 'nullable|string|max:255',
         ]);
 
         $payment->update($request->all());

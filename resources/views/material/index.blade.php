@@ -39,7 +39,7 @@
                     <tbody>
                         @foreach($materials as $material)
                             <tr>
-                                <td>{{ $material->site_code }}</td>
+                                <td>{{ $material['workOrder']->sr_no }}</td>
                                 <td>{{ $material['party']->party_name }}</td>
                                 <td>{{ $material->entry_no }}</td>
                                 <td>{{ $material->challan_no }}</td>

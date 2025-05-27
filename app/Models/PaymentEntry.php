@@ -22,7 +22,10 @@ class PaymentEntry extends Model
         'beneficiary_name',
         'partner_id',
         'bank_name',
-        'bank_ac_name'
+        'bank_ac_name',
+        'other_charges',
+        'ref',
+        'remarks'
     ];
 
     protected $casts = [

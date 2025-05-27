@@ -51,14 +51,43 @@
                 $('#year').val(financialYear);
             });
             
-            // $("#rate").focusout(function() {
-            //     var qty = $('#quantity').val();
-            //     var rate = $('#rate').val();
+            $("#deduction_amount").focusout(function() {
+                var total = $('#total_bill_amount').val();
+                var deduction = $('#deduction_amount').val();
 
-            //     var amount = qty*rate;
+                var net = total - deduction;
                 
-            //     $('#amount').val(amount);
-            // });
+                $('#net_bill_amount').val(net);
+            });
+
+            $("#commision_rate").focusout(function() {
+                var rtgs = $('#rtgs_amt').val();
+                var commission = $('#commision_rate').val();
+
+                var net = rtgs - commission;
+                
+                $('#net_amt').val(net);
+            });
+
+            $("#other_charges").focusout(function() {
+                var amt = parseFloat($('#amount').val()) || 0;                
+                var gst = parseFloat($('#gst_amount').val()) || 0;
+                var other = parseFloat($('#other_charges').val()) || 0;
+                
+                var total = amt + gst + other;
+                
+                $('#total_amount').val(total);
+            });
+
+            $('#other_charges[data-type="charge"').focusout(function(){
+                var quantity = parseFloat($('#quantity').val()) || 0;                
+                var rate = parseFloat($('#rate').val()) || 0;
+                var other = parseFloat($('#other_charges').val()) || 0;
+
+                var total_amt = (quantity * rate) + other;
+
+                $('#amount').val(total_amt);
+            });
 
         });
     </script> 

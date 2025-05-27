@@ -27,8 +27,13 @@
                     </div>
 
                     <div class="col-md-4 mb-3">
-                        <label for="paid_to" class="form-label">Paid to</label>
-                        <input type="text" class="form-control @error('paid_to') is-invalid @enderror" id="paid_to" name="paid_to" value="" required>
+                        <label for="paid_to" class="form-label">Paid To</label>
+                        <select name="paid_to" id="paid_to" class="form-control form-select @error('paid_to') is-invalid @enderror" required>
+                            <option value="">Select party</option>
+                             @foreach($parties as $party)
+                                <option value="{{ $party->party_id }}">{{ $party->party_type }}</option>
+                            @endforeach
+                        </select>
                         @error('paid_to')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -59,8 +64,16 @@
                     </div>
                     
                     <div class="col-md-4 mb-3">
+                        <label for="other_charges" class="form-label">Other Charges</label>
+                        <input type="number" step="0.01" class="form-control @error('other_charges') is-invalid @enderror" id="other_charges" name="other_charges">
+                        @error('other_charges')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    
+                    <div class="col-md-4 mb-3">
                         <label for="total_amount" class="form-label">Total Amount</label>
-                        <input type="number" step="0.01" class="form-control @error('total_amount') is-invalid @enderror" id="total_amount" name="total_amount" required>
+                        <input type="number" step="0.01" class="form-control @error('total_amount') is-invalid @enderror" id="total_amount" name="total_amount" required readonly>
                         @error('total_amount')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -92,7 +105,7 @@
                     <div class="col-md-4 mb-3">
                         <label for="partner_id" class="form-label">Paid By</label>
                         <select name="partner_id" id="partner_id" class="form-control form-select @error('partner_id') is-invalid @enderror" required>
-                            <option value="">Select Party</option>
+                            <option value="">Select Partner</option>
                             @foreach($partners as $partner)
                             <option value="{{ $partner->partner_id }}">{{ $partner->partner_name }}</option>
                             @endforeach
@@ -114,6 +127,20 @@
                         <label for="bank_ac_name" class="form-label">Bank A/c Name</label>
                         <input type="text" class="form-control @error('bank_ac_name') is-invalid @enderror" id="bank_ac_name" name="bank_ac_name">
                         @error('bank_ac_name')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="ref" class="form-label">Reference</label>
+                        <input type="text" class="form-control @error('ref') is-invalid @enderror" id="ref" name="ref">
+                        @error('ref')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="remarks" class="form-label">Remarks</label>
+                        <input type="text" class="form-control @error('remarks') is-invalid @enderror" id="remarks" name="remarks">
+                        @error('remarks')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>

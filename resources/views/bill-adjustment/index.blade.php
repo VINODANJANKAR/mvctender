@@ -26,7 +26,6 @@
                     <thead>
                         <tr>
                             <th>Date</th>
-                            <th>Voucher No</th>
                             <th>Bank Name</th>
                             <th>Account Nubmer</th>
                             <th>Beneficiary Name</th>
@@ -47,7 +46,7 @@
                         @foreach($adjustments as $adjustment)
                             <tr>
                                 <td>{{ $adjustment->date->format('d-m-Y') }}</td>
-                                <td>{{ $adjustment->voucher_no }}</td>
+                                {{-- <td>{{ $adjustment->voucher_no }}</td> --}}
                                 <td>{{ $adjustment->bank_name}}</td>
                                 <td>{{ $adjustment->account_number }}</td>
                                 <td>{{ $adjustment->beneficiary_name }}</td>

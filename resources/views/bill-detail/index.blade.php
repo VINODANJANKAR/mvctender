@@ -39,7 +39,7 @@
                     <tbody>
                         @foreach($bills as $bill)
                             <tr>
-                                <td>{{ $bill->site_code }}</td>
+                                <td>{{ $bill['workOrder']->sr_no }}</td>
                                 <td>{{ $bill->year }}</td>
                                 <td>{{ $bill->date->format('d-m-Y') }}</td>
                                 <td>{{ $bill->department->department_name }}</td>
