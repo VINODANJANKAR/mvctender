@@ -69,10 +69,10 @@
                         <select class="form-control form-select @error('contractor_id') is-invalid @enderror" 
                                 id="contractor_id" name="contractor_id" required>
                             <option value="">Select Department</option>
-                            @foreach($contractors as $contractor)
-                            <option value="{{ $contractor->id }}" 
-                                {{ old('contractor_id', $workOrder->contractor_id) == $contractor->id ? 'selected' : '' }}>
-                                {{ $contractor->name }}
+                            @foreach($parties as $party)
+                            <option value="{{ $party->party_id }}" 
+                                {{ old('contractor_id', $workOrder->contractor_id) == $party->party_id ? 'selected' : '' }}>
+                                {{ $party->party_name }}
                             </option>
                         @endforeach
                         </select>
@@ -85,18 +85,18 @@
                 <div class="row">
                     <div class="col-md-4 mb-3">
                         <label for="name_of_subcontractor" class="form-label">Subcontractor Name</label>
-                        <input type="text" class="form-control @error('name_of_subcontractor') is-invalid @enderror" 
-                               id="name_of_subcontractor" name="name_of_subcontractor" value="{{ old('name_of_subcontractor', $workOrder->name_of_subcontractor) }}" required>
-                        {{-- <select class="form-control form-select @error('subcontractor_id') is-invalid @enderror" 
-                                id="subcontractor_id" name="subcontractor_id" required>
+                        {{-- <input type="text" class="form-control @error('name_of_subcontractor') is-invalid @enderror" 
+                               id="name_of_subcontractor" name="name_of_subcontractor" value="{{ old('name_of_subcontractor', $workOrder->name_of_subcontractor) }}" required> --}}
+                        <select class="form-control form-select @error('subcontractor_id') is-invalid @enderror" 
+                                id="name_of_subcontractor" name="name_of_subcontractor" required>
                             <option value="">Select Subcontractor</option>
-                            @foreach($subcontractors as $scontractor)
-                                <option value="{{ $scontractor->id }}" 
-                                    {{ old('subcontractor_id', $workOrder->subcontractor_id) == $scontractor->id ? 'selected' : '' }}>
-                                    {{ $scontractor->name }}
+                            @foreach($parties as $party)
+                                <option value="{{ $party->party_id }}" 
+                                    {{ old('name_of_subcontractor', $workOrder->subcontractor_id) == $party->party_id ? 'selected' : '' }}>
+                                    {{ $party->party_name }}
                                 </option>
                             @endforeach
-                        </select> --}}
+                        </select>
                         @error('name_of_subcontractor')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror

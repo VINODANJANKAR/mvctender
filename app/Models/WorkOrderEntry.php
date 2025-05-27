@@ -9,6 +9,7 @@ class WorkOrderEntry extends Model
 {
     use HasFactory;
 
+    protected $table = 'work_order_entries';
     // protected $fillable = [
     //     'entry_date' ,
     //     'entry_year' ,
@@ -60,7 +61,7 @@ class WorkOrderEntry extends Model
         return $this->belongsTo(TenderEntry::class, 'tender_id');
     }
 
-    public function contractor()
+    public function parties()
     {
         return $this->belongsTo(PartyMaster::class, 'contractor_id');
     }

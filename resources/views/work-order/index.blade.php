@@ -17,7 +17,7 @@
                     <th>Entry Date</th>
                     <th>Order Year</th>
                     <th>Department</th>
-                    <th>Contractor</th>
+                    {{-- <th>Contractor</th> --}}
                     <th>Work Order No</th>
                     <th>Work Order Amount</th>
                     <th>Actions</th>
@@ -25,13 +25,14 @@
             </thead>
             <tbody>
                 @foreach($workOrders as $workOrder)
+                
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $workOrder->sr_no }}</td>
                         <td>{{ $workOrder->entry_date->format('d-m-Y') }}</td>
-                        <td>{{ $workOrder->order_year }}</td>
+                        <td>{{ $workOrder->entry_year }}</td>
                         <td>{{ $workOrder->department->department_name }}</td>
-                        <td>{{ $workOrder->name_of_contractor }}</td>
+                        {{-- <td>{{ $workOrder->parties->party_name }}</td> --}}
                         <td>{{ $workOrder->work_order_no }}</td>
                         <td>{{ number_format($workOrder->work_order_amount, 2) }}</td>
                         <td>

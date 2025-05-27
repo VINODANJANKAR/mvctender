@@ -148,10 +148,10 @@
                     {{-- <label for="paid_by" class="form-label">Paid By</label> --}}
                     <select class="form-control" name="contractor_id[]" required>
                         <option value="">Select Contractor</option>
-                        @foreach($contractors as $contractor)
-                        <option value="{{ $contractor->id }}" 
-                            {{ old('paid_by') == $contractor->id ? 'selected' : '' }}>
-                            {{ $contractor->name }}
+                        @foreach($parties as $party)
+                        <option value="{{ $party->party_id }}" 
+                            {{ old('paid_by') == $party->party_id ? 'selected' : '' }}>
+                            {{ $party->party_name }}
                         </option>
                         @endforeach
                     </select>
@@ -206,7 +206,7 @@
 
                     <div class="col-md-6 mb-3">
                         <label for="work_time_limit" class="form-label">Work Time Limit</label>
-                        <input type="text" class="form-control @error('work_time_limit') is-invalid @enderror" 
+                        <input type="date" class="form-control @error('work_time_limit') is-invalid @enderror" 
                                id="work_time_limit" name="work_time_limit" value="{{ old('work_time_limit') }}" >
                         @error('work_time_limit')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -321,11 +321,11 @@
                     <label for="name_of_contractor" class="form-label">Name of Contractor</label>
                     <select class="form-control" name="contractor_id[]" required>
                         <option value="">Select Contractor</option>
-                        @foreach($contractors as $contractor)
-                        <option value="{{ $contractor->id }}" 
-                            {{ old('paid_by') == $contractor->id ? 'selected' : '' }}>
-                            {{ $contractor->name }}
-                        </option>
+                        @foreach($parties as $party)
+                            <option value="{{ $party->party_id }}" 
+                                {{ old('contractor_id') == $party->party_id ? 'selected' : '' }}>
+                                {{ $party->party_name }}
+                            </option>
                         @endforeach
                     </select>
                 </div>
@@ -354,9 +354,9 @@
             </div>
             <div class="row">
                 <div class="col-md-6 mb-3">
-                    <label for="emd_amount_refund" class="form-label">Emd Amount Refund</label>
+                    <label for="emd_amount_refund" class="form-label">Emd Amount Refund Status</label>
                     <select class="form-control" name="emd_amount_refund[]" required>
-                        <option value="">Select Partner</option>
+                        <option value="">Select Refund Status</option>
                         <option value="yes">Yes</option>
                         <option value="no">No</option>
                     </select>

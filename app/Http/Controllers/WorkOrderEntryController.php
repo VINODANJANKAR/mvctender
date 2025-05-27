@@ -24,11 +24,11 @@ class WorkOrderEntryController extends Controller
 {
     public function index()
     {
-        $workOrders = WorkOrderEntry::with(['department', 'tender','contractor'])
+        $workOrders = WorkOrderEntry::with(['department', 'tender','parties'])
             ->latest()
             ->paginate(10);
             // ->get()
-
+        // dd($workOrders);
             
         return view('work-order.index', compact('workOrders'));
     }
@@ -41,7 +41,7 @@ class WorkOrderEntryController extends Controller
         $siteCode = $this->generateSrNo();
         $departments = DepartmentMaster::all();
         $tenders = TenderEntry::all();
-        $parties = PartyMaster::all();
+        $parties = PartyMaster::where('party_type','Contractor')->get();
         $partners = PartnerMaster::all();
         $contractors = ContractorMaster::all();
         // dd($siteCode);
@@ -121,8 +121,8 @@ class WorkOrderEntryController extends Controller
             'sr_no' =>  $request->site_code,
             'tender_id' =>  $request->sr_no,
             'department_id' => $request->department_id,
-            'contractor_id'=> $request->name_of_contractor,
-            'subcontractor_id'=> '1111',
+            'contractor_id'=> $request->contractor_id,
+            'subcontractor_id'=> $request->subcontractor_id,
             'agreement_no' =>  $request->agreement_no,
             'work_order_no' =>  $request->work_order_no,
             'work_order_date' =>  $request->work_order_date,
@@ -186,7 +186,7 @@ class WorkOrderEntryController extends Controller
     {
         $departments = DepartmentMaster::all();
         $tenders = TenderEntry::all();
-        $parties = PartyMaster::all();
+        $parties = PartyMaster::where('party_type','Contractor')->get();
         $partners = PartnerMaster::all();
         $contractors = ContractorMaster::all();
         $workDoneBy = WorkDoneBy::where('work_order_id', $workOrder->id)->pluck('partner_id')->toArray();
@@ -247,7 +247,7 @@ class WorkOrderEntryController extends Controller
             'agreement_no' => $request->agreement_no,
             'department_id' => $request->department_id,
             'contractor_id'=> $request->contractor_id,
-            'subcontractor_id'=> '111', // $request->name_of_subcontractor,
+            'subcontractor_id'=> $request->subcontractor_id,
             'work_order_no' => $request->work_order_no,
             'work_order_date' => $request->work_order_date,
             'work_order_amount' => $request->work_order_amount,

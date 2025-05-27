@@ -73,16 +73,16 @@
                     </div>
 
                     <div class="col-md-4 mb-3">
-                        <label for="name_of_contractor" class="form-label">Name of Contractor</label>
+                        <label for="contractor_id" class="form-label">Name of Contractor</label>
                         {{-- <input type="text" class="form-control @error('name_of_contractor') is-invalid @enderror"  --}}
                                {{-- id="name_of_contractor" name="name_of_contractor" value="{{ old('name_of_contractor') }}" required> --}}
-                               <select class="form-control form-select @error('name_of_contractor') is-invalid @enderror" 
-                               id="name_of_contractor" name="name_of_contractor" required >
+                               <select class="form-control form-select @error('contractor_id') is-invalid @enderror" 
+                               id="contractor_id" name="contractor_id" required >
                                 <option value="">Select contractor</option>
-                                @foreach($contractors as $contractor)
-                                    <option value="{{ $contractor->id }}" 
-                                        {{ old('name_of_contractor') == $contractor->contractor_id ? 'selected' : '' }}>
-                                        {{ $contractor->name }}
+                                @foreach($parties as $party)
+                                    <option value="{{ $party->party_id }}" 
+                                        {{ old('contractor_id') == $party->party_id ? 'selected' : '' }}>
+                                        {{ $party->party_name }}
                                     </option>
                                 @endforeach 
                        </select>
@@ -95,18 +95,18 @@
                 <div class="row">
                     <div class="col-md-4 mb-3">
                         <label for="subcontractor_id" class="form-label">Subcontractor Name</label>
-                        <input type="text" class="form-control @error('name_of_subcontractor') is-invalid @enderror" 
-                               id="name_of_subcontractor" name="name_of_subcontractor" value="{{ old('name_of_subcontractor') }}" required>
-                        {{-- <select class="form-control form-select @error('subcontractor_id') is-invalid @enderror" 
-                                id="subcontractor_id" name="subcontractor_id" required>
-                            <option value="">Select Subcontractor</option>
-                            @foreach($subcontractor as $scont)
-                                <option value="{{ $scont->id }}" 
-                                    {{ old('subcontractor_id') == $scont->partner_id ? 'selected' : '' }}>
-                                    {{ $scont->name }}
-                                </option>
-                            @endforeach
-                        </select> --}}
+                        {{-- <input type="text" class="form-control @error('name_of_subcontractor') is-invalid @enderror" 
+                               id="name_of_subcontractor" name="name_of_subcontractor" value="{{ old('name_of_subcontractor') }}" required> --}}
+                        <select class="form-control form-select @error('subcontractor_id') is-invalid @enderror" 
+                               id="subcontractor_id" name="subcontractor_id" required >
+                                <option value="">Select contractor</option>
+                                @foreach($parties as $party)
+                                    <option value="{{ $party->party_id }}" 
+                                        {{ old('subcontractor_id') == $party->party_id ? 'selected' : '' }}>
+                                        {{ $party->party_name }}
+                                    </option>
+                                @endforeach 
+                       </select>
                         @error('name_of_subcontractor')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror

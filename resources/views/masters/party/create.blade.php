@@ -18,6 +18,7 @@
                             id="party_type" name="party_type" required>
                         <option value="">Select Party Type</option>
                         <option value="Supplier" {{ old('party_type') == 'Supplier' ? 'selected' : '' }}>Supplier</option>
+                        <option value="Contractor" {{ old('party_type') == 'Contractor' ? 'selected' : '' }}>Contractor</option>
                         <option value="Labour Contractor" {{ old('party_type') == 'Labour Contractor' ? 'selected' : '' }}>Labour Contractor</option>
                     </select>
                     @error('party_type')

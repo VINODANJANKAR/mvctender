@@ -156,10 +156,10 @@
             <div class="col-md-6 mb-3">
                 <label for="contractor_id" class="form-label">Name of Contractor</label>
                 <select class="form-control" name="contractor_id[]" required>
-                    <option value="">Select Department</option>
-                    @foreach($contractors as $contractor)
-                        <option value="{{ $contractor->id }}" {{ $contractor->id == $transaction->contractor_id ? 'selected' : '' }}>
-                            {{ $contractor->name }}
+                    <option value="">Select Contractor</option>
+                    @foreach($parties as $party)
+                        <option value="{{ $party->party_id }}" {{ $transaction->contractor_id == $party->party_id ? 'selected' : '' }}>
+                            {{ $party->party_name }}
                         </option>
                     @endforeach
                 </select>
@@ -178,7 +178,7 @@
                 <label for="paid_by" class="form-label">Paid By</label>
                 <select class="form-control" name="paid_by[]" required>
                     @foreach($partners as $partner)
-                        <option value="{{ $partner->partner_id }}" {{ $partner->partner_id == $transaction->paid_by ? 'selected' : '' }}>
+                        <option value="{{ $partner->partner_id }}" {{ $transaction->paid_by == $partner->partner_id  ? 'selected' : '' }}>
                             {{ $partner->partner_name }}
                         </option>
                     @endforeach
@@ -242,7 +242,7 @@
 
                     <div class="col-md-6 mb-3">
                         <label for="work_time_limit" class="form-label">Work Time Limit</label>
-                        <input type="text" class="form-control @error('work_time_limit') is-invalid @enderror" 
+                        <input type="date" class="form-control @error('work_time_limit') is-invalid @enderror" 
                                id="work_time_limit" name="work_time_limit" value="{{ old('work_time_limit', $tender->work_time_limit) }}" >
                         @error('work_time_limit')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -341,8 +341,8 @@
                     <label for="contractor_id" class="form-label">Name of Contractor</label>
                     <select class="form-control" name="contractor_id[]" required>
                     <option value="">Select Department</option>
-                        @foreach($contractors as $contractor)
-                            <option value="{{ $contractor->id }}">{{ $contractor->name }}</option>
+                        @foreach($parties as $party)
+                            <option value="{{ $party->party_id }}">{{ $party->party_name }}</option>
                         @endforeach
                     </select>
                 </div>
