@@ -18,6 +18,7 @@
                             id="party_type" name="party_type" required>
                         <option value="">Select Party Type</option>
                         <option value="Supplier" {{ old('party_type') == 'Supplier' ? 'selected' : '' }}>Supplier</option>
+                        <option value="Contractor" {{ old('party_type') == 'Contractor' ? 'selected' : '' }}>Contractor</option>
                         <option value="Labour Contractor" {{ old('party_type') == 'Labour Contractor' ? 'selected' : '' }}>Labour Contractor</option>
                     </select>
                     @error('party_type')
@@ -57,6 +58,15 @@
                     <input type="text" class="form-control @error('contact_number') is-invalid @enderror" 
                            id="contact_number" name="contact_number" value="{{ old('contact_number') }}" required>
                     @error('contact_number')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <div class="mb-3">
+                    <label for="gst_number" class="form-label">GST Number</label>
+                    <input type="text" class="form-control @error('gst_number') is-invalid @enderror" 
+                           id="gst_number" name="gst_number" value="{{ old('gst_number') }}" >
+                    @error('gst_number')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>

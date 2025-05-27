@@ -17,6 +17,7 @@ class PartyMaster extends Model
         'party_type',
         'address',
         'contact_number',
-        'contact_person'
+        'contact_person',
+        'gst_number'
     ];
 } 

@@ -9,6 +9,7 @@ class WorkOrderEntry extends Model
 {
     use HasFactory;
 
+    protected $table = 'work_order_entries';
     // protected $fillable = [
     //     'entry_date' ,
     //     'entry_year' ,
@@ -38,7 +39,7 @@ class WorkOrderEntry extends Model
         'entry_date', 'entry_year', 'sr_no', 'tender_id',
         'agreement_no', 'department_id', 'contractor_id', 'subcontractor_id','work_order_no',
         'work_order_date', 'work_order_amount', 'work_time_limit',
-        'dlp_period', 'security_deposite', 'additional_security_deposit',
+        'dlp_period', 'security_deposite', 'additional_security_deposit','security_deposit_amount_refund','additional_security_deposit_amount_refund',
         'name_of_work', 'work_head', 'work_done_by','bond_amount','bond_amount_bank','bond_amount_paid_by','created_at', 'updated_at'
     ];
 
@@ -60,7 +61,7 @@ class WorkOrderEntry extends Model
         return $this->belongsTo(TenderEntry::class, 'tender_id');
     }
 
-    public function contractor()
+    public function parties()
     {
         return $this->belongsTo(PartyMaster::class, 'contractor_id');
     }
@@ -81,5 +82,8 @@ class WorkOrderEntry extends Model
     }
     public function addSecurityDeposite(){
         return $this->hasMany(WorkOrderAdditionalSecDeposit::class, 'work_order_id');
+    }
+    public function workDoneBy(){
+        return $this->hasMany(workDoneBy::class, 'work_order_id');
     }
 } 

@@ -17,7 +17,8 @@ class TenderTransactionTbl extends Model
         'emd_amount',
         'paid_by',
         'created_at',
-        'updated_at'
+        'updated_at',
+        'emd_amount_refund'
     ];
 
     // protected $casts = [

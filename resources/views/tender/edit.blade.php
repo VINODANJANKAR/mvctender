@@ -156,10 +156,10 @@
             <div class="col-md-6 mb-3">
                 <label for="contractor_id" class="form-label">Name of Contractor</label>
                 <select class="form-control" name="contractor_id[]" required>
-                    <option value="">Select Department</option>
-                    @foreach($contractors as $contractor)
-                        <option value="{{ $contractor->id }}" {{ $contractor->id == $transaction->contractor_id ? 'selected' : '' }}>
-                            {{ $contractor->name }}
+                    <option value="">Select Contractor</option>
+                    @foreach($parties as $party)
+                        <option value="{{ $party->party_id }}" {{ $transaction->contractor_id == $party->party_id ? 'selected' : '' }}>
+                            {{ $party->party_name }}
                         </option>
                     @endforeach
                 </select>
@@ -178,10 +178,20 @@
                 <label for="paid_by" class="form-label">Paid By</label>
                 <select class="form-control" name="paid_by[]" required>
                     @foreach($partners as $partner)
-                        <option value="{{ $partner->partner_id }}" {{ $partner->partner_id == $transaction->paid_by ? 'selected' : '' }}>
+                        <option value="{{ $partner->partner_id }}" {{ $transaction->paid_by == $partner->partner_id  ? 'selected' : '' }}>
                             {{ $partner->partner_name }}
                         </option>
                     @endforeach
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="emd_amount_refund" class="form-label">Emd Amount Refund</label>
+                <select class="form-control" name="emd_amount_refund[]" required>
+                    <option value="">Select Partner</option>
+                    <option value="yes"<?php if($transaction->emd_amount_refund == 'yes') { ?> selected="selected"<?php } ?>>Yes</option>
+                          <option value="no"<?php if($transaction->emd_amount_refund == 'no') { ?> selected="selected"<?php } ?>>No</option>
                 </select>
             </div>
         </div>
@@ -224,7 +234,7 @@
                     <div class="col-md-6 mb-3">
                         <label for="work_order_amount" class="form-label">Work Order Amount</label>
                         <input type="number" step="0.01" class="form-control @error('work_order_amount') is-invalid @enderror" 
-                               id="work_order_amount" name="work_order_amount" value="{{ old('work_order_amount', $tender->work_order_amount) }}" required>
+                               id="work_order_amount" name="work_order_amount" value="{{ old('work_order_amount', $tender->work_order_amount) }}" >
                         @error('work_order_amount')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -232,8 +242,8 @@
 
                     <div class="col-md-6 mb-3">
                         <label for="work_time_limit" class="form-label">Work Time Limit</label>
-                        <input type="text" class="form-control @error('work_time_limit') is-invalid @enderror" 
-                               id="work_time_limit" name="work_time_limit" value="{{ old('work_time_limit', $tender->work_time_limit) }}" required>
+                        <input type="date" class="form-control @error('work_time_limit') is-invalid @enderror" 
+                               id="work_time_limit" name="work_time_limit" value="{{ old('work_time_limit', $tender->work_time_limit) }}" >
                         @error('work_time_limit')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -244,7 +254,7 @@
                     <div class="col-md-6 mb-3">
                         <label for="days_months" class="form-label">Days/Months</label>
                         <input type="text" class="form-control @error('days_months') is-invalid @enderror" 
-                               id="days_months" name="days_months" value="{{ old('days_months', $tender->days_months) }}" required>
+                               id="days_months" name="days_months" value="{{ old('days_months', $tender->days_months) }}" >
                         @error('days_months')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -253,7 +263,7 @@
                     <div class="col-md-6 mb-3">
                         <label for="dlp_period" class="form-label">DLP Period</label>
                         <input type="text" class="form-control @error('dlp_period') is-invalid @enderror" 
-                               id="dlp_period" name="dlp_period" value="{{ old('dlp_period', $tender->dlp_period) }}" required>
+                               id="dlp_period" name="dlp_period" value="{{ old('dlp_period', $tender->dlp_period) }}" >
                         @error('dlp_period')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -331,8 +341,8 @@
                     <label for="contractor_id" class="form-label">Name of Contractor</label>
                     <select class="form-control" name="contractor_id[]" required>
                     <option value="">Select Department</option>
-                        @foreach($contractors as $contractor)
-                            <option value="{{ $contractor->id }}">{{ $contractor->name }}</option>
+                        @foreach($parties as $party)
+                            <option value="{{ $party->party_id }}">{{ $party->party_name }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -352,6 +362,16 @@
                         @foreach($partners as $partner)
                             <option value="{{ $partner->partner_id }}">{{ $partner->partner_name }}</option>
                         @endforeach
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="emd_amount_refund" class="form-label">Emd Amount Refund</label>
+                    <select class="form-control" name="emd_amount_refund[]" required>
+                        <option value="">Select Partner</option>
+                          <option value="yes"<?php if($transaction->emd_amount_refund == 'yes') { ?> selected="selected"<?php } ?>>Yes</option>
+                          <option value="no"<?php if($transaction->emd_amount_refund == 'no') { ?> selected="selected"<?php } ?>>No</option>
                     </select>
                 </div>
             </div>

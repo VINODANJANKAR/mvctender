@@ -6,6 +6,7 @@ use App\Models\ContractorMaster;
 use App\Models\TenderEntry;
 use App\Models\DepartmentMaster;
 use App\Models\PartnerMaster;
+use App\Models\PartyMaster;
 use App\Models\TenderTransactionTbl;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -27,9 +28,10 @@ class TenderEntryController extends Controller
         $currentDate = Carbon::now()->format('Y-m-d');
         $tenderNo = $this->generateTenderNo();
         $departments = DepartmentMaster::all();
-        $contractors = ContractorMaster::all();
+        // $contractors = ContractorMaster::all();
+        $parties = PartyMaster::where('party_type','Contractor')->get();
         $partners = PartnerMaster::all();
-        return view('tender.create', compact('currentDate', 'tenderNo', 'departments', 'partners', 'contractors'));
+        return view('tender.create', compact('currentDate', 'tenderNo', 'departments', 'partners', 'parties'));
     }
 
     public function store(Request $request)
@@ -44,10 +46,11 @@ class TenderEntryController extends Controller
             'tender_fee.*' => 'required|numeric',
             'emd_amount.*' => 'required|numeric',
             'paid_by.*' => 'required',
-            'work_order_amount' => 'required|numeric',
-            'work_time_limit' => 'required',
-            'days_months' => 'required',
-            'dlp_period' => 'required',
+            'emd_amount_refund.*'=> 'nullable',
+            'work_order_amount' => 'nullable|numeric',
+            'work_time_limit' => 'nullable',
+            'days_months' => 'nullable',
+            'dlp_period' => 'nullable',
             'work_order_received' => 'nullable|boolean',
         ]);
 
@@ -60,7 +63,7 @@ class TenderEntryController extends Controller
             "tender_id" => $request->tender_id,
             "tender_amount" => $request->tender_amount,
             "work_order_amount" => $request->work_order_amount,
-            'work_time_limit' => $request->work_time_limit,
+            'work_time_limit' => Carbon::parse($request->work_time_limit)->format('Y-m-d'),
             'days_months' => $request->days_months,
             'dlp_period' => $request->dlp_period,
             'work_order_received' => $request->work_order_received,
@@ -75,6 +78,7 @@ class TenderEntryController extends Controller
                 'tender_fee' => $validatedData['tender_fee'][$index],
                 'emd_amount' => $validatedData['emd_amount'][$index],
                 'paid_by' => $validatedData['paid_by'][$index],
+                'emd_amount_refund' => $validatedData['emd_amount_refund'][$index],
             ]);
         }
 
@@ -98,10 +102,12 @@ class TenderEntryController extends Controller
 
         try {
             $tender = TenderEntry::with('transactions')->findOrFail($tender->id); // Include related contractors
+            // dd($tender);
             $departments = DepartmentMaster::all();
-            $contractors = ContractorMaster::all(); // Fetch contractors for dropdowns
+            // $contractors = ContractorMaster::all(); // Fetch contractors for dropdowns
+            $parties = PartyMaster::where('party_type','Contractor')->get();
             $partners = PartnerMaster::all(); // Fetch partners for 'paid_by
-            return view('tender.edit', compact('tender', 'departments', 'partners', 'contractors'));
+            return view('tender.edit', compact('tender', 'departments', 'partners', 'parties'));
         } catch (Exception $e) {
             //
             Log::error('Error Edit tender entry', [
@@ -117,6 +123,7 @@ class TenderEntryController extends Controller
 
     public function update(Request $request, TenderEntry $tender)
     {
+// dd($request->all());
         try{
         $validatedData = $request->validate([
             'department_id' => 'required',
@@ -127,10 +134,11 @@ class TenderEntryController extends Controller
             'tender_fee.*' => 'required|numeric',
             'emd_amount.*' => 'required|numeric',
             'paid_by.*' => 'required',
-            'work_order_amount' => 'required|numeric',
-            'work_time_limit' => 'required',
-            'days_months' => 'required',
-            'dlp_period' => 'required',
+            'emd_amount_refund.*'=> 'nullable',
+            'work_order_amount' => 'nullable|numeric',
+            'work_time_limit' => 'nullable',
+            'days_months' => 'nullable',
+            'dlp_period' => 'nullable',
             'work_order_received' => 'nullable|boolean',
         ]);
         // tender_id
@@ -147,7 +155,7 @@ class TenderEntryController extends Controller
             "tender_id" => $request->tender_id,
             "tender_amount" => $request->tender_amount,
             "work_order_amount" => $request->work_order_amount,
-            'work_time_limit' => $request->work_time_limit,
+            'work_time_limit' => Carbon::parse($request->work_time_limit)->format('Y-m-d'),
             'days_months' => $request->days_months,
             'dlp_period' => $request->dlp_period,
             'work_order_received' => $request->work_order_received,
@@ -162,6 +170,7 @@ class TenderEntryController extends Controller
                 'tender_fee' => $validatedData['tender_fee'][$index],
                 'emd_amount' => $validatedData['emd_amount'][$index],
                 'paid_by' => $validatedData['paid_by'][$index],
+                'emd_amount_refund' => $validatedData['emd_amount_refund'][$index],
             ]);
         }
 
